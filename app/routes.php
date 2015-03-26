@@ -20,6 +20,5 @@ Route::get('/rgrassBlogAdmin/TypeManager','Admin_TypeArticleController@TypeManag
 
 
 //前台
-Route::get('/','Home_IndexController@showIndex');
+Route::get('/index','Home_IndexController@showIndex');
 Route::get('/Home/ShowArticle','Home_ShowArticleController@ShowArticleIndex');
-Route::get('/iii','123@123');
