@@ -54,6 +54,8 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
     <!-- END PAGE LEVEL STYLES -->
     {{HTML::style('Admin/css/jquery.easy-pie-chart.css')}}
     {{HTML::image('Admin/image/favicon.ico')}}
+    {{HTML::script('Admin/js/jquery-1.10.1.min.js')}}
+    {{HTML::style('Admin/import.css')}}
 </head>
 
 <!-- END HEAD -->
@@ -138,7 +140,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 </li>
     <li class="">
 
-        <a href="ArticleLists">
+        <a href="BookLists">
 
             <i class="icon-bookmark-empty"></i>
 

@@ -24,7 +24,7 @@ class Admin_LoginController extends BaseController{
         }else{
             session_start();
             $_SESSION['admin_login']=$pass;
-            return Redirect::to('rgrassBlogAdmin/IndexCenter');
+            return Redirect::to('rgrassAdmin/IndexCenter');
         }
     }
 }

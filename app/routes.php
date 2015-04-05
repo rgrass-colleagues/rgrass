@@ -10,6 +10,8 @@ Route::get('/rgrassAdmin/IndexCenter','Admin_IndexController@showAdminIndex');
 Route::get('/rgrassAdmin/UserInfo', 'Admin_UserController@showAdminUserInfo');
 //文章
 Route::get('/rgrassAdmin/BookLists','Admin_BookController@showBookLists');
+Route::get('/rgrassAdmin/BookDetail','Admin_BookController@showBookDetail');
+Route::get('/rgrassAdmin/BookAllDetail','Admin_BookController@showBookAllDetail');
 Route::get('/rgrassBlogAdmin/ArticleContent','Admin_ArticleController@showArticleContent');
 Route::get('/rgrassBlogAdmin/AddNewArticle','Admin_ArticleController@AddNewArticle');
 Route::post('/rgrassBlogAdmin/doAddNewArticle','Admin_ArticleController@doAddNewArticle');

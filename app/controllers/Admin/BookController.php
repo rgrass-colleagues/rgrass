@@ -15,12 +15,35 @@ class Admin_BookController extends BaseController{
     public function showBookLists(){
         parent::__construct();
         $BookBaseInfo = $this->BookModel->getBookBaseInfoAll();
-        echo '<pre>';
-        dd($BookBaseInfo);
         return View::make('Admin.BookLists')->with(array(
-            'article'=> $BookBaseInfo
+            'bookBaseInfo'=> $BookBaseInfo
         ));
     }
+    public function showBookDetail(){
+        $id=$this->get('id');
+        $oneBookInfo = $this->BookModel->getBookBaseInfoById($id);
+        return $oneBookInfo->detail;
+    }
+    public function showBookAllDetail(){
+        $id=$this->get('id');
+        $oneBookDetail = $this->BookModel->getBookBaseInfoById($id);
+        $oneBookAllDetail = $this->BookModel->getOneBookAllDetailById($id);
+        //书名
+        $oneBookAllDetail->book_name = $oneBookDetail->book_name;
+        //最后一次更新时间
+        $oneBookAllDetail->last_update_time = date('Y-m-d H:i:s',$oneBookAllDetail->last_update_time);
+        //书籍状态
+        $oneBookAllDetail->state=$this->BookModel->bookState($oneBookAllDetail->state);
+        //是否被录入藏经阁
+        $oneBookAllDetail->is_store=$this->BookModel->isStore($oneBookAllDetail->is_store);
+        //书的类型
+        $oneBookAllDetail->book_type=$this->BookModel->bookType($oneBookAllDetail->book_type);
+        return json_encode($oneBookAllDetail);
+    }
+
+
+
+
     public function showArticleContent(){
         session_start();
         if (!isset($_SESSION['login']))

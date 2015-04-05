@@ -510,6 +510,8 @@ if ( ! function_exists('dd'))
 	 */
 	function dd()
 	{
+        echo '<pre>';
+        echo '<meta charset="utf-8">';
 		array_map(function($x) { var_dump($x); }, func_get_args()); die;
 	}
 }
