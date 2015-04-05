@@ -5,22 +5,20 @@
  * Date: 15-1-3
  * Time: 下午8:53
  */
-class Admin_ArticleController extends BaseController{
-    private $articleModel = null;
-    private $TypeModel = null;
+class Admin_BookController extends BaseController{
+    private $BookModel = null;
+//    private $TypeModel = null;
     public function __construct(){
-        $this->articleModel = new Article_ArticleInfoModel();
-        $this->TypeModel = new Type_TypeInfoModel();
+        $this->BookModel = new Book_BookInfoModel();
+//        $this->TypeModel = new Type_TypeInfoModel();
     }
-    public function showArticleLists(){
-        session_start();
-        if (!isset($_SESSION['login']))
-        {
-            throw new Exception('登陆失败');
-        }
-        $articleBaseInfo = $this->articleModel->getArticleBaseInfoAll();
-        return View::make('Admin.ArticleLists')->with(array(
-            'article'=> $articleBaseInfo
+    public function showBookLists(){
+        parent::__construct();
+        $BookBaseInfo = $this->BookModel->getBookBaseInfoAll();
+        echo '<pre>';
+        dd($BookBaseInfo);
+        return View::make('Admin.BookLists')->with(array(
+            'article'=> $BookBaseInfo
         ));
     }
     public function showArticleContent(){

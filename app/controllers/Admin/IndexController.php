@@ -7,11 +7,8 @@
  */
 class Admin_IndexController extends BaseController{
     public function showAdminIndex(){
-        session_start();
-        if (!isset($_SESSION['login']))
-        {
-            throw new Exception('登陆失败');
-        }
+
         return View::make('Admin.IndexCenter');
     }
+
 }

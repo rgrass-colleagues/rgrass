@@ -41,14 +41,22 @@
     <tr>
         <th>用户id</th>
         <th>用户账号</th>
+        <th>积分</th>
+        <th>是否作者</th>
         <th>用户权限</th>
+        <th>添加时间</th>
+        <th>上次登录时间</th>
         <th>操作</th>
     </tr>
-    @foreach($Uinfo as $Uinfo)
+    @foreach($user_info as $user_info)
     <tr>
-    <td>{{$Uinfo->user_id}}</td>
-    <td>{{$Uinfo->user_username}}</td>
-    <td>{{$Uinfo->user_status}}</td>
+        <td>{{$user_info->user_id}}</td>
+        <td>{{$user_info->username}}</td>
+        <td>{{$user_info->credit}}</td>
+        <td>{{$user_info->is_author}}</td>
+        <td>{{$user_info->authority}}</td>
+        <td>{{$user_info->addtime}}</td>
+        <td>{{$user_info->last_login_time}}</td>
     <td><a href="delUser" class="btn red">删除</a></td>
     </tr>
     @endforeach

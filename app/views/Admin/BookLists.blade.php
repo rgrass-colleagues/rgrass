@@ -37,13 +37,13 @@
 </ul>
 @stop
 @section('content')
-<a href="AddNewArticle" class="btn blue">添加新文章</a>
+<a href="AddNewArticle" class="btn blue">添加</a>
 <br/><br/>
 <table class="table table-hover">
     <tr>
-        <th>文章id</th>
-        <th>文章名称</th>
-        <th>文章类型</th>
+        <th>book_id</th>
+        <th>书名</th>
+        <th>书类型</th>
         <th>操作</th>
     </tr>
     @foreach($article as $art)

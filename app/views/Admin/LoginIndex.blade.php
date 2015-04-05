@@ -45,7 +45,7 @@
 
 <form class="form-vertical login-form" action="doLoginAdmin" method="post">
 
-    <h3 class="form-title">小草网博客后台登陆</h3>
+    <center><h3 class="form-title">燃草中文社区</h3></center>
 
     <div class="alert alert-error hide">
 

@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'blog',
+			'database'  => 'rgrass_main',
 			'username'  => 'root',
 			'password'  => 'hr1ycfLqswslhK',
 			'charset'   => 'utf8',

@@ -9,7 +9,7 @@ class User_UserInfoModel extends Eloquent{
     /*
      * 设置连接表
      * */
-    protected $users = 'blog_users';
+    protected $users = 'user_info';
     /*
      * 查询users表全部数据
      * */
