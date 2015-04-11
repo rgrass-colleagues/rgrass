@@ -29,7 +29,7 @@ class Book_BookInfoModel extends Eloquent{
     /*
      * 根据ID查询该书所有详细信息
      * 表为book_detail
-     *
+     *@param 是book_id 不是book_detail_id
      * */
     public function getOneBookAllDetailById($id){
         return DB::table($this->book_detail)
@@ -78,10 +78,48 @@ class Book_BookInfoModel extends Eloquent{
         return $type;
     }
 
-
     /*
-     * 添加
+     * 添加和修改
+     * @param1 传入数据库的内容
+     * @param2 判断是传入数据库里哪张表info&detail
+     * @param3 判断是添加书籍还是修改书籍create&modify
+     * @param4 当修改书籍的时候，标识书籍book_id
      */
+    public function AddOrModifyNewBook($content,$table,$page_type,$id){
+        if(is_null($page_type))return false;
+        if(is_null($table))return false;
+        switch($page_type){
+            case 'create'://添加新书籍
+                if($table=='info'){//添加进book_info表中
+                    return DB::table($this->book_info)
+                        ->insertGetId($content);
+                }else{//添加进book_detail表中
+                    return DB::table($this->book_detail)
+                        ->insert($content);
+                }
+            break;
+            case 'modify'://修改旧书籍
+                if($table=='info'){
+                    if(!$id)return false;
+                    return DB::table($this->book_info)
+                        ->where('book_id',$id)
+                        ->update($content);
+                }else{
+                    if(!$id)return false;
+                    return DB::table($this->book_detail)
+                        ->where('book_id',$id)
+                        ->update($content);
+                }
+            break;
+        }
+    }
+
+
+
+
+
+
+
 //    public function insertNewBook($title,$type,$content,$id){
 //        if(is_null($id)){
 //        return DB::table($this->article)

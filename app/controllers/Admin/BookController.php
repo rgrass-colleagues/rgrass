@@ -9,11 +9,11 @@ class Admin_BookController extends BaseController{
     private $BookModel = null;
 //    private $TypeModel = null;
     public function __construct(){
+        parent::__construct();
         $this->BookModel = new Book_BookInfoModel();
 //        $this->TypeModel = new Type_TypeInfoModel();
     }
     public function showBookLists(){
-        parent::__construct();
         $BookBaseInfo = $this->BookModel->getBookBaseInfoAll();
         return View::make('Admin.BookLists')->with(array(
             'bookBaseInfo'=> $BookBaseInfo
@@ -37,9 +37,68 @@ class Admin_BookController extends BaseController{
         //是否被录入藏经阁
         $oneBookAllDetail->is_store=$this->BookModel->isStore($oneBookAllDetail->is_store);
         //书的类型
-        $oneBookAllDetail->book_type=$this->BookModel->bookType($oneBookAllDetail->book_type);
+        $oneBookAllDetail->book_type=$this->BookModel->bookType($oneBookDetail->book_type);
         return json_encode($oneBookAllDetail);
     }
+    /*
+     * 添加书籍与修改书籍
+     * 共同使用一个方法
+     * */
+    public function AddNewOrModifyOneBook(){
+        $page_type=$this->get('page_type');
+        if($page_type=='create'){
+            //创建新书籍
+            return View::make('Admin.AddNewOrModifyOneBook')->with(array(
+                'page_type'=>$page_type
+            ));
+        }else if($page_type=="modify"){
+            //修改旧书籍
+            $book_id=$this->get('book_id');
+            //取出该旧书籍info表的数据
+            $book_info=$this->BookModel->getBookBaseInfoById($book_id);
+            //取出该旧书籍detail表的数据
+            $book_detail=$this->BookModel->getOneBookAllDetailById($book_id);
+            return View::make('Admin.AddNewOrModifyOneBook')->with(array(
+                'page_type'=>$page_type,
+                'book_info'=>$book_info,
+                'book_detail'=>$book_detail
+            ));
+        }
+    }
+    /*
+     * 创建书籍或修改旧书籍的处理过程
+     * */
+    public function doAddNewOrModifyOneBook(){
+        foreach($_POST as $k=>$v){
+            if($k=='page_type'){
+                $page_type=$_POST[$k];
+                continue;
+            }
+            //通过default甄别把书籍的基础信息和详情信息分开，方便等下插入数据库中
+            $str=substr($k,0,7);
+            if($str&&$str=='default'){
+                $key=substr($k,8);
+                $bookBaseInfo[$key]=$v;
+            }else{
+                $bookDetailInfo[$k]=$v;
+            }
+        }
+        $bookBaseInfo['book_add_time']=time();
+        if(!empty($bookBaseInfo['book_id'])){
+            $book_id=$bookBaseInfo['book_id'];
+        }else{
+            $book_id=null;
+        }
+        $book_insert_base = $this->BookModel->AddOrModifyNewBook($bookBaseInfo,'info',$page_type,$book_id);
+        if($book_insert_base&&$page_type=='create'){
+            $bookDetailInfo['book_id']=$book_insert_base;
+        }
+        $book_insert_detail = $this->BookModel->AddOrModifyNewBook($bookDetailInfo,'detail',$page_type,$book_id);
+        if(!($book_insert_base||$book_insert_detail))return false;
+        return Redirect::to('rgrassAdmin/BookLists');
+    }
+
+
 
 
 
@@ -64,25 +123,7 @@ class Admin_BookController extends BaseController{
             throw new Exception('没有这篇文章');
         }
     }
-    public function AddNewArticle(){
-        session_start();
-        if (!isset($_SESSION['login']))
-        {
-            throw new Exception('登陆失败');
-        }
-        $type = $this->TypeModel->getTypeBaseInfoAll();
-        for($i=0;$i<count($type);$i++){
-            if($type[$i]->type_pid==0){
-                unset($type[$i]);
-            }
-        }
-        $id=isset($_GET['id'])?$_GET['id']:null;
-        $article=$this->articleModel->getArticleBaseInfoById($id);
-        return View::make('Admin.AddNewArticle')->with(array(
-            'article'=>$article,
-            'type'=>$type
-        ));
-    }
+
     public function doAddNewArticle(){
         session_start();
         if (!isset($_SESSION['login']))
