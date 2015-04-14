@@ -113,30 +113,20 @@ class Book_BookInfoModel extends Eloquent{
             break;
         }
     }
-
-
-
-
-
-
-
-//    public function insertNewBook($title,$type,$content,$id){
-//        if(is_null($id)){
-//        return DB::table($this->article)
-//            ->insert(array(
-//                'article_title'=>$title,
-//                'article_type'=>$type,
-//                'article_content'=>$content
-//            ));
-//        }else{
-//            return DB::table($this->article)
-//                ->where('article_id',$id)
-//                ->update(array(
-//                    'article_title'=>$title,
-//                    'article_type'=>$type,
-//                    'article_content'=>$content
-//                ));
-//        }
-//    }
-
+/*
+ * 通过id删除某本书籍
+ * */
+    public function delBookById($book_id){
+        //删掉book_info表内数据
+        $delete_book = DB::table($this->book_info)
+            ->where('book_id',$book_id)
+            ->delete();
+        if($delete_book){
+            //删掉book_detail表内数据
+            DB::table($this->book_detail)
+                ->where('book_id',$book_id)
+                ->delete();
+        }
+        return $delete_book;
+    }
 }

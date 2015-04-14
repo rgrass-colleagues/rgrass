@@ -17,7 +17,6 @@ class Admin_LoginController extends BaseController{
     public function doLoginAdmin(){
         $name=$this->post('username');
         $pass=$this->post('password');
-//        $pass = $pass;
         $login=$this->loginModel->isConfirm($name,$pass);
         if(is_null($login)){
             throw new Exception('登陆后台失败');

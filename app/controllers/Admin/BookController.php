@@ -97,46 +97,13 @@ class Admin_BookController extends BaseController{
         if(!($book_insert_base||$book_insert_detail))return false;
         return Redirect::to('rgrassAdmin/BookLists');
     }
-
-
-
-
-
-
-    public function showArticleContent(){
-        session_start();
-        if (!isset($_SESSION['login']))
-        {
-            throw new Exception('登陆失败');
-        }
-        if(isset($_GET['id'])){
-            $id = $_GET['id'];
-            $articleContent = $this -> articleModel -> getArticleBaseInfoById($id);
-            if($articleContent){
-                return View::make('Admin.ArticleContent')->with(array(
-                    'articleContent'=>$articleContent
-                ));
-            }else{
-                throw new Exception('没有这篇文章');
-            }
+    /*删除书籍*/
+    public function delBook(){
+        $delete_book=$this->BookModel->delBookById($this->get('id'));
+        if($delete_book){
+            return Redirect::to('rgrassAdmin/BookLists');
         }else{
-            throw new Exception('没有这篇文章');
-        }
-    }
-
-    public function doAddNewArticle(){
-        session_start();
-        if (!isset($_SESSION['login']))
-        {
-            throw new Exception('登陆失败');
-        }
-        $id=isset($_POST['id'])?$_POST['id']:null;
-        $title = $_POST['title'];
-        $type = $_POST['type'];
-        $content = $_POST['content'];
-        $newArticle = $this->articleModel->insertNewArticle($title,$type,$content,$id);
-        if($newArticle){
-            return '操作成功<script>setTimeout(function(){window.location.href="ArticleLists"},3000)</script>';
+            echo '删除书籍失败';
         }
     }
 }

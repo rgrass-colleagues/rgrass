@@ -36,4 +36,47 @@ class Admin_UserController extends BaseController{
                 return '会员';break;
         }
     }
+    public function showUserDetail(){
+        $user_id=$this->get('id');
+        $user_detail=$this->userModel->getUserDetailByUserId($user_id);
+        return View::make('Admin.UserDetail')->with(array(
+            'user_detail'=>$user_detail
+        ));
+    }
+    public function AddNewOrModifyOneUser(){
+        $page_type = $this->get('page_type');
+        return View::make('Admin.AddNewOrModifyOneUser')->with(array(
+            'page_type'=>$page_type
+        ));
+    }
+    public function doAddNewOrModifyOneUser(){
+        foreach($_POST as $k=>$v){
+            if($k=='page_type'){
+                $page_type=$_POST[$k];
+                continue;
+            }
+            //通过info甄别把用户的基础信息和详情信息分开，方便等下插入数据库中
+            $str=substr($k,0,4);
+            var_dump($str);
+            if($str&&$str=='info'){
+                $key=substr($k,5);
+                $userInfo[$key]=$v;
+            }else{
+                $userDetail[$k]=$v;
+            }
+        }
+        $userInfo['addtime']=time();
+        $userInfo['last_login_time']=0;
+        $user_create_id = $this->userModel->insertNewUser($userInfo);
+        if(isset($user_create_id)){
+            $userDetail['user_id']=$user_create_id;
+            $create_new_detail = $this->userModel->insertNewUserDetail($userDetail);
+            if($create_new_detail){
+                echo '<script>alert("添加用户成功")</script>';
+            }
+        }
+        sleep(1000);
+
+        return Redirect::to('/rgrassAdmin/showAdminUserInfo');
+    }
 }

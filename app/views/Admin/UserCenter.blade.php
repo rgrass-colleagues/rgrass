@@ -37,6 +37,8 @@
 </ul>
 @stop
 @section('content')
+<a href="AddNewOrModifyOneUser?page_type=create" class="btn blue">添加</a>
+<br/><br/>
 <table class="table table-hover">
     <tr>
         <th>用户id</th>
@@ -57,7 +59,11 @@
         <td>{{$user_info->authority}}</td>
         <td>{{$user_info->addtime}}</td>
         <td>{{$user_info->last_login_time}}</td>
-    <td><a href="delUser" class="btn red">删除</a></td>
+        <td>
+            <a href="AddNewOrModifyOneUser?page_type=modify&&user_id={{$user_info->user_id}}" class="btn blue">修改</a>
+            <a href="UserDetail?id={{$user_info->user_id}}" class="btn black" id="user_detail">详情<i class="m-icon-swapright m-icon-white"></i></a>
+            <a href="delUser?id={{$user_info->user_id}}" class="btn red">删除</a>
+        </td>
     </tr>
     @endforeach
 </table>

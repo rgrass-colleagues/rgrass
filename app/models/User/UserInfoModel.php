@@ -10,6 +10,7 @@ class User_UserInfoModel extends Eloquent{
      * 设置连接表
      * */
     protected $users = 'user_info';
+    protected $user_detail = 'user_detail';
     /*
      * 查询users表全部数据
      * */
@@ -24,6 +25,19 @@ class User_UserInfoModel extends Eloquent{
         return DB::table($this->users)
             ->where('id',$id)
             ->first();
+    }
+    public function getUserDetailByUserId($user_id){
+        return DB::table($this->user_detail)
+            ->where('user_id',$user_id)
+            ->first();
+    }
+    public function insertNewUser($content){
+        return DB::table($this->users)
+            ->insertGetId($content);
+    }
+    public function insertNewUserDetail($content){
+        return DB::table($this->user_detail)
+            ->insert($content);
     }
 
 }

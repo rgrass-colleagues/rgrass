@@ -61,7 +61,7 @@
             <a href="AddNewOrModifyOneBook?page_type=modify&&book_id={{$bookList->book_id}}" class="btn blue">修改</a>
             <button class="btn blue blue_book_detail" id="book_detail" value="{{$bookList->book_id}}">简介</button>
             <button class="btn black black_book_all_detail" id="book_all_detail" value="{{$bookList->book_id}}">详情<i class="m-icon-swapright m-icon-white"></i></button>
-            <a href="delUser?id={{$bookList->book_id}}" class="btn red">删除</a>
+            <a href="delBook?id={{$bookList->book_id}}" class="btn red">删除</a>
         </td>
     </tr>
     @endforeach
