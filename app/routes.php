@@ -26,7 +26,7 @@ Route::post('/rgrassAdmin/doAddNewOrModifyOneBook','Admin_BookController@doAddNe
 Route::get('/rgrassAdmin/delBook','Admin_BookController@delBook');
 //类型
 Route::get('/rgrassBlogAdmin/TypeManager','Admin_TypeArticleController@TypeManager');
-
+//
 
 
 
