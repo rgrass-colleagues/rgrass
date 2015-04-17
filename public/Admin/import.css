@@ -1,0 +1,21 @@
+.show_book_all_detail{
+    position: absolute;
+    left:40%;
+    right:40%;
+    width:500px;
+    height:300px;
+    border: 1px solid gray;
+}
+.close_window{
+    width:100%;
+    height:20px;
+    background: gray;
+}
+.close_window span{
+    margin-top:-2px;
+    font-size:20px;
+    height:20px;
+    float:right;
+    cursor:pointer;
+    border:1px solid black;
+}
