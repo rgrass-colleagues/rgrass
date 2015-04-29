@@ -6,6 +6,9 @@
  * Time: 下午9:28
  */
 class Admin_IndexController extends BaseController{
+    public function __construct(){
+        $this->is_admin_login();
+    }
     public function showAdminIndex(){
 
         return View::make('Admin.IndexCenter');

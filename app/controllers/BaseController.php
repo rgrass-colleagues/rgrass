@@ -8,7 +8,7 @@ class BaseController extends Controller {
 	 * @return void
 	 */
     public function __construct(){
-        $this->is_admin_login();
+
     }
 	protected function setupLayout()
 	{

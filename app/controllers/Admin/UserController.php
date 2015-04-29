@@ -9,6 +9,7 @@ class Admin_UserController extends BaseController{
     private $userModel = null;
     private $commonModel = null;
     public function __construct(){
+        $this->is_admin_login();
         parent::__construct();
         $this->userModel = new User_UserInfoModel();
         $this->commonModel = new Common_ChangeTimeModel();
@@ -36,17 +37,35 @@ class Admin_UserController extends BaseController{
                 return '会员';break;
         }
     }
+    /*
+     * 用户详情
+     * */
     public function showUserDetail(){
         $user_id=$this->get('id');
         $user_detail=$this->userModel->getUserDetailByUserId($user_id);
+        if(!$user_detail){
+            throw new exception("该用户没有详情");
+        }
         return View::make('Admin.UserDetail')->with(array(
             'user_detail'=>$user_detail
         ));
     }
+    /*
+     * 添加和修改，通过page_type作为判断依据
+     * */
     public function AddNewOrModifyOneUser(){
         $page_type = $this->get('page_type');
+        $uid = $this->get('user_id');
+        $userInfo = null;
+        $userDetail = null;
+        if($page_type == 'modify'){//如果是修改的
+            $userInfo = $this->userModel->getUserBaseInfoById($uid);
+            $userDetail = $this->userModel->getUserDetailByUserId($uid);
+        }
         return View::make('Admin.AddNewOrModifyOneUser')->with(array(
-            'page_type'=>$page_type
+            'page_type'=>$page_type,
+            'userInfo'=>$userInfo,
+            'userDetail'=>$userDetail
         ));
     }
     public function doAddNewOrModifyOneUser(){
@@ -57,7 +76,6 @@ class Admin_UserController extends BaseController{
             }
             //通过info甄别把用户的基础信息和详情信息分开，方便等下插入数据库中
             $str=substr($k,0,4);
-            var_dump($str);
             if($str&&$str=='info'){
                 $key=substr($k,5);
                 $userInfo[$key]=$v;
@@ -67,16 +85,25 @@ class Admin_UserController extends BaseController{
         }
         $userInfo['addtime']=time();
         $userInfo['last_login_time']=0;
-        $user_create_id = $this->userModel->insertNewUser($userInfo);
-        if(isset($user_create_id)){
-            $userDetail['user_id']=$user_create_id;
-            $create_new_detail = $this->userModel->insertNewUserDetail($userDetail);
-            if($create_new_detail){
-                echo '<script>alert("添加用户成功")</script>';
+        //用户处在修改状态的时候
+        if($page_type == 'modify'){
+            $modifyDetail = $this->userModel->modifyUserDetailByUid($userDetail,$userInfo['user_id']);
+            $this->userModel->modifyUserInfoByUid($userInfo,$userInfo['user_id']);
+            if(!$modifyDetail){
+                $userDetail['user_id']=$userInfo['user_id'];
+                $this->userModel->insertNewUserDetail($userDetail);
+            }
+        }else{
+            //用户处在增添状态的时候
+            $user_create_id = $this->userModel->insertNewUser($userInfo);
+            if(isset($user_create_id)){
+                $userDetail['user_id']=$user_create_id;
+                $create_new_detail = $this->userModel->insertNewUserDetail($userDetail);
+                if($create_new_detail){
+                    echo '<script>alert("添加用户成功")</script>';
+                }
             }
         }
-        sleep(1000);
-
-        return Redirect::to('/rgrassAdmin/showAdminUserInfo');
+        return Redirect::to('/rgrassAdmin/UserInfo');
     }
 }

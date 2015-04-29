@@ -31,5 +31,6 @@ Route::get('/rgrassBlogAdmin/TypeManager','Admin_TypeArticleController@TypeManag
 
 
 //前台
-Route::get('/index','Home_IndexController@showIndex');
+Route::get('/','Home_IndexController@showIndex');
+Route::get('/login','Home_LoginController@showLogin');
 Route::get('/Home/ShowArticle','Home_ShowArticleController@ShowArticleIndex');

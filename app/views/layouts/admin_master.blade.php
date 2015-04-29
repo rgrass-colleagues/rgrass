@@ -26,7 +26,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
     @yield('css')
     <meta charset="utf-8" />
 
-    <title>@section('title')小草网博客后台管理系统@show</title>
+    <title>@section('title')燃草中文社区后台管理系统@show</title>
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 

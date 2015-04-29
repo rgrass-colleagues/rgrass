@@ -9,6 +9,7 @@ class Admin_BookController extends BaseController{
     private $BookModel = null;
 //    private $TypeModel = null;
     public function __construct(){
+        $this->is_admin_login();
         parent::__construct();
         $this->BookModel = new Book_BookInfoModel();
 //        $this->TypeModel = new Type_TypeInfoModel();

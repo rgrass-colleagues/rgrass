@@ -41,16 +41,12 @@
     <tr>
         <td>昵称</td>
         <td>性别</td>
-        <td>邮箱</td>
-        <td>电话</td>
         <td>用户标签</td>
         <td>自我评价</td>
     </tr>
     <tr>
         <td>{{$user_detail->nick_name}}</td>
         <td>{{$user_detail->sex}}</td>
-        <td>{{$user_detail->email}}</td>
-        <td>{{$user_detail->telephone}}</td>
         <td>{{$user_detail->user_sign_id}}</td>
         <td>{{$user_detail->user_estimate}}</td>
     </tr>

@@ -23,7 +23,7 @@ class User_UserInfoModel extends Eloquent{
      * */
     public function getUserBaseInfoById($id){
         return DB::table($this->users)
-            ->where('id',$id)
+            ->where('user_id',$id)
             ->first();
     }
     public function getUserDetailByUserId($user_id){
@@ -39,5 +39,14 @@ class User_UserInfoModel extends Eloquent{
         return DB::table($this->user_detail)
             ->insert($content);
     }
-
+    public function modifyUserInfoByUid($content,$uid){
+        return DB::table($this->users)
+            ->where('user_id',$uid)
+            ->update($content);
+    }
+    public function modifyUserDetailByUid($content,$uid){
+        return DB::table($this->user_detail)
+            ->where('user_id',$uid)
+            ->update($content);
+    }
 }

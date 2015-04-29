@@ -1,0 +1,102 @@
+*{
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+section{
+    margin:0 auto;
+    width:70%;
+    height:500px;
+    padding-top:120px;
+}
+#indexBody{
+    width:100%;
+    height:400px;
+}
+#indexLogo{
+    width:50%;
+    height:200px;
+    margin:0 auto;
+}
+#content_nav{
+    width:100%;
+    height:30px;
+}
+#search_body{
+    width:100%;
+    height:200px;
+}
+#search_input{
+    width:80%;
+    height:200px;
+    display: inline-block;
+}
+#search_button{
+    width:20%;
+    height:200px;
+    display: inline-block;
+}
+#book_search_body{
+    float:right;
+    width:80%;
+    height:50px;
+    font-size:20px;
+    border-top-right-radius:0;
+    border-bottom-right-radius:0;
+}
+#btn_search{
+    float:left;
+    width:80%;
+    height:50px;
+    margin-left:-4px;
+    margin-top:-1px;
+    border-top-left-radius:0;
+    border-bottom-left-radius:0;
+    font-size:20px;
+}
+#Category{
+    width:40%;
+    height:30px;
+    margin-left:150px;
+    display:inline-block;
+
+}
+#Category li{
+    margin-left:15px;
+    float:left;
+}
+#Category li a{
+    line-height:30px;
+    font-size:17px;
+    text-decoration:underline;
+}
+#hot_search{
+    width:40%;
+    height:30px;
+    display:inline-block;
+}
+#hot_search li{
+    float: left;
+    margin-left:15px;
+}
+#hot_search li a{
+    line-height:30px;
+    text-decoration:none;
+    font-family:'幼圆';
+}
+#hot_search li span{
+    line-height:30px;
+    margin-right:-15px;
+
+}
+#hot_search li a:hover{
+    color:darkslateblue;
+    font-size:15px;
+}
+#login_module{
+    position:absolute;
+    width:200px;
+    height:100px;
+    top:0;
+    right:0;
+}
