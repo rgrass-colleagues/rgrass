@@ -1,0 +1,740 @@
+*{
+    margin:0;
+    padding:0;
+    list-style: none;
+    text-decoration: none;
+}
+.m_floor_10{
+    width: 100%;
+    height:10px;
+    float:left;
+}
+/*头部*/
+#show_logo{
+    width:225px;
+    height:100px;
+
+}
+#user_sign{
+    width:400px;
+    height:30px;
+    float:right;
+    padding-left:100px;
+}
+#user_sign ul li{
+    float: left;
+    height:30px;
+    margin-left:20px;
+}
+#user_sign ul li a{
+    line-height: 30px;
+    color:#555555;
+}
+
+/*导航*/
+#nav{
+    background: #434651;
+}
+nav ul li{
+    float:left;
+    margin-left:10px;
+    width:100px;
+    text-align:center;
+}
+nav ul li:hover{
+    background:white;
+}
+nav ul li:hover a{
+    color:black;
+}
+nav ul li a{
+    line-height: 50px;
+    color:white;
+    font-size:18px;
+
+}
+nav ul li a:hover{
+    color:black;
+    line-height: 50px;
+    text-decoration: none;
+
+}
+
+/*导航结束*/
+
+section{
+    margin-top:-10px;
+}
+/*第一层主体部分*/
+
+/*站点强烈推荐*/
+#high_comment{
+    padding:5px;
+    width:20%;
+    height:400px;
+    border: 1px solid #D8D8D8;
+    float: left;
+}
+.high_comment_title{
+    height:10%;
+    border-bottom: 1px solid #D8D8D8;
+}
+.high_comment_title_left{
+    font-size:20px;
+    margin-left:10px;
+}
+.high_comment_title_right{
+    color:#666;
+    font-size:16px;
+    margin-left:5px;
+}
+
+/*所推荐书籍*/
+.high_comment_content{
+    height:83%;
+    border-bottom: 1px solid #D8D8D8;
+}
+.high_comment_content ul li{
+    border-bottom:1px dashed #dbdbdb;
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden;
+    position: relative;
+    width: 180px;
+}
+.high_comment_content ul li a:nth-child(1){
+    color:#999;
+}
+.high_comment_content ul li a:nth-child(1):hover{
+    color:#000;
+    text-decoration: none;
+}
+.high_comment_content ul li a:nth-child(2){
+    color:#060;
+}
+.high_comment_content ul li a:nth-child(2):hover{
+    color:#A3110C;
+    text-decoration: none;
+}
+.high_comment_footer{
+    height:7%;
+    /*border: 1px solid #000000;*/
+}
+.high_comment_footer span{
+    color:#A3110C;
+    float: right;
+    font: "幼圆 Bold";
+}
+
+
+
+/*轮播图*/
+#flash_beat{
+    width:60%;
+    height: 400px;
+    float: left;
+    padding:0px 5px;
+    /*border-top: 1px solid #D8D8D8;*/
+    /*border-bottom: 1px solid #D8D8D8;*/
+
+}
+#myCarousel{
+    height:400px;
+}
+#myCarousel img{
+    width:100%;
+    height:400px;
+}
+
+/*公告栏*/
+#net_notice{
+    width: 20%;
+    height: 200px;
+    border: 1px solid #D8D8D8;
+    float: left;
+    padding:5px;
+}
+.net_notice_title{
+    color:#666;
+    font-size:16px;
+    margin-left:5px;
+    border-bottom: 2px solid #999;
+
+}
+.net_notice_content{
+    width:100%;
+    height:150px;
+}
+.net_notice_content ul li{
+    margin-left:5px ;
+    padding:10px 0px;
+    line-height: 18px;
+}
+.net_notice_content ul li span{
+    color:gray;
+    font-size:12px;
+    margin-right:5px;
+}
+.net_notice_content ul li a{
+    color:black;
+}
+/*作者访谈*/
+#author_invite{
+    width: 20%;
+    height: 200px;
+    border: 1px solid #D8D8D8;
+    float: left;
+    padding:5px;
+    border-top:none ;
+}
+.author_invite_title{
+    color:#666;
+    font-size:16px;
+    margin-left:5px;
+    border-bottom: 2px solid #999;
+}
+.author_invite_content{
+    margin:0 auto;
+    width:150px;
+    height:150px;
+}
+.author_invite_content a{
+
+}
+.author_invite_content a:hover{
+    text-decoration:none;
+}
+
+.author_pic{
+
+    width:100px;
+    height:100px;
+}
+.author_name{
+    color:#060;
+}
+.author_say{
+    color:gray;
+    font-size:13px;
+    margin-top:5px;
+}
+/*第二层主体部分*/
+/*小说更新栏*/
+#book_update{
+    width: 70%;
+    height: 1000px;
+    border: 1px solid #D8D8D8;
+    float: left;
+    padding:5px;
+}
+#book_update_title{
+    height:5%;
+    border-bottom: 1px solid #D8D8D8;
+}
+#book_update_title img{
+    width:20px;
+    height:30px;
+    margin-left:30px;
+}
+#book_update_title span{
+    color: #666;
+    font-size: 16px;
+    margin-left: 10px;
+    line-height:45px;
+}
+#book_update_content{
+    height:92%;
+    /*border:1px solid red ;*/
+
+}
+.book_update_content_style{
+    font-size:12px;
+    color:gray;
+}
+.book_update_content_bname{
+    color:#060;
+}
+.book_update_content_charter{
+    font-size:12px;
+    color:gray;
+}
+.book_update_content_author{
+    font-size:12px;
+    color:darkslategray;
+
+}
+
+#book_update_foot{
+    height:3%;
+    /*border:1px solid red ;*/
+    border-top: 1px solid #D8D8D8;
+    line-height: 35px;
+    padding-right:60px;
+}
+#book_update_foot span{
+    color:#A3110C;
+    float: right;
+}
+
+/*小说榜单*/
+#book_data{
+    width: 30%;
+    height: 1000px;
+    float: left;
+    padding-left:10px;
+}
+/*榜单点击开始*/
+#book_data_click{
+    border: solid 1px #D8D8D8;
+    width:100%;
+    height:495px;
+    float:left;
+}
+#book_data_click_title{
+    height:10%;
+    /*border-bottom: 1px solid #D8D8D8;*/
+}
+#book_data_click_title span{
+    color: #666;
+    font-size: 16px;
+    margin-left: 10px;
+    line-height:45px;
+}
+#book_data_click_part{
+    float: right;
+    width:50%;
+    height:50px;
+    background:#EAF6CE;
+}
+#book_data_click_part ul{
+    margin-left:10px;
+}
+#book_data_click_part ul li{
+    cursor: pointer;
+    float:left;
+    line-height:50px;
+    padding:0px 15px;
+}
+#book_data_click_week{
+    background:white;
+    color: #000000;
+}
+
+#book_data_click_content table tr td:nth-child(1){
+    width:10px;
+}
+#book_data_click_content table tr td:nth-child(2){
+
+}
+#book_data_click_content table tr td:nth-child(2) a{
+    color:#060;
+}
+#book_data_click_content table tr td:nth-child(2) a:hover{
+    text-decoration: none;
+}
+#book_data_click_content table tr td:nth-child(3){
+    width:60px;
+}
+#book_data_click_foot{
+    margin-top:-20px ;
+    height:20px;
+    border-top: 1px solid #D8D8D8;
+    line-height: 35px;
+    padding-right:10px;
+}
+#book_data_click_foot a{
+    color:#A3110C;
+    float: right;
+}
+/*榜单点击结束*/
+.m_part_click_comment{
+    width:100%;
+    height:10px;
+    float:left;
+}
+/*榜单推荐开始*/
+#book_data_comment{
+    border: solid 1px #D8D8D8;
+    width:100%;
+    height:495px;
+    float:left;
+}
+#book_data_comment_title{
+    height:10%;
+    /*border-bottom: 1px solid #D8D8D8;*/
+}
+#book_data_comment_title span{
+    color: #666;
+    font-size: 16px;
+    margin-left: 10px;
+    line-height:45px;
+}
+#book_data_comment_part{
+    float: right;
+    width:50%;
+    height:50px;
+    background:#EAF6CE;
+}
+#book_data_comment_part ul{
+    margin-left:10px;
+}
+#book_data_comment_part ul li{
+    cursor: pointer;
+    float:left;
+    line-height:50px;
+    padding:0px 15px;
+}
+#book_data_comment_week{
+    background:white;
+    color: #000000;
+}
+
+#book_data_comment_content table tr td:nth-child(1){
+    width:10px;
+}
+#book_data_comment_content table tr td:nth-child(2){
+
+}
+#book_data_comment_content table tr td:nth-child(2) a{
+    color:#060;
+}
+#book_data_comment_content table tr td:nth-child(2) a:hover{
+    text-decoration: none;
+}
+#book_data_comment_content table tr td:nth-child(3){
+    width:60px;
+}
+#book_data_comment_foot{
+    margin-top:-20px ;
+    height:20px;
+    border-top: 1px solid #D8D8D8;
+    line-height: 35px;
+    padding-right:10px;
+}
+#book_data_comment_foot a{
+    color:#A3110C;
+    float: right;
+}
+/*榜单推荐结束*/
+/*友情连接*/
+#frendsLink{
+    width:100%;
+    border: 1px solid #D8D8D8;
+    float:left;
+}
+#frendsLink ul li{
+    float: left;
+    margin: 5px;
+}
+#frendsLink ul li a{
+    color:#060;
+    font-family: "Microsoft YaHei"
+}
+/*footer开始*/
+#footer{
+    width:100%;
+    /*border: 1px solid #D8D8D8;*/
+    float:left;
+}
+footer p{
+    text-align:center;
+}
+footer a{
+    font-size:13px;
+    color:gray;
+}
+
+
+
+
+/*book页面css*/
+#ad_center img{
+    width: 100%;
+
+}
+#book_sign_left{
+    width: 80%;
+    height: 500px;
+    border: 1px solid #D8D8D8;
+    float: left;
+    padding:5px;
+}
+#book_sign_right{
+    width: 20%;
+    height: 500px;
+    float: left;
+    padding-left:5px;
+
+}
+#book_sign_left_title{
+    width: 100%;
+    border-bottom:3px solid #060 ;
+    float:left;
+
+}
+#book_sign_left_title_left{
+    width:70%;
+    float:left;
+}
+#book_sign_left_title_left img{
+    margin-left:20px;
+    width:50px;
+    height:50px;
+}
+#book_sign_left_title_left a{
+    margin-left:15px;
+    font-size: 25px;
+    color:#2F2F2F;
+}
+#book_sign_left_title_left a:hover{
+
+}
+#book_sign_left_title_left span{
+    color:darkgray;
+}
+#book_sign_left_title_right a{
+    float:right;
+    padding:10px;
+}
+#book_sign_content_left{
+    padding:10px;
+    width:30%;
+    height:440px;
+    float:left;
+}
+#book_sign_content_left img{
+    width:250px;
+    height:300px;
+    float: left;
+}
+#book_sign_content_right{
+    padding:10px;
+    width:70%;
+    height:400px;
+    float:left;
+}
+#book_sign_content_left ul li{
+    float:left;
+
+}
+#book_sign_content_left ul li a{
+    border:1px solid #A0A0A0;
+    width:120px;
+    font-size:16px;
+}
+#book_sign_content_left ul li:nth-child(1) a{
+    margin:5px 0;
+    width:240px;
+    color:red;
+    font-size:18px;
+}
+#book_sign_content_right_nav{
+    width:100%;
+    height:30px;
+}
+#book_sign_content_right_nav a{
+    color:darkgray;
+}
+#book_sign_content_right_data{
+    border: 1px solid #D8D8D8;
+    width:100%;
+    height:40px;
+    background: #FAFAFA;
+}
+#book_sign_content_right_data ul li{
+    float:left;
+    margin-left:10px;
+    line-height: 40px;
+}
+#book_sign_content_right_content{
+    float:left;
+    width:100%;
+    height:250px;
+    resize: none;
+    background: #fff;
+    border:none;
+
+}
+#book_sign_url{
+    width:100%;
+    padding:10px;
+    float:left;
+}
+.last_book_sign_content{
+    color:silver;
+    font-size:12px;
+}
+#book_sign_right_author{
+    padding:10px;
+    height:100%;
+    height:50%;
+    border: 1px solid #D8D8D8;
+    border-bottom:none;
+}
+#book_sign_right_author img{
+    width:100px;
+    height:100px;
+}
+#book_sign_right_dynamic{
+    padding:10px;
+    height:100%;
+    height:50%;
+    border: 1px solid #D8D8D8;
+}
+#author_sign_name a{
+    color:#060;
+}
+#book_dynamic_title{
+    border-bottom:1px solid #D8D8D8;
+}
+#book_dynamic_title span{
+    color:darkred;
+    margin-left:10px;
+}
+#book_sign_right_dynamic ul li{
+    line-height:30px;
+    height:30px;
+    float:left;
+    border-bottom: 1px dashed #D8D8D8;
+}
+#book_sign_right_dynamic ul li span:nth-child(1){
+    color:#060;
+}
+#book_sign_right_dynamic ul li span:nth-child(3){
+    color:red;
+}
+#book_discuss{
+    width: 70%;
+    border: 1px solid #D8D8D8;
+    float: left;
+    padding:5px;
+}
+#book_discuss_input{
+    width:100%;
+    height:300px;
+
+}
+#book_discuss_content{
+    width:100%;
+    min-height:510px;
+    padding:20px;
+
+}
+#book_discuss_content_title{
+    height:50px;
+    line-height: 50px;
+    border-bottom: 1px dashed #D8D8D8;
+}
+#book_discuss_content_title span{
+    font-size:20px;
+}
+#book_discuss_content_title span:nth-child(1){
+    color:#060;
+}
+#book_discuss_content_title span:nth-child(3){
+    color:red;
+}
+#book_discuss_content_detail{
+    margin:15px 0px;
+    padding-bottom:100px;
+    border-bottom:1px solid #D8D8D8;
+}
+#book_discuss_content_detail img{
+    width:100px;
+    height:100px;
+}
+#book_discuss_content_detail_title{
+    width:600px;
+    background:#EAEAEA;
+    float:right;
+    line-height: 30px;
+}
+#book_discuss_content_detail_title a{
+    color:gray;
+    margin-left:10px;
+
+}
+#book_discuss_content_detail_title a:hover{
+    text-decoration: none;
+}
+#book_discuss_content_detail_content{
+    width:600px;
+    min-height:50px;
+    max-height:100px;
+    float:right;
+    margin-top:-40px;
+    overflow:hidden;
+}
+#book_discuss_content_detail_content a{
+    color:gray;
+    text-decoration: none;
+}
+#book_discuss_content_detail_title_author{
+    width:600px;
+    float:right;
+    line-height: 30px;
+    margin-top:-70px;
+}
+#book_discuss_content_detail_title_author a{
+    color:#060;
+}
+#book_discuss_content_detail_content_data{
+    border-top:1px solid #D8D8D8;
+    padding-top:5px;
+    margin-top:10px;
+    float:right;
+    color:gray;
+}
+#book_discuss_input_title{
+    padding-top:20px;
+    color:gray;
+    text-align:center;
+}
+#book_discuss_title{
+    height:5%;
+    border-bottom: 1px solid #D8D8D8;
+}
+#book_discuss_title img{
+    width:5px;
+    height:10px;
+    margin-left:30px;
+}
+#book_discuss_title span{
+    color: #666;
+    font-size: 16px;
+    margin-left: 10px;
+    line-height:45px;
+}
+#book_discuss_title_bname{
+    color:#060;
+}
+#book_discuss_input_content{
+    padding:20px;
+}
+#book_discuss_input_content_userpic{
+    width: 100px;
+    height:100px;
+    float:left;
+}
+#book_discuss_input_content input{
+    margin-left:60px;
+}
+/**QQ表情插件**/
+
+#main{margin:0px 30px;width:500px;text-align:left;float:left}
+#show{width:380px; margin:20px auto}
+.comment{width:380px; margin:20px auto; position:relative}
+.comment h3{height:28px; line-height:28px}
+.com_form{width:100%; position:relative}
+.input{width:500px; height:60px; border:1px solid #ccc;}
+.sub_btn{float:right;width:100px;margin-right:-120px;margin-top:10px;}
+.com_form p{height:28px; line-height:28px;}
+/*以上css代码根据实际情况修改，以下css代码必须保留*/
+span.emotion{width:60px; height:20px; overflow:hidden; background:url("../../Expression/icon.gif") no-repeat 2px 2px; padding-left:20px; cursor:pointer;}
+span.emotion:hover{background-position:2px -28px;/*注意hover此属性在ie 6浏览器下是无效的*/}
+.qqFace{margin-top:4px;background:#fff;padding:2px;border:1px #dfe6f6 solid;}
+.qqFace table td{padding:0px;}
+.qqFace table td img{cursor:pointer;border:1px #fff solid;}
+.qqFace table td img:hover{border:1px #0066cc solid;}
+/**QQ表情插件结束**/

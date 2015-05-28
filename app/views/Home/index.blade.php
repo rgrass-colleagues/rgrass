@@ -9,10 +9,12 @@
     <body>
         <section class="container-flush">
             <div id="indexBody">
-                <div id="indexLogo"><img src="../../Home/img/logo.jpg" alt="" width="100%" height="100%"/></div>
+                <div id="indexLogo">
+                    <a href="http://www.rgrass.com/index"><img src="../../Home/img/logo.jpg" alt="" width="100%" height="100%"/></a>
+                </div>
                 <div id="content_nav">
                     <ul id="Category">
-                        <li><a href="">同人坊</a></li>
+                        <li><a href="index">同人坊</a></li>
                         <li><a href="">武侠</a></li>
                         <li><a href="">动漫</a></li>
                         <li><a href="">漫综</a></li>
@@ -39,13 +41,19 @@
             </div>
         </section>
     <div id="login_module">
+        @if(!isset($_SESSION['user_login']))
         <span id="login">
-            <a href="">登录</a>
+            <a href="/login">登录</a>
         </span>
         <span>/</span>
         <span id="register" >
-            <a href="">注册</a>
+            <a href="/reg">注册</a>
         </span>
+        @else
+        <span>欢迎您{{$_SESSION['user_login']}}</span>
+        <br>
+        <a href="/out">退出登陆</a>
+        @endif
     </div>
     </body>
 </html>

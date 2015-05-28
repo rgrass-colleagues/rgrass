@@ -7,6 +7,8 @@
  */
 class Home_IndexController extends BaseController{
     public function showIndex(){
+        session_start();
+//        $session_username = $_SESSION['user_login'];
         return View::make('Home.index');
     }
 }
