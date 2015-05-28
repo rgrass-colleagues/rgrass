@@ -100,3 +100,18 @@ section{
     top:0;
     right:0;
 }
+#user_sign{
+    width:500px;
+    height:30px;
+    float:right;
+    padding-left:100px;
+}
+#user_sign ul li{
+    float: left;
+    height:30px;
+    margin-left:20px;
+}
+#user_sign ul li a{
+    line-height: 30px;
+    color:#555555;
+}

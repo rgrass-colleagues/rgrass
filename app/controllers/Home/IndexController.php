@@ -6,9 +6,15 @@
  * Time: 下午5:49
  */
 class Home_IndexController extends BaseController{
+    private $is_user_login=null;
+    public function __construct(){
+        $this->is_user_login = $this->is_user_login();
+    }
     public function showIndex(){
-        session_start();
 //        $session_username = $_SESSION['user_login'];
-        return View::make('Home.index');
+//        dd($this->is_user_login);
+        return View::make('Home.index')->with(array(
+            'is_user_login'=>$this->is_user_login
+        ));
     }
 }

@@ -13,13 +13,13 @@
 <body>
 <div>
     <p>登陆成功</p>
-    <p>3秒后为您自动跳转,如果没有反应,请点击下方回到主页</p>
-    <p><a href="http://www.rgrass.com">回到主页</a></p>
+    <p>3秒后为您自动跳转,如果没有反应,请点击下方回到登陆页</p>
+    <p><a href="{{$from_url}}">回到登陆页</a></p>
 </div>
 </body>
 </html>
 <script>
     setTimeout(function(){
-        window.location.href="http://www.rgrass.com";
+        window.location.href="{{$from_url}}";
     },3000);
 </script>

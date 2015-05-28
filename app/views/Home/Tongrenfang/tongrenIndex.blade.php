@@ -13,18 +13,9 @@
         </div>
         <div class="high_comment_content">
             <ul>
-                <li><a href="" target="_blank">[玄幻]</a><a href="" target="_blank">纯纯传</a></li>
-                <li><a href="" target="_blank">[科幻]</a><a href="" target="_blank">春哥救世录</a></li>
-                <li><a href="" target="_blank">[都市]</a><a href="" target="_blank">大威神救我</a></li>
-                <li><a href="" target="_blank">[都市]</a><a href="" target="_blank">伟哥传奇</a></li>
-                <li><a href="" target="_blank">[都市]</a><a href="" target="_blank">黎二狗的妖孽人生</a></li>
-                <li><a href="" target="_blank">[灵异]</a><a href="" target="_blank">小澳村冒险鸡</a></li>
-                <li><a href="" target="_blank">[都市]</a><a href="" target="_blank">彭老板的绿帽子</a></li>
-                <li><a href="" target="_blank">[仙侠]</a><a href="" target="_blank">从前有座灵贱山</a></li>
-                <li><a href="" target="_blank">[武侠]</a><a href="" target="_blank">小纯纯传</a></li>
-                <li><a href="" target="_blank">[同人]</a><a href="" target="_blank">大蠢蠢传</a></li>
-
-
+                @foreach($stronglyRecommend as $v)
+                <li><a href="/error" target="_blank">[玄幻]</a><a href="/book?book_id={{$v->book_id}}" target="_blank">{{$v->book_name}}</a></li>
+                @endforeach
             </ul>
         </div>
         <div class="high_comment_footer">
@@ -77,10 +68,10 @@
         <div class="net_notice_title">本站公告</div>
         <div class="net_notice_content">
             <ul>
-                <li><span>></span><a href="" target="_blank">本网站还处于测试状态</a></li>
-                <li><span>></span><a href="" target="_blank">本网站还处于测试状态</a></li>
-                <li><span>></span><a href="" target="_blank">本网站还处于测试状态</a></li>
-                <li><span>></span><a href="" target="_blank">本网站还处于测试状态</a></li>
+                <li><span>>></span><a href="" target="_blank">本网站还处于开发状态</a></li>
+                <li><span>>></span><a href="" target="_blank">本网站还处于开发状态</a></li>
+                <li><span>>></span><a href="" target="_blank">本网站还处于开发状态</a></li>
+                <li><span>>></span><a href="" target="_blank">本网站还处于开发状态</a></li>
             </ul>
         </div>
     </div>

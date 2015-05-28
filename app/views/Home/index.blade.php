@@ -41,7 +41,7 @@
             </div>
         </section>
     <div id="login_module">
-        @if(!isset($_SESSION['user_login']))
+        @if(!isset($is_user_login))
         <span id="login">
             <a href="/login">登录</a>
         </span>
@@ -50,9 +50,14 @@
             <a href="/reg">注册</a>
         </span>
         @else
-        <span>欢迎您{{$_SESSION['user_login']}}</span>
-        <br>
-        <a href="/out">退出登陆</a>
+        <div id="user_sign">
+            <ul>
+                <li><a href="/error">消息(x)</a></li>
+                <li><a href="/error">{{$is_user_login->username}}</a></li>
+                <li><a href="/error">个人中心</a></li>
+                <li><a href="/out" onclick="return confirm('确定退出吗?')">退出</a></li>
+            </ul>
+        </div>
         @endif
     </div>
     </body>

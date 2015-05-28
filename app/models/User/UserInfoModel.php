@@ -49,4 +49,9 @@ class User_UserInfoModel extends Eloquent{
             ->where('user_id',$uid)
             ->update($content);
     }
+    public function getUserInfoByUserName($username){
+        return DB::table($this->users)
+            ->where('username',$username)
+            ->first();
+    }
 }

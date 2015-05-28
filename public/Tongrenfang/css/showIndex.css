@@ -15,8 +15,15 @@
     height:100px;
 
 }
+#login_module{
+    position:absolute;
+    width:200px;
+    height:100px;
+    top:0;
+    right:0;
+}
 #user_sign{
-    width:400px;
+    width:500px;
     height:30px;
     float:right;
     padding-left:100px;
@@ -35,25 +42,37 @@
 #nav{
     background: #434651;
 }
-nav ul li{
+nav ul a{
     float:left;
     margin-left:10px;
     width:100px;
     text-align:center;
 }
-nav ul li:hover{
-    background:white;
+nav ul a:last-child{
+    float:right;
+    margin-right:10px;
+    background:green;
+    position: relative;
+    bottom:6px;
+
 }
-nav ul li:hover a{
+nav ul a:last-child:hover{
+
+}
+nav ul a:hover{
+    background:white;
+    text-decoration: none;
+}
+nav ul a:hover li{
     color:black;
 }
-nav ul li a{
+nav ul a li{
     line-height: 50px;
     color:white;
     font-size:18px;
 
 }
-nav ul li a:hover{
+nav ul a li:hover{
     color:black;
     line-height: 50px;
     text-decoration: none;

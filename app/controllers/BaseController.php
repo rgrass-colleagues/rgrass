@@ -1,7 +1,6 @@
 <?php
 
 class BaseController extends Controller {
-
 	/**
 	 * Setup the layout used by the controller.
 	 *
@@ -41,5 +40,40 @@ class BaseController extends Controller {
         {
             throw new Exception('登陆失败');
         }
+    }
+    /*
+     * 判断用户是否登陆,前端逻辑
+     * */
+    protected function is_user_login(){
+        session_start();
+        if(isset($_SESSION['user_login'])){
+            $username= $_SESSION['user_login'];
+            $user_info = new User_UserInfoModel();
+            $username = $user_info->getUserInfoByUserName($username);
+            if(!is_null($username)){
+                return $username;
+            }else{
+                return null;
+            }
+
+        }else{
+            return null;
+        }
+    }
+    /*
+     * 返回上一级url
+     *
+     * */
+    protected function from_url(){
+        $from_url = null;
+        if(!empty($_SERVER['HTTP_REFERER'])){
+            $_SESSION['from_url'] = $_SERVER['HTTP_REFERER'];
+        }
+        if(!empty($_SESSION['from_url'])){
+            $from_url = $_SESSION['from_url'];//上一级的url地址
+        }else{
+            $from_url = 'http://www.rgrass.com';
+        }
+        return $from_url;
     }
 }

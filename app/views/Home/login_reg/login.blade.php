@@ -48,6 +48,7 @@
         </div>
         <div class="bottom">
             <input type="hidden" id="login_flag" value=""/>
+            <input type="hidden" name="from_url" value="{{$from_url}}"/>
             <input type="submit" class="button btn-green" value="登陆" id="login_confirm">
         </div>
       </div>

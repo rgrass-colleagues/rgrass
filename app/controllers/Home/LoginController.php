@@ -6,25 +6,41 @@
  * Time: 上午12:11
  */
 class Home_LoginController extends BaseController{
+    private $from_url=null;
+    function __construct(){
+        session_start();
+        $this->from_url = $this->from_url();
+    }
     public function showLogin(){
-        return View::make('Home.login_reg.login');
+
+        return View::make('Home.login_reg.login')->with(array(
+            'from_url'=>$this->from_url
+        ));
     }
     public function showReg(){
-        return View::make('Home.login_reg.reg');
+        return View::make('Home.login_reg.reg')->with(array(
+            'from_url'=>$this->from_url
+        ));
     }
     public function doLogin(){
         $name=$this->post('email');
         $pass=$this->post('password');
+        $from_url = $this->post('from_url');
         $type = $this->isEmail($name);
         $login=new Login_LoginModel();
         $doLogin=$login->isHomeLogin($name,$pass,$type);
         if(is_null($doLogin)){
-            return View::make("Home.login_reg.loginError");
+            return View::make("Home.login_reg.loginError")->with(array(
+                'from_url'=>$from_url
+            ));
 
         }else{
-            session_start();
-            $_SESSION['user_login']=$name;
-            return View::make("Home.login_reg.loginSuccess");
+            $user_info = $login->isUsernameEsist($name,$type);
+
+            $_SESSION['user_login']=$user_info->username;
+            return View::make("Home.login_reg.loginSuccess")->with(array(
+                'from_url'=>$from_url
+            ));
         }
     }
     /*
@@ -113,8 +129,9 @@ class Home_LoginController extends BaseController{
      * 退出登陆操作
      * */
     public function out(){
-        session_start();
         unset($_SESSION['user_login']);
-        return View::make("Home.login_reg.out");
+        return View::make("Home.login_reg.out")->with(array(
+            'from_url'=>$this->from_url
+        ));
     }
 }

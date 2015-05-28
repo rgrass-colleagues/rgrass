@@ -42,4 +42,10 @@ Route::get('/activate','Home_LoginController@accountAcitvate');
 Route::get('/index','Home_TongrenController@showTongrenIndex');
 Route::get('/book','Home_BookController@showBookIndex');
 
+
+
+
+
+Route::get('/error','ErrorController@showError');
+
 Route::get('/Home/ShowArticle','Home_ShowArticleController@ShowArticleIndex');
