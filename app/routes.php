@@ -41,7 +41,7 @@ Route::post('/ajax/user_confirm','Home_LoginController@ajaxUserConfirm');
 Route::get('/activate','Home_LoginController@accountAcitvate');
 Route::get('/index','Home_TongrenController@showTongrenIndex');
 Route::get('/book','Home_BookController@showBookIndex');
-
+Route::get('/catalog','Home_BookCatalogController@showBookCatalog');
 
 
 

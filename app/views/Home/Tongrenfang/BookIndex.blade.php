@@ -24,7 +24,7 @@
         <div id="book_sign_content_left">
             <img src="../../../Tongrenfang/img/1.jpeg" alt=""/>
             <ul>
-                <li><a href="" class="btn btn-default">>>点击阅读</a></li>
+                <li><a href="http://www.rgrass.com/catalog?book_id=1" class="btn btn-default">>>点击阅读</a></li>
                 <li><a href="" class="btn btn-default">加入书架</a></li>
                 <li><a href="" class="btn btn-default">我要推荐</a></li>
                 <li><a href="" class="btn btn-default">下载本书</a></li>
