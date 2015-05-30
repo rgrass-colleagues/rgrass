@@ -8,6 +8,7 @@
 class Admin_TypeArticleController extends BaseController{
     private $TypeModel = null;
     public function __construct(){
+        parent::__construct();
         $this->TypeModel = new Type_TypeInfoModel();
     }
     public function TypeManager(){

@@ -114,7 +114,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <ul class="page-sidebar-menu">
 <li class="start active ">
 
-    <a href="IndexCenter">
+    <a href="/IndexCenter">
 
         <i class="icon-home"></i>
 
@@ -128,7 +128,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
 <li class="">
 
-    <a href="UserInfo">
+    <a href="/rgrassAdmin/UserInfo">
 
         <i class="icon-user"></i>
 
@@ -140,7 +140,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 </li>
     <li class="">
 
-        <a href="BookLists">
+        <a href="/rgrassAdmin/BookLists">
 
             <i class="icon-bookmark-empty"></i>
 
@@ -152,7 +152,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
     </li>
     <li class="">
 
-        <a href="TypeManager">
+        <a href="/rgrassAdmin/TypeManager">
 
             <i class="icon-tags"></i>
 
@@ -164,7 +164,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
     </li>
     <li class="">
 
-        <a href="javascript:;">
+        <a href="/rgrassAdmin/LogManager">
 
             <i class="icon-cogs"></i>
 

@@ -10,6 +10,7 @@ class Home_TongrenController extends BaseController{
     private $data_list=null;
     private $redis =null;
     public function __construct(){
+        parent::__construct();
         $this->is_user_login = $this->is_user_login();
         $this->data_list = new Book_dataListInfoModel();
         $this->redis = new Redis();

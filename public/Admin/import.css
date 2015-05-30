@@ -1,3 +1,7 @@
+*{
+    list-style: none;
+    text-decoration: none;
+}
 .show_book_all_detail{
     position: absolute;
     left:40%;
@@ -18,4 +22,11 @@
     float:right;
     cursor:pointer;
     border:1px solid black;
+}
+
+
+/*日志start by 2015-5-31*/
+#log_title ul li{
+    float:left;
+    margin-left: 10px;
 }

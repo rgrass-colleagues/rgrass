@@ -12,7 +12,7 @@
 
     <meta charset="utf-8" />
 
-    <title>Metronic | Login Page</title>
+    <title>燃草中文后台管理系统</title>
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 

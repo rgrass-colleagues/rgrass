@@ -8,6 +8,7 @@
 class Admin_LoginController extends BaseController{
     private $loginModel = null;
     public function __construct(){
+        parent::__construct();
         $this->loginModel = new Login_LoginModel();
     }
     public function LoginIndex(){

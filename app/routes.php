@@ -2,7 +2,7 @@
 //后台
 
 //登陆
-Route::get('rgrassBlogAdminLogin','Admin_LoginController@LoginIndex');
+Route::get('wwwdotrgrassdotcomAdministrationLogin','Admin_LoginController@LoginIndex');
 Route::post('doLoginAdmin','Admin_LoginController@doLoginAdmin');
 //主页
 Route::get('/rgrassAdmin/IndexCenter','Admin_IndexController@showAdminIndex');
@@ -25,9 +25,11 @@ Route::post('/rgrassAdmin/doAddNewOrModifyOneBook','Admin_BookController@doAddNe
  * */
 Route::get('/rgrassAdmin/delBook','Admin_BookController@delBook');
 //类型
-Route::get('/rgrassBlogAdmin/TypeManager','Admin_TypeArticleController@TypeManager');
+Route::get('/rgrassAdmin/TypeManager','Admin_TypeArticleController@TypeManager');
 //
-
+//日志管理
+Route::get('/rgrassAdmin/LogManager','Admin_LogController@showLogIndex');
+Route::get('/rgrassAdmin/IPManager','Admin_LogController@userIP');
 
 
 //前台

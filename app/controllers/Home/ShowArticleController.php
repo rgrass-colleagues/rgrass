@@ -7,6 +7,7 @@
  */
 class Home_ShowArticleController extends BaseController{
     public function ShowArticleIndex(){
+        parent::__construct();
         return View::make('Home.ShowArticle');
     }
 }

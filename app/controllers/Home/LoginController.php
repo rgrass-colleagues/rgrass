@@ -8,6 +8,7 @@
 class Home_LoginController extends BaseController{
     private $from_url=null;
     function __construct(){
+        parent::__construct();
         session_start();
         $this->from_url = $this->from_url();
     }

@@ -54,4 +54,7 @@ class User_UserInfoModel extends Eloquent{
             ->where('username',$username)
             ->first();
     }
+    public function getCountUserNumber(){
+        return DB::table($this->users)->count();
+    }
 }

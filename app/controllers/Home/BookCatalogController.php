@@ -9,6 +9,7 @@ class Home_BookCatalogController extends BaseController{
     private $is_user_login=null;
     private $from_url = null;
     public function __construct(){
+        parent::__construct();
         $this->is_user_login = $this->is_user_login();
         $this->from_url = $this->from_url();
     }

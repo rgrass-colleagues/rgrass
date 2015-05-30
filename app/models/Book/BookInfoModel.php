@@ -129,4 +129,7 @@ class Book_BookInfoModel extends Eloquent{
         }
         return $delete_book;
     }
+    /*
+     * 查询书本的数量
+     * */
 }

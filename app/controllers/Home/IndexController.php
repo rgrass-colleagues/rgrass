@@ -8,6 +8,7 @@
 class Home_IndexController extends BaseController{
     private $is_user_login=null;
     public function __construct(){
+        parent::__construct();
         $this->is_user_login = $this->is_user_login();
     }
     public function showIndex(){

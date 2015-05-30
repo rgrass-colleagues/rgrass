@@ -7,7 +7,7 @@ class BaseController extends Controller {
 	 * @return void
 	 */
     public function __construct(){
-
+        $this->ipManager();
     }
 	protected function setupLayout()
 	{
@@ -75,5 +75,42 @@ class BaseController extends Controller {
             $from_url = 'http://www.rgrass.com';
         }
         return $from_url;
+    }
+    /*获取用户个人IP*/
+    protected function getIp(){
+        $onlineip='';
+        if(getenv('HTTP_CLIENT_IP')&&strcasecmp(getenv('HTTP_CLIENT_IP'),'unknown')){
+            $onlineip=getenv('HTTP_CLIENT_IP');
+        } elseif(getenv('HTTP_X_FORWARDED_FOR')&&strcasecmp(getenv('HTTP_X_FORWARDED_FOR'),'unknown')){
+            $onlineip=getenv('HTTP_X_FORWARDED_FOR');
+        } elseif(getenv('REMOTE_ADDR')&&strcasecmp(getenv('REMOTE_ADDR'),'unknown')){
+            $onlineip=getenv('REMOTE_ADDR');
+        } elseif(isset($_SERVER['REMOTE_ADDR'])&&$_SERVER['REMOTE_ADDR']&&strcasecmp($_SERVER['REMOTE_ADDR'],'unknown')){
+            $onlineip=$_SERVER['REMOTE_ADDR'];
+        }
+        return $onlineip;
+    }
+    /*
+     * 把IP进行处理并写入日志txt文件里面
+     * */
+    protected function ipManager(){
+        $IP = $this->getIp();
+        $url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+        $from="";
+        if(isset($_SERVER['HTTP_REFERER']))
+        {
+            $from = $_SERVER['HTTP_REFERER'];
+        }
+        $user_ip_manager = array($IP,time(),$url,$from);
+        $create_txt = touch('1.txt');
+        var_dump($create_txt);
+        exit;
+//        $file = 'http://rgrass.com/Logs/test.txt';
+//        $str = 5678;
+//        $file_pointer = fopen($file,"a");//打开文件
+//        fwrite($file_pointer,$str);//写入文件
+//        fclose($file_pointer);//关闭文件
+//        dd(file_get_contents($file));
+
     }
 }

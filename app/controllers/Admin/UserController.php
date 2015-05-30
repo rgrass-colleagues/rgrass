@@ -9,8 +9,8 @@ class Admin_UserController extends BaseController{
     private $userModel = null;
     private $commonModel = null;
     public function __construct(){
-        $this->is_admin_login();
         parent::__construct();
+        $this->is_admin_login();
         $this->userModel = new User_UserInfoModel();
         $this->commonModel = new Common_ChangeTimeModel();
     }
