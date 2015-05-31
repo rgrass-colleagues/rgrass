@@ -114,7 +114,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <ul class="page-sidebar-menu">
 <li class="start active ">
 
-    <a href="/IndexCenter">
+    <a href="/rgrassAdmin/IndexCenter">
 
         <i class="icon-home"></i>
 
@@ -169,6 +169,18 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
             <i class="icon-cogs"></i>
 
             <span class="title">日志管理</span>
+
+            <span class="arrow "></span>
+
+        </a>
+    </li>
+    <li class="">
+
+        <a href="/rgrassAdmin/FriendsLink">
+
+            <i class="icon-cogs"></i>
+
+            <span class="title">友情链接</span>
 
             <span class="arrow "></span>
 

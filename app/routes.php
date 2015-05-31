@@ -29,7 +29,12 @@ Route::get('/rgrassAdmin/TypeManager','Admin_TypeArticleController@TypeManager')
 //
 //日志管理
 Route::get('/rgrassAdmin/LogManager','Admin_LogController@showLogIndex');
-Route::get('/rgrassAdmin/IPManager','Admin_LogController@userIP');
+Route::get('/rgrassAdmin/IPManager','Admin_LogController@showUserIPconditions');
+Route::get('/rgrassAdmin/IPtoAddress','Admin_LogController@IPtoAddress');
+/*友情链接*/
+Route::get('/rgrassAdmin/FriendsLink','Admin_FriendsLinkController@showFriendsLink');
+
+
 
 
 //前台

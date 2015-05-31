@@ -26,34 +26,57 @@ class Admin_LogController extends BaseController{
         return $userInfo->getCountUserNumber();
     }
     /*
-     * 查询书本数量
+     * 查询书本数量(未完成)
      * */
     public function countBookNumber(){
         $bookInfo = new Book_BookInfoModel();
         return $bookInfo->getCountBookNumber();
     }
-
-
-
-
     /*进来浏览网站的IP情况*/
-    public function userIP(){
-
+    public function showUserIPconditions(){
+        $day = $this->get('input_day');
+        if(empty($day)){
+            $day = date('Y-m-d',time());
+        }
+        $path_today = './Logs/log_'.$day.'.txt';
+        $user_sign_by_ip = file_get_contents($path_today);
+        $user_sign_by_ip = explode(',',$user_sign_by_ip);
+        array_pop($user_sign_by_ip);
+        foreach($user_sign_by_ip as $k=>$v){
+            $ip_sign[$k]=unserialize($v);
+        }
+        return View::make('Admin.LogUsersCondition')->with(array(
+            'ip_sign'=>$ip_sign
+        ));
     }
     /*
      * 根据IP获取地址，需要开启curl功能
+     * 新浪插件
      * */
-    function getIPLoc_QQ($queryIP){
-        $url = 'http://ip.qq.com/cgi-bin/searchip?searchip1='.$queryIP;
-        $ch = curl_init($url);
-        curl_setopt($ch,CURLOPT_ENCODING ,'gb2312');
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true) ; // 获取数据返回
-        $result = curl_exec($ch);
-        $result = mb_convert_encoding($result, "utf-8", "gb2312"); // 编码转换，否则乱码
-        curl_close($ch);
-        preg_match("@<span>(.*)</span></p>@iU",$result,$ipArray);
-        $loc = $ipArray[1];
-        return $loc;
+    public function IPtoAddress(){
+        dd($this->GetIpLookup($_GET['ip']));
+    }
+
+    /*
+     * IP转换地址插件
+     * 新浪插件
+     * */
+    function GetIpLookup($ip = ''){
+        if(empty($ip)){
+            return "";
+        }
+        $res = @file_get_contents('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js&ip=' . $ip);
+        if(empty($res)){ return false; }
+        $jsonMatches = array();
+        preg_match('#\{.+?\}#', $res, $jsonMatches);
+        if(!isset($jsonMatches[0])){ return false; }
+        $json = json_decode($jsonMatches[0], true);
+        if(isset($json['ret']) && $json['ret'] == 1){
+            $json['ip'] = $ip;
+            unset($json['ret']);
+        }else{
+            return false;
+        }
+        return $json;
     }
 }

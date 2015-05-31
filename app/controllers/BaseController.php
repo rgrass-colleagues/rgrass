@@ -101,16 +101,22 @@ class BaseController extends Controller {
         {
             $from = $_SERVER['HTTP_REFERER'];
         }
-        $user_ip_manager = array($IP,time(),$url,$from);
-        $create_txt = touch('1.txt');
-        var_dump($create_txt);
-        exit;
-//        $file = 'http://rgrass.com/Logs/test.txt';
-//        $str = 5678;
-//        $file_pointer = fopen($file,"a");//打开文件
-//        fwrite($file_pointer,$str);//写入文件
-//        fclose($file_pointer);//关闭文件
-//        dd(file_get_contents($file));
+        $now_time = date('Y-m-d H:i:s',time());
+        $user_ip_manager = array(
+            'ip'=>$IP,
+            'time'=>$now_time,
+            'url'=>$url,
+            'from'=>$from
+        );
+        $s_user_ip_manager = serialize($user_ip_manager);
+        $today = date('Y-m-d',time());
+        $path_today = './Logs/log_'.$today.'.txt';
+        if(!file_exists($path_today)){
+            touch($path_today);
+        }
+        $file_pointer = fopen( $path_today,"a");//打开文件
+        fwrite($file_pointer,$s_user_ip_manager.',');//写入文件
+        fclose($file_pointer);//关闭文件
 
     }
 }
