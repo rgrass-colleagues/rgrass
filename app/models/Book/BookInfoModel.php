@@ -11,6 +11,7 @@ class Book_BookInfoModel extends Eloquent{
      * */
     protected $book_info = 'book_info';
     protected $book_detail = 'book_detail';
+    protected $chapter_organization = 'book_content_organization';
     /*
      * 查询book_info表全部数据
      * */
@@ -90,9 +91,15 @@ class Book_BookInfoModel extends Eloquent{
         if(is_null($table))return false;
         switch($page_type){
             case 'create'://添加新书籍
+                //添加书籍的时候进行分库分表添加书本内容操作
                 if($table=='info'){//添加进book_info表中
-                    return DB::table($this->book_info)
+                    $create_book_id = DB::table($this->book_info)
                         ->insertGetId($content);
+                    //获取book_id后在对应的库内创建该书籍对应的表
+                    $book_content = new Book_CreateBookContentModel();
+                    $book_content->selectDatabaseByBookId($create_book_id);
+                    $this->createBookContent($create_book_id);
+                    return $create_book_id;
                 }else{//添加进book_detail表中
                     return DB::table($this->book_detail)
                         ->insert($content);
@@ -132,4 +139,28 @@ class Book_BookInfoModel extends Eloquent{
     /*
      * 查询书本的数量
      * */
+    public function countBookNumber(){
+
+    }
+
+    /*
+     * 查询某书的分卷情况
+     * */
+    public function getChapterOrganization($book_id){
+        return DB::table($this->chapter_organization)
+            ->where('book_id',$book_id)
+            ->get();
+    }
+    /*
+     * 根据分卷ID获取该分卷情况
+     * */
+    public function getChapterOrganizationInfoByOid($id){
+        return DB::table($this->chapter_organization)
+            ->where('id',$id)
+            ->first();
+    }
+    public function insertNewChapterOrganization($content){
+        return DB::table($this->chapter_organization)
+            ->insert($content);
+    }
 }

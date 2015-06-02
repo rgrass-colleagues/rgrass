@@ -24,6 +24,16 @@ Route::post('/rgrassAdmin/doAddNewOrModifyOneBook','Admin_BookController@doAddNe
  * 删除书籍 
  * */
 Route::get('/rgrassAdmin/delBook','Admin_BookController@delBook');
+/*
+ * 书本内容,章节管理
+ * */
+Route::get('/rgrassAdmin/chapter_manager','Admin_BookController@booksManager');
+Route::get('/rgrassAdmin/addBookChapter','Admin_BookController@addBookChapter');
+Route::get('/rgrassAdmin/addNewOrganization','Admin_BookController@addNewOrganization');
+Route::post('/rgrassAdmin/doAddOrganization','Admin_BookController@doAddOrganization');
+Route::post('/rgrassAdmin/doAddBookChapter','Admin_BookController@doAddBookChapter');
+Route::get('/rgrassAdmin/showChapterContent','Admin_BookController@showChapterContent');
+
 //类型
 Route::get('/rgrassAdmin/TypeManager','Admin_TypeArticleController@TypeManager');
 //
@@ -56,3 +66,4 @@ Route::get('/catalog','Home_BookCatalogController@showBookCatalog');
 Route::get('/error','ErrorController@showError');
 
 Route::get('/Home/ShowArticle','Home_ShowArticleController@ShowArticleIndex');
+Route::get('/showTest','TestController@test');

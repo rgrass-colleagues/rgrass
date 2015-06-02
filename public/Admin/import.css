@@ -30,3 +30,22 @@
     float:left;
     margin-left: 10px;
 }
+
+/*书本内容管理 start by 2015-6-1*/
+.book_content tr td{
+    text-align: center;
+}
+.book_content tr td a{
+    color:#060;
+}
+.book_content tr td a i{
+    color:gray;
+}
+#show_chapter_content{
+    width:900px;
+    font-size:16px;
+    border:1px solid #D8D8D8;
+    min-height:800px;
+    line-height: 30px;
+    margin-top:10px;
+}

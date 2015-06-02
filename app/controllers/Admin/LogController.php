@@ -13,7 +13,7 @@ class Admin_LogController extends BaseController{
     }
     public function showLogIndex(){
         $count_users = $this->countUserNumber();
-        return View::make("Admin.LogIndex")->with(array(
+        return View::make("Admin.LogViews.LogIndex")->with(array(
             'count_users'=>$count_users
         ));
 
@@ -34,6 +34,8 @@ class Admin_LogController extends BaseController{
     }
     /*进来浏览网站的IP情况*/
     public function showUserIPconditions(){
+        $ip_filter = file_get_contents('./Logs/logFilter.txt');
+        $arr_ip_filter = explode(',',$ip_filter);
         $day = $this->get('input_day');
         if(empty($day)){
             $day = date('Y-m-d',time());
@@ -44,8 +46,12 @@ class Admin_LogController extends BaseController{
         array_pop($user_sign_by_ip);
         foreach($user_sign_by_ip as $k=>$v){
             $ip_sign[$k]=unserialize($v);
+            if(in_array($ip_sign[$k]['ip'],$arr_ip_filter)){
+                unset($ip_sign[$k]);
+            }
         }
-        return View::make('Admin.LogUsersCondition')->with(array(
+        return View::make('Admin.LogViews.LogUsersCondition')->with(array(
+            'ip_filter'=>$ip_filter,
             'ip_sign'=>$ip_sign
         ));
     }

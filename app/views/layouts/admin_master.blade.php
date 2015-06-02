@@ -33,7 +33,6 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
     <meta content="" name="description" />
 
     <meta content="" name="author" />
-
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     {{HTML::style('Admin/css/bootstrap.min.css')}}
     {{HTML::style('Admin/css/bootstrap-responsive.min.css')}}
@@ -178,7 +177,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
         <a href="/rgrassAdmin/FriendsLink">
 
-            <i class="icon-cogs"></i>
+            <i class="icon-male"></i>
 
             <span class="title">友情链接</span>
 

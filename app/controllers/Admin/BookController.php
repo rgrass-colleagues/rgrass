@@ -7,16 +7,18 @@
  */
 class Admin_BookController extends BaseController{
     private $BookModel = null;
-//    private $TypeModel = null;
+    private $BookContent = null;
+    private $UserInfo=null;
     public function __construct(){
         $this->is_admin_login();
         parent::__construct();
         $this->BookModel = new Book_BookInfoModel();
-//        $this->TypeModel = new Type_TypeInfoModel();
+        $this->BookContent = new Book_CreateBookContentModel();
+        $this->UserInfo = new User_UserInfoModel();
     }
     public function showBookLists(){
         $BookBaseInfo = $this->BookModel->getBookBaseInfoAll();
-        return View::make('Admin.BookLists')->with(array(
+        return View::make('Admin.BookViews.BookLists')->with(array(
             'bookBaseInfo'=> $BookBaseInfo
         ));
     }
@@ -49,7 +51,7 @@ class Admin_BookController extends BaseController{
         $page_type=$this->get('page_type');
         if($page_type=='create'){
             //创建新书籍
-            return View::make('Admin.AddNewOrModifyOneBook')->with(array(
+            return View::make('Admin.BookViews.AddNewOrModifyOneBook')->with(array(
                 'page_type'=>$page_type
             ));
         }else if($page_type=="modify"){
@@ -59,7 +61,7 @@ class Admin_BookController extends BaseController{
             $book_info=$this->BookModel->getBookBaseInfoById($book_id);
             //取出该旧书籍detail表的数据
             $book_detail=$this->BookModel->getOneBookAllDetailById($book_id);
-            return View::make('Admin.AddNewOrModifyOneBook')->with(array(
+            return View::make('Admin.BookViews.AddNewOrModifyOneBook')->with(array(
                 'page_type'=>$page_type,
                 'book_info'=>$book_info,
                 'book_detail'=>$book_detail
@@ -96,15 +98,172 @@ class Admin_BookController extends BaseController{
         }
         $book_insert_detail = $this->BookModel->AddOrModifyNewBook($bookDetailInfo,'detail',$page_type,$book_id);
         if(!($book_insert_base||$book_insert_detail))return false;
-        return Redirect::to('rgrassAdmin/BookLists');
+        return Redirect::to('/rgrassAdmin/BookLists');
     }
     /*删除书籍*/
     public function delBook(){
         $delete_book=$this->BookModel->delBookById($this->get('id'));
         if($delete_book){
-            return Redirect::to('rgrassAdmin/BookLists');
+            return Redirect::to('/rgrassAdmin/BookLists');
         }else{
             echo '删除书籍失败';
         }
+    }
+
+    /*
+     * 对书籍内容进行管理
+     * */
+    public function booksManager(){
+        $book_id = $this->get('book_id');
+        //获取章节目录，需要以分卷作为排序(快速遍历文件夹获取同样的目录树：未完成)
+        //$dir_url = "./Book_List/{$book_id}";
+        $catalog = $this->BookContent->getCatalog($book_id);
+        $showCatalog = $this->showBookCatalog($catalog,$book_id);
+        return View::make('Admin.BookViews.BookChapterManager')->with(array(
+            'book_id'=>$book_id,
+            'showCatalog'=>$showCatalog
+        ));
+    }
+    /*
+     * 对目录数组进行拼接排列
+     * */
+    public function showBookCatalog($catalog,$book_id){
+        /*
+         * 需要对表格对照$catalog的内容进行拼接
+         * 有点难度,需要认真浏览
+        */
+        $html = "<tr>";
+        foreach($catalog as $key=>$val){
+            $i=1;
+            $html .='<tr><td style="text-align: left" colspan="3"><span>卷一</span><span>本组共写了<span style="color:green"></span>字</span></td></tr>';
+            foreach($val as $k=>$v){
+                    if((($i)%3)!=0){
+                        $html .= "<td><a href=\"/rgrassAdmin/showChapterContent?book_id={$book_id}&&organization_name={$key}&&chapter_name={$v['chapter_name']}&&chapter_id={$v['id']}\">{$v['chapter_name']}</a><a href=\"\"><i class=\"icon-pencil\" style='margin-left:10px;'></i></a></td>";
+                    }else{
+                        $html .= "<td><a href=\"/rgrassAdmin/showChapterContent?book_id={$book_id}&&organization_name={$key}&&chapter_name={$v['chapter_name']}&&chapter_id={$v['id']}\">{$v['chapter_name']}</a><a href=\"\"><i class=\"icon-pencil\" style='margin-left:10px;'></i></a></td></tr><tr>";
+                    }
+                $i++;
+            }
+            $html .="</tr>";
+        }
+        return $html;
+    }
+    /*
+     * 显示章节内容
+     *
+     * */
+    public function showChapterContent(){
+        $book_id = $this->get('book_id');
+        $organization_name = $this->get('organization_name');
+        $chapter_name = $this->get('chapter_name');
+        $chapter_id = $this->get('chapter_id');
+        //拼接章节对应的路径
+        $file_url = './Book_List/'.$book_id.'/'.$organization_name.'/'.$chapter_name.'.txt';
+        if(!file_exists($file_url)){
+            //如果该章节对应的txt文档不存在,先从数据库中查询得到,再重新创建一个新的txt文档
+        $chapter_content = $this->BookContent->getChapterContentByChapterId($book_id,$chapter_id);
+            //获取内容
+            $str_chapter_content = $chapter_content[0]['chapter_content'];
+
+            touch($file_url);
+            file_put_contents($file_url,$str_chapter_content);//把内容放进新创建的txt文档里面
+        }else{
+            //获取内容
+            $str_chapter_content = file_get_contents($file_url);
+        }
+        $count_chapter = strlen($str_chapter_content);
+        return View::make('Admin.BookViews.BookChapterContent')->with(array(
+            'chapter_title'=>$chapter_name,//标题
+            'count_chapter'=>$count_chapter,//本章字数
+            'str_chapter_content'=>$str_chapter_content//内容
+        ));
+    }
+
+    /*
+     * 添加新章节
+     * */
+    public function addBookChapter(){
+        $book_id = $this->get('book_id');//书本对应书号
+        $chapter_organization = $this->BookModel->getChapterOrganization($book_id);//该书号对应的所有分卷
+        return View::make('Admin.BookViews.AddBookChapter')->with(array(
+            'book_id'=>$book_id,
+            'chapter_organization'=>$chapter_organization,
+            'update_user'=>$_SESSION['admin_login']
+        ));
+    }
+    /*
+     * 进行添加新章节的操作
+     * */
+    public function doAddBookChapter(){
+        $book_id = $this->post('book_id');
+        $chapter_name = $this->post('chapter_name');
+        $chapter_content = $this->post('chapter_content');
+        $update_time = time();
+        $update_user = $this->post('update_user');
+        $chapter_organization = $this->post('chapter_organization');
+        /*
+         * 对章节内容进行处理
+         * 1,把\n=><br/>
+         * 2,在除第一段外的段首空两格
+         * 3,在第一段段首空两格
+         * */
+        $chapter_content = nl2br($chapter_content);
+        $chapter_content = str_replace("<br />","<br>&nbsp;&nbsp;&nbsp;&nbsp;",$chapter_content);
+        $chapter_content = "&nbsp;&nbsp;&nbsp;&nbsp;".$chapter_content;
+        //通过username获取uid
+        $update_user = $this->UserInfo->getUserInfoByUserName($update_user);
+        $update_user = $update_user->user_id;
+        if($this->BookContent->addNewBookContent($book_id,$chapter_name,$chapter_content,$update_time,$update_user,$chapter_organization)){
+            //如果插入数据库成功，再进行txt文档存储
+            $chapter_organization_info = $this->BookModel->getChapterOrganizationInfoByOid($chapter_organization);
+            $chapter_organization_id = $chapter_organization_info->id;
+            $chapter_organization_name = $chapter_organization_info->organization_name;
+            $dir_url = './Book_List/'.$book_id.'/'.$chapter_organization_id.$chapter_organization_name;//对应的卷名的文件夹路径
+            $file_url = './Book_List/'.$book_id.'/'.$chapter_organization_id.$chapter_organization_name.'/'.$chapter_name.'.txt';//对应的章节路径
+            if(!file_exists($dir_url)){
+                mkdir($dir_url);
+                touch($file_url);
+                file_put_contents($file_url,$chapter_content);
+                echo '成功执行所有操作0';
+            }else{
+                if(!file_exists($file_url)){
+                    touch($file_url);
+                    file_put_contents($file_url,$chapter_content);
+                    echo '成功执行所有操作1';
+                }else{
+                    file_put_contents($file_url,$chapter_content);
+                    echo '成功执行所有操作2';
+                }
+            }
+        }else{
+            echo '插入数据库失败';
+        }
+    }
+
+    /*
+     * 添加新分卷
+     * */
+    public function addNewOrganization(){
+        $book_id = $this->get('book_id');
+        $bookInfo = $this->BookModel->getBookBaseInfoById($book_id);
+        return View::make('Admin.BookViews.AddNewOrganization')->with(array(
+           'book_id'=>$book_id,
+            'book_info'=>$bookInfo
+        ));
+    }
+    /*
+     * 执行添加新分卷操作
+     * */
+    public function doAddOrganization(){
+        $book_id = $this->post('book_id');
+        $organization_name = $this->post('organization_name');
+        $addtime = time();
+        $content = array('book_id'=>$book_id,'organization_name'=>$organization_name,'add_time'=>$addtime);
+        if($this->BookModel->insertNewChapterOrganization($content)){
+            dd('添加成功');
+        }else{
+            dd('添加失败');
+        }
+
     }
 }

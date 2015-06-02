@@ -23,7 +23,7 @@ class Admin_UserController extends BaseController{
             $userBaseInfo[$k]->addtime=$this->commonModel->Inttotime($v->addtime);
             $userBaseInfo[$k]->last_login_time=$this->commonModel->Inttotime($v->last_login_time);
         }
-        return View::make('Admin.UserCenter')->with(array(
+        return View::make('Admin.UserViews.UserCenter')->with(array(
             'user_info'=>$userBaseInfo
         ));
 //        return '来自AdminUserInfo';
@@ -46,7 +46,7 @@ class Admin_UserController extends BaseController{
         if(!$user_detail){
             throw new exception("该用户没有详情");
         }
-        return View::make('Admin.UserDetail')->with(array(
+        return View::make('Admin.UserViews.UserDetail')->with(array(
             'user_detail'=>$user_detail
         ));
     }
@@ -62,7 +62,7 @@ class Admin_UserController extends BaseController{
             $userInfo = $this->userModel->getUserBaseInfoById($uid);
             $userDetail = $this->userModel->getUserDetailByUserId($uid);
         }
-        return View::make('Admin.AddNewOrModifyOneUser')->with(array(
+        return View::make('Admin.UserViews.AddNewOrModifyOneUser')->with(array(
             'page_type'=>$page_type,
             'userInfo'=>$userInfo,
             'userDetail'=>$userDetail
