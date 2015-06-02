@@ -73,10 +73,18 @@ class Book_CreateBookContentModel extends Eloquent{
         $table = 'book_content_'.$book_id;
         $chapter_organization = new Book_BookInfoModel();
         $chapter_organization_info = $chapter_organization->getChapterOrganization($book_id);
+        $text = (object)array(
+        "id"=>"0",
+        "book_id"=>"20",
+        "organization_name"=>"正文",
+        "add_time"=>"0");
+        array_push($chapter_organization_info,$text);
         foreach ($chapter_organization_info as $v) {
             $sql = "SELECT id,chapter_name FROM {$table} WHERE chapter_organization={$v->id}";
-            $catalog[$v->id.$v->organization_name]=$this->db->querySql($sql,$database,true);
+
+            $catalog[$v->organization_name]=$this->db->querySql($sql,$database,true);
         }
+
             return $catalog;
     }
     /*

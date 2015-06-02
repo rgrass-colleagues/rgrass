@@ -51,8 +51,8 @@
     <br>
     请选择权限:
         <select name="default_book_authority">
+            <option value="">0</option>
             <option value="">1</option>
-            <option value="">2</option>
         </select>
     <br><br><br>
     ----------------书籍详细信息--------------<br><br>

@@ -135,7 +135,11 @@ class Admin_BookController extends BaseController{
         $html = "<tr>";
         foreach($catalog as $key=>$val){
             $i=1;
-            $html .='<tr><td style="text-align: left" colspan="3"><span>卷一</span><span>本组共写了<span style="color:green"></span>字</span></td></tr>';
+            $html .='<tr><td style="text-align: left" colspan="3"><span>'.$key.'</span>
+            <span style="float:right">该分卷共写了<span style="color:green">12312</span>字</span></td></tr>';
+            if(!is_array($val)){//如果该分卷里面的内容不是数组,略过去
+                continue;
+            }
             foreach($val as $k=>$v){
                     if((($i)%3)!=0){
                         $html .= "<td><a href=\"/rgrassAdmin/showChapterContent?book_id={$book_id}&&organization_name={$key}&&chapter_name={$v['chapter_name']}&&chapter_id={$v['id']}\">{$v['chapter_name']}</a><a href=\"\"><i class=\"icon-pencil\" style='margin-left:10px;'></i></a></td>";
@@ -216,10 +220,9 @@ class Admin_BookController extends BaseController{
         if($this->BookContent->addNewBookContent($book_id,$chapter_name,$chapter_content,$update_time,$update_user,$chapter_organization)){
             //如果插入数据库成功，再进行txt文档存储
             $chapter_organization_info = $this->BookModel->getChapterOrganizationInfoByOid($chapter_organization);
-            $chapter_organization_id = $chapter_organization_info->id;
             $chapter_organization_name = $chapter_organization_info->organization_name;
-            $dir_url = './Book_List/'.$book_id.'/'.$chapter_organization_id.$chapter_organization_name;//对应的卷名的文件夹路径
-            $file_url = './Book_List/'.$book_id.'/'.$chapter_organization_id.$chapter_organization_name.'/'.$chapter_name.'.txt';//对应的章节路径
+            $dir_url = './Book_List/'.$book_id.'/'.$chapter_organization_name;//对应的卷名的文件夹路径
+            $file_url = './Book_List/'.$book_id.'/'.$chapter_organization_name.'/'.$chapter_name.'.txt';//对应的章节路径
             if(!file_exists($dir_url)){
                 mkdir($dir_url);
                 touch($file_url);
