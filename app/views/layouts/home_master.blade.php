@@ -17,6 +17,7 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <script src="../../../Tongrenfang/js/respond.min.js"></script>
+    <script type="text/javascript" src="../../Expression/jquery.min.js"></script>
 </head>
 <body>
 <div class="gridContainer clearfix">

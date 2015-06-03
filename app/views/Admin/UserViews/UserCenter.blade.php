@@ -12,13 +12,13 @@
 
         <i class="icon-home"></i>
 
-        <a href="IndexCenter">后台首页</a>
+        <a href="/rgrassAdmin/IndexCenter">后台首页</a>
 
                         <i class="icon-angle-right"></i>
 
     </li>
 
-                <li><a href="UserInfo">用户管理</a></li>
+                <li><a href="/rgrassAdmin/UserInfo">用户管理</a></li>
 
     <li class="pull-right no-text-shadow">
 
@@ -62,7 +62,7 @@
         <td>
             <a href="AddNewOrModifyOneUser?page_type=modify&&user_id={{$user_info->user_id}}" class="btn blue">修改</a>
             <a href="UserDetail?id={{$user_info->user_id}}" class="btn black" id="user_detail">详情<i class="m-icon-swapright m-icon-white"></i></a>
-            <a href="delUser?id={{$user_info->user_id}}" class="btn red">删除</a>
+            <a href="doDelUser?user_id={{$user_info->user_id}}" class="btn red" onclick="return confirm('确定要删除吗?')">删除</a>
         </td>
     </tr>
     @endforeach

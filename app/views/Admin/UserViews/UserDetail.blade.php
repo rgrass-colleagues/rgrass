@@ -12,13 +12,13 @@
 
         <i class="icon-home"></i>
 
-        <a href="IndexCenter">后台首页</a>
+        <a href="/rgrassAdmin/IndexCenter">后台首页</a>
 
                         <i class="icon-angle-right"></i>
 
     </li>
 
-                <li><a href="UserInfo">用户详情</a></li>
+                <li><a href="/rgrassAdmin/UserInfo">用户详情</a></li>
 
     <li class="pull-right no-text-shadow">
 
@@ -37,20 +37,21 @@
 </ul>
 @stop
 @section('content')
-<table class="table table-hover">
-    <tr>
-        <td>昵称</td>
-        <td>性别</td>
-        <td>用户标签</td>
-        <td>自我评价</td>
-    </tr>
-    <tr>
-        <td>{{$user_detail->nick_name}}</td>
-        <td>{{$user_detail->sex}}</td>
-        <td>{{$user_detail->user_sign_id}}</td>
-        <td>{{$user_detail->user_estimate}}</td>
-    </tr>
 
-</table>
-
+    ----------------用户基本信息--------------<br><br>
+    @if(!empty($userInfo->user_picture))
+    <img src="../../../uploads/users/{{$userInfo->user_picture}}" alt="" width="100px"/><br/>
+    @endif
+    用户账号:<input type="text" name="info_username" value="@if(!empty($userInfo)){{$userInfo->username}}@endif" disabled/><br>
+    用户积分:<input type="text" name="info_credit" value="@if(!empty($userInfo)){{$userInfo->credit}}@endif" disabled><br>
+    用户邮箱:<input type="text" name="info_email" value="@if(!empty($userInfo)){{$userInfo->email}}@endif" disabled><br>
+    用户手机:<input type="text" name="info_telephone" value="@if(!empty($userInfo)){{$userInfo->telephone}}@endif" disabled><br>
+    用户权限:<input type="text" name="info_telephone" value="@if(!empty($userInfo)){{$userInfo->authority}}@endif" disabled><br>
+    是否作者:<input type="text" name="info_telephone" value="@if(!empty($userInfo)){{$userInfo->is_author}}@endif" disabled><br>
+    <br><br><br>
+    ----------------用户详细信息--------------<br><br>
+    用户昵称:<input type="text" name="nick_name" value="@if(!empty($userDetail)){{$userDetail->nick_name}}@endif" disabled><br>
+    用户性别:<input type="text" name="nick_name" value="@if(!empty($userDetail)){{$userDetail->sex}}@endif" disabled><br>
+    自我标签:<input type="text" name="user_sign_id" value="@if(!empty($userDetail)){{$userDetail->user_sign_id}}@endif" disabled><br>
+    自我评价:<textarea name="user_estimate" disabled>@if(!empty($userDetail)){{$userDetail->user_estimate}}@endif</textarea><br>
 @stop

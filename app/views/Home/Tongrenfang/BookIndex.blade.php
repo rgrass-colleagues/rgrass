@@ -369,7 +369,7 @@
 </div>
 <!--------------------------数据列(点击,推荐)日,周,月,总结束-------------->
 <!--QQ表情插件-->
-<script type="text/javascript" src="../../Expression/jquery.min.js"></script>
+
 <script type="text/javascript" src="../../Expression/jquery.qqFace.js"></script>
 <script src="../../Home/js/qqFace.js"></script>
 <!--QQ表情插件结束-->

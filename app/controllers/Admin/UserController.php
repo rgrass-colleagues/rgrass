@@ -20,15 +20,17 @@ class Admin_UserController extends BaseController{
         //
         foreach($userBaseInfo as $k=>$v){
             $userBaseInfo[$k]->authority=$this->showUserAuthoirtysign($v->authority);
+            $userBaseInfo[$k]->is_author = $this->showUserIsAuthorSign($userBaseInfo[$k]->is_author);//是否作者
             $userBaseInfo[$k]->addtime=$this->commonModel->Inttotime($v->addtime);
             $userBaseInfo[$k]->last_login_time=$this->commonModel->Inttotime($v->last_login_time);
         }
         return View::make('Admin.UserViews.UserCenter')->with(array(
             'user_info'=>$userBaseInfo
         ));
-//        return '来自AdminUserInfo';
     }
-    //显示用户权限的class
+    /*
+     * 显示用户权限的
+     * */
     protected function showUserAuthoirtysign($user_authority){
         switch($user_authority){
             case 0:
@@ -38,16 +40,43 @@ class Admin_UserController extends BaseController{
         }
     }
     /*
+     * 显示用户性别
+     * */
+    public function showUserSexSign($user_sex){
+        switch($user_sex){
+            case 0:
+                return '男';break;
+            case 1:
+                return '女';break;
+        }
+    }
+    /*
+     * 显示该用户是否是作者
+     * */
+    public function showUserIsAuthorSign($is_author){
+        switch($is_author){
+            case 0:
+                return '否';break;
+            case 1:
+                return '是';break;
+        }
+    }
+    /*
      * 用户详情
      * */
     public function showUserDetail(){
         $user_id=$this->get('id');
+        $user_info = $this->userModel->getUserBaseInfoById($user_id);
         $user_detail=$this->userModel->getUserDetailByUserId($user_id);
         if(!$user_detail){
             throw new exception("该用户没有详情");
         }
+        $user_info->authority = $this->showUserAuthoirtysign($user_info->authority);//权限
+        $user_detail->sex = $this->showUserSexSign($user_detail->sex);//性别
+        $user_info->is_author = $this->showUserIsAuthorSign($user_info->is_author);//是否作者
         return View::make('Admin.UserViews.UserDetail')->with(array(
-            'user_detail'=>$user_detail
+            'userInfo'=>$user_info,
+            'userDetail'=>$user_detail
         ));
     }
     /*
@@ -69,6 +98,8 @@ class Admin_UserController extends BaseController{
         ));
     }
     public function doAddNewOrModifyOneUser(){
+        $file_upload = new Common_FileUploadsModel();
+        $userInfo['user_picture'] = $file_upload->FileUpload('user_picture','users');//图片上传处理
         foreach($_POST as $k=>$v){
             if($k=='page_type'){
                 $page_type=$_POST[$k];
@@ -83,8 +114,22 @@ class Admin_UserController extends BaseController{
                 $userDetail[$k]=$v;
             }
         }
+        $auth_code = new Login_LoginModel();
+        $userInfo['password'] = $auth_code->authcode($userInfo['password'],'www.rgrass.com');
         $userInfo['addtime']=time();
         $userInfo['last_login_time']=0;
+        //删掉以前的图片
+        unlink('./uploads/users/'.$userInfo['last_user_picture']);
+        //判断是否有进行图片上传
+        if(!$userInfo['user_picture']){
+            $userInfo['user_picture']=$userInfo['last_user_picture'];
+        }
+        unset($userInfo['last_user_picture']);
+        //删除多余的变量
+        unset($userDetail['MAX_FILE_SIZE']);
+        //此处结束数据进入
+//        dd($userDetail);
+//        dd($userInfo);
         //用户处在修改状态的时候
         if($page_type == 'modify'){
             $modifyDetail = $this->userModel->modifyUserDetailByUid($userDetail,$userInfo['user_id']);
@@ -104,6 +149,15 @@ class Admin_UserController extends BaseController{
                 }
             }
         }
+        return Redirect::to('/rgrassAdmin/UserInfo');
+    }
+
+    /*
+     * 删除用户
+     * */
+    public function doDelUser(){
+        $user_id = $this->get('user_id');
+        $this->userModel->delUserByUId($user_id);
         return Redirect::to('/rgrassAdmin/UserInfo');
     }
 }
