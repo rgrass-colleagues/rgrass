@@ -6,5 +6,5 @@
 后台管理系统首页
 @stop
 @section('content')
-
+这是主页
 @stop
