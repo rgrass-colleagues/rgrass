@@ -50,7 +50,8 @@ Route::get('/rgrassAdmin/IPManager','Admin_LogController@showUserIPconditions');
 Route::get('/rgrassAdmin/IPtoAddress','Admin_LogController@IPtoAddress');
 /*友情链接*/
 Route::get('/rgrassAdmin/FriendsLink','Admin_FriendsLinkController@showFriendsLink');
-
+//消息管理
+Route::get('/rgrassAdmin/MessageManager','Admin_MessageController@showMessageIndex');
 
 
 

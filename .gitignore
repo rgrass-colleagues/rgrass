@@ -2,3 +2,4 @@ config/
 storage/
 Logs/
 Book_List/
+phpmyadmin/
