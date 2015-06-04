@@ -189,7 +189,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
         <a href="/rgrassAdmin/MessageManager">
 
-            <i class="icon-male"></i>
+            <i class="icon-sign-blank"></i>
 
             <span class="title">留言管理</span>
 

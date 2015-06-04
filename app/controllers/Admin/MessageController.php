@@ -11,8 +11,7 @@ class Admin_MessageController extends BaseController{
         $this->is_admin_login();
     }
     public function showMessageIndex(){
-
-        return View::make('Admin.IndexCenter');
+        return View::make('Admin.MessageViews.MessageIndex');
     }
 
 }
