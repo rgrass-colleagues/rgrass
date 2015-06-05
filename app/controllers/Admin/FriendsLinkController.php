@@ -15,11 +15,11 @@ Class Admin_FriendsLinkController extends BaseController{
         $this-> friends_link = new FriendsLink_FriendsLinkModel();
 
     }
-/*展示友情链接*/
+    /*展示友情链接*/
     public function showFriendsLink(){
-
-        return View::make('Admin.FriendsLinkIndex')->with(array(
-            'arr'=>'merlin',
+        $links = $this->friends_link->getFriendsLinksAll();
+        return View::make('Admin.FriendsLinkViews.FriendsLinkIndex')->with(array(
+            'links'=>$links
         ));
     }
 

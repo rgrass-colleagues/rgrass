@@ -27,6 +27,19 @@ class User_UserInfoModel extends Eloquent{
             ->first();
     }
     /*
+     * 根据user_id查到user_name
+     * */
+    public function getUserNameByUserId($user_id){
+        return DB::table($this->users)
+            ->where('user_id',$user_id)
+            ->lists('username');
+    }
+    public function getUserIdByUserName($user_name){
+        return DB::table($this->users)
+            ->where('username',$user_name)
+            ->lists('user_id');
+    }
+    /*
      * 根据user_id查询用户详情
      * */
     public function getUserDetailByUserId($user_id){
