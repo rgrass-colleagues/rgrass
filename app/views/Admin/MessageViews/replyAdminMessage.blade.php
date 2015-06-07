@@ -37,9 +37,15 @@
 </ul>
 @stop
 @section('content')
+<a href="/rgrassAdmin/MessageManager" class="btn gray">给管理员的留言</a>
+<a href="/rgrassAdmin/BookDiscuss" class="btn blue">书籍评论</a>
+<br>
+<br>
 <form action="/rgrassAdmin/doReplyAdminMessage" method="post">
-    <textarea name="estimate_content" id="" cols="30" rows="10"></textarea>
-    <input type="hidden" name="user_id" value="{{$user_id}}"/>
+    <textarea name="estimate_content" id="" cols="100" rows="10"></textarea>
+    <!--此处进行角色互换-->
+    <input type="hidden" name="receiver" value="{{$sender}}"/>
+    <input type="hidden" name="sender" value="{{$receiver}}"/>
     <br/>
     <input type="submit" class="btn blue" value="回复"/>
 </form>

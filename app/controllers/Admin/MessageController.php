@@ -21,8 +21,8 @@ class Admin_MessageController extends BaseController{
         $admin_message = $this->msg->getAllAdminMessage();
         foreach($admin_message as $v){
             //此处对从数据库里查询的信息作处理
-            $v->user_name = $this->messageViewSpall('user_id',$v->user_id);
-            $v->admin_id = $this->messageViewSpall('admin_id',$v->admin_id);
+            $v->sender_name = $this->messageViewSpall('user_id',$v->sender);
+            $v->receiver_name = $this->messageViewSpall('admin_id',$v->receiver);
             $v->to_user_name = $this->messageViewSpall('to_user',$v->to_user);
             $v->addtime = $this->messageViewSpall('addtime',$v->addtime);
         }
@@ -69,12 +69,14 @@ class Admin_MessageController extends BaseController{
      * */
     public function replyAdminMessage(){
         $to_user = $this->get('to_user');
-        $user_id = $this->get('user_id');
+        $sender = $this->get('sender');
+        $receiver = $this->get('receiver');
         if($to_user=="1"){
             return '该信息已经属于回复';
         }else{
             return View::make('Admin.MessageViews.replyAdminMessage')->with(array(
-                'user_id'=>$user_id
+                'sender'=>$sender,
+                'receiver'=>$receiver
             ));
         }
     }
@@ -83,11 +85,14 @@ class Admin_MessageController extends BaseController{
      * */
     public function doReplyAdminMessage(){
         $estimate_content = $this->post('estimate_content');
-        $user_id = $this->post('user_id');
-        $admin_name = $_SESSION['admin_login'];
-        $admin_id = $this->user->getUserIdByUserName($admin_name)[0];
-        $content = array('user_id'=>$user_id,'admin_id'=>$admin_id,'estimate_content'=>$estimate_content,'to_user'=>1,'addtime'=>time());
-        dd($content);
+        $sender = $this->post('sender');
+        $receiver = $this->post('receiver');
+        $content = array('sender'=>$sender,'receiver'=>$receiver,'estimate_content'=>$estimate_content,'to_user'=>1,'addtime'=>time());
+        if($this->msg->insertReplyAdminMessage($content)){
+            return Redirect::to('/rgrassAdmin/MessageManager');
+        }else{
+            dd('添加失败');
+        }
 
     }
     /*

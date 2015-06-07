@@ -11,7 +11,7 @@ class SelfDatabase_DatabaseQuerySqlModel extends Eloquent{
     /*
      * 直接执行sql语句,如果需要改库,需要输入更改的库名
      * */
-    public function querySql($sql,$database="",$select=false){
+    public function querySql($sql,$database=""){
         if(!empty($database)){
             $this->database=$database;
         }
@@ -19,12 +19,6 @@ class SelfDatabase_DatabaseQuerySqlModel extends Eloquent{
         $dsn = "mysql:host=localhost;dbname=".$database;
         $dbLink = new PDO($dsn, 'root', 'hr1ycfLqswslhK');
         $rs = $dbLink->query($this->sql);
-        if($select){
-            $res = $rs->fetchAll(PDO::FETCH_ASSOC);
-            if($res){
-                return $res;
-            }
-        }
         if($rs){
             return true;
         }else {
@@ -35,11 +29,15 @@ class SelfDatabase_DatabaseQuerySqlModel extends Eloquent{
         $dsn = "mysql:host=localhost;dbname=".$database;
         $dbLink = new PDO($dsn, 'root', 'hr1ycfLqswslhK');
         $rs = $dbLink->query($sql);
-        $res = $rs->fetchAll(PDO::FETCH_ASSOC);
-        if($res){
-            return $res;
+        if($rs){
+            $res = $rs->fetchAll(PDO::FETCH_ASSOC);
+            if($res){
+                return $res;
+            }else{
+                return false;
+            }
         }else{
-            dd('数据库查询失败');
+            return false;
         }
     }
 }

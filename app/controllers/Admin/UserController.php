@@ -119,7 +119,10 @@ class Admin_UserController extends BaseController{
         $userInfo['addtime']=time();
         $userInfo['last_login_time']=0;
         //删掉以前的图片
-        unlink('./uploads/users/'.$userInfo['last_user_picture']);
+        $del_file_url = './uploads/users/'.$userInfo['last_user_picture'];
+        if(file_exists($del_file_url) && is_file($del_file_url)){
+            unlink($del_file_url);
+        }
         //判断是否有进行图片上传
         if(!$userInfo['user_picture']){
             $userInfo['user_picture']=$userInfo['last_user_picture'];

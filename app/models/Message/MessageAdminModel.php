@@ -23,4 +23,11 @@ class Message_MessageAdminModel extends Eloquent{
             ->where('message_id',$message_id)
             ->delete();
     }
+    /*
+     * 插入一条新的回复的消息
+     * */
+    public function insertReplyAdminMessage($content){
+        return DB::table($this->msg)
+            ->insert($content);
+    }
 }

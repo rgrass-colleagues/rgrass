@@ -44,7 +44,7 @@
     <table class="table table-hover">
         <tr>
             <td>id</td>
-            <td>用户名</td>
+            <td>发送人</td>
             <td>收信人</td>
             <td>发送内容</td>
             <td>信息状态</td>
@@ -54,12 +54,12 @@
         @foreach($admin_message as $msg)
         <tr>
             <td>{{$msg->message_id}}</td>
-            <td>{{$msg->user_name}}</td>
-            <td>{{$msg->admin_id}}</td>
+            <td>{{$msg->sender_name}}</td>
+            <td>{{$msg->receiver_name}}</td>
             <td>{{$msg->estimate_content}}</td>
             <td>{{$msg->to_user_name}}</td>
             <td>{{$msg->addtime}}</td>
-            <td><a href="/rgrassAdmin/ReplyAdminMessage?to_user={{$msg->to_user}}&&user_id={{$msg->user_id}}" class="btn green">回复</a> <a href="/rgrassAdmin/DelAdminMessage?message_id={{$msg->message_id}}" class="btn red" onclick="return confirm('确定删除该信息吗?')">删除</a></td>
+            <td><a href="/rgrassAdmin/ReplyAdminMessage?to_user={{$msg->to_user}}&&sender={{$msg->sender}}&&receiver={{$msg->receiver}}" class="btn green">回复</a> <a href="/rgrassAdmin/DelAdminMessage?message_id={{$msg->message_id}}" class="btn red" onclick="return confirm('确定删除该信息吗?')">删除</a></td>
         </tr>
         @endforeach
     </table>

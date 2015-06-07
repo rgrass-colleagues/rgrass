@@ -82,9 +82,8 @@ class Book_CreateBookContentModel extends Eloquent{
         foreach ($chapter_organization_info as $v) {
             $sql = "SELECT id,chapter_name FROM {$table} WHERE chapter_organization={$v->id}";
 
-            $catalog[$v->organization_name]=$this->db->querySql($sql,$database,true);
+            $catalog[$v->organization_name]=$this->db->querySqlSelect($sql,$database);
         }
-
             return $catalog;
     }
     /*

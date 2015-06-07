@@ -62,6 +62,7 @@
             <a href="/rgrassAdmin/chapter_manager?book_id={{$bookList->book_id}}" class="btn green">章节管理</a>
             <button class="btn blue blue_book_detail" id="book_detail" value="{{$bookList->book_id}}">简介</button>
             <button class="btn black black_book_all_detail" id="book_all_detail" value="{{$bookList->book_id}}">详情<i class="m-icon-swapright m-icon-white"></i></button>
+            <a href="" class="btn yellow">审核</a>
             <a href="delBook?id={{$bookList->book_id}}" class="btn red">删除</a>
         </td>
     </tr>
