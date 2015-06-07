@@ -17,7 +17,7 @@ class SelfDatabase_DatabaseQuerySqlModel extends Eloquent{
         }
         $this->sql = $sql;
         $dsn = "mysql:host=localhost;dbname=".$database;
-        $dbLink = new PDO($dsn, 'root', 'hr1ycfLqswslhK');
+        $dbLink=$this->connectDatabase($dsn);
         $rs = $dbLink->query($this->sql);
         if($rs){
             return true;
@@ -27,7 +27,7 @@ class SelfDatabase_DatabaseQuerySqlModel extends Eloquent{
     }
     public function querySqlSelect($sql,$database){
         $dsn = "mysql:host=localhost;dbname=".$database;
-        $dbLink = new PDO($dsn, 'root', 'hr1ycfLqswslhK');
+        $dbLink=$this->connectDatabase($dsn);
         $rs = $dbLink->query($sql);
         if($rs){
             $res = $rs->fetchAll(PDO::FETCH_ASSOC);
@@ -39,5 +39,9 @@ class SelfDatabase_DatabaseQuerySqlModel extends Eloquent{
         }else{
             return false;
         }
+    }
+    private function connectDatabase($dsn){
+        $dbLink = new PDO($dsn, 'root', 'hr1ycfLqswslhK');
+        return $dbLink;
     }
 }

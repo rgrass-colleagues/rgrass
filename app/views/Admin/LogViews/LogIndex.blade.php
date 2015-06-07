@@ -39,10 +39,11 @@
 @section('content')
 <div id="log_title">
     <ul>
-        <li><a href="/rgrassAdmin/LogManager">日志主页</a></li>
-        <li><a href="/rgrassAdmin/IPManager">查看用户登录情况</a></li>
+        <li><a href="/rgrassAdmin/LogManager" class="btn blue">日志主页</a></li>
+        <li><a href="/rgrassAdmin/IPManager" class="btn green">查看用户登录情况</a></li>
     </ul>
 </div>
+<br/>
 <div id="log_content"><br>
     <span>目前拥有用户数量:</span><span>{{$count_users}}</span><br>
     <span>当前作品数量:</span><span></span><br>
