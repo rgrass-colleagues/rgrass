@@ -8,6 +8,7 @@
 class SelfDatabase_DatabaseQuerySqlModel extends Eloquent{
     private $database="rgrass_main";
     private $sql=null;
+    private $screct = 'hr1ycfLqswslhK';
     /*
      * 直接执行sql语句,如果需要改库,需要输入更改的库名
      * */
@@ -41,7 +42,13 @@ class SelfDatabase_DatabaseQuerySqlModel extends Eloquent{
         }
     }
     private function connectDatabase($dsn){
-        $dbLink = new PDO($dsn, 'root', 'hr1ycfLqswslhK');
-        return $dbLink;
+        $dbLink = new PDO($dsn, 'root', $this->screct);
+        if($dbLink){
+            return $dbLink;
+        }else{
+            return '链接数据库失败';
+        }
+
+
     }
 }
