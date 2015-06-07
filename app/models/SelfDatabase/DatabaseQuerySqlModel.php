@@ -17,7 +17,7 @@ class SelfDatabase_DatabaseQuerySqlModel extends Eloquent{
         }
         $this->sql = $sql;
         $dsn = "mysql:host=localhost;dbname=".$database;
-        $dbLink = new PDO($dsn, 'root', 'hr1ycfLqswslhK');
+        $dbLink=$this->connectDatabase($dsn);
         $rs = $dbLink->query($this->sql);
         if($select){
             $res = $rs->fetchAll(PDO::FETCH_ASSOC);
@@ -33,7 +33,7 @@ class SelfDatabase_DatabaseQuerySqlModel extends Eloquent{
     }
     public function querySqlSelect($sql,$database){
         $dsn = "mysql:host=localhost;dbname=".$database;
-        $dbLink = new PDO($dsn, 'root', 'hr1ycfLqswslhK');
+        $dbLink=$this->connectDatabase($dsn);
         $rs = $dbLink->query($sql);
         $res = $rs->fetchAll(PDO::FETCH_ASSOC);
         if($res){
@@ -41,5 +41,9 @@ class SelfDatabase_DatabaseQuerySqlModel extends Eloquent{
         }else{
             dd('数据库查询失败');
         }
+    }
+    private function connectDatabase($dsn){
+        $dbLink = new PDO($dsn, 'root', 'hr1ycfLqswslhK');
+        return $dbLink;
     }
 }

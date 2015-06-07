@@ -55,6 +55,9 @@ Route::get('/rgrassAdmin/MessageManager','Admin_MessageController@showMessageInd
 Route::get('/rgrassAdmin/DelAdminMessage','Admin_MessageController@delAdminMessage');
 Route::get('/rgrassAdmin/ReplyAdminMessage','Admin_MessageController@replyAdminMessage');
 Route::post('/rgrassAdmin/doReplyAdminMessage','Admin_MessageController@doReplyAdminMessage');
+
+
+
 //前台
 Route::get('/','Home_IndexController@showIndex');
 Route::get('/login','Home_LoginController@showLogin');
