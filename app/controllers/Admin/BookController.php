@@ -72,6 +72,8 @@ class Admin_BookController extends BaseController{
      * 创建书籍或修改旧书籍的处理过程
      * */
     public function doAddNewOrModifyOneBook(){
+        $file_upload = new Common_FileUploadsModel();
+        $bookBaseInfo['cover'] = $file_upload->FileUpload('cover','covers');//图片上传处理
         foreach($_POST as $k=>$v){
             if($k=='page_type'){
                 $page_type=$_POST[$k];
@@ -92,6 +94,23 @@ class Admin_BookController extends BaseController{
         }else{
             $book_id=null;
         }
+        //删掉以前的图片
+        if(isset($bookBaseInfo['last_book_picture'])){
+            $del_file_url = './uploads/covers/'.$bookBaseInfo['last_book_picture'];
+        }else{
+            $del_file_url="";
+        }
+        if(file_exists($del_file_url) && is_file($del_file_url)){
+            unlink($del_file_url);
+        }
+        //判断是否有进行图片上传
+        if(!$bookBaseInfo['cover']){
+            $bookBaseInfo['cover']=$bookBaseInfo['last_book_picture'];
+        }
+        unset($bookBaseInfo['last_book_picture']);
+        //删除多余的变量
+        unset($bookDetailInfo['MAX_FILE_SIZE']);
+        /********截止数据录入*********/
         $book_insert_base = $this->BookModel->AddOrModifyNewBook($bookBaseInfo,'info',$page_type,$book_id);
         if($book_insert_base&&$page_type=='create'){
             $bookDetailInfo['book_id']=$book_insert_base;
@@ -99,6 +118,22 @@ class Admin_BookController extends BaseController{
         $book_insert_detail = $this->BookModel->AddOrModifyNewBook($bookDetailInfo,'detail',$page_type,$book_id);
         if(!($book_insert_base||$book_insert_detail))return false;
         return Redirect::to('/rgrassAdmin/BookLists');
+    }
+    /*通过审核*/
+    public function doBookReview(){
+        $book_id = $this->get('book_id');
+        if($this->BookModel->crossReview($book_id)){
+            //修改完权限后,需要创建小说内容表
+            $book_rgrass = new Book_CreateBookContentModel();
+            $create_book_content = $book_rgrass->createBookContentByBookId($book_id);
+            if($create_book_content){
+                return Redirect::to('/rgrassAdmin/BookLists');
+            }else{
+                return '创建小说内容表失败';
+            }
+        }else{
+            return '审核过程出错';
+        }
     }
     /*删除书籍*/
     public function delBook(){
@@ -214,13 +249,17 @@ class Admin_BookController extends BaseController{
         $chapter_content = nl2br($chapter_content);
         $chapter_content = str_replace("<br />","<br>&nbsp;&nbsp;&nbsp;&nbsp;",$chapter_content);
         $chapter_content = "&nbsp;&nbsp;&nbsp;&nbsp;".$chapter_content;
-        //通过username获取uid
+        //通过username获取uid,得到修改本章节的人
         $update_user = $this->UserInfo->getUserInfoByUserName($update_user);
         $update_user = $update_user->user_id;
         if($this->BookContent->addNewBookContent($book_id,$chapter_name,$chapter_content,$update_time,$update_user,$chapter_organization)){
             //如果插入数据库成功，再进行txt文档存储
             $chapter_organization_info = $this->BookModel->getChapterOrganizationInfoByOid($chapter_organization);
-            $chapter_organization_name = $chapter_organization_info->organization_name;
+            if($chapter_organization_info){
+                $chapter_organization_name = $chapter_organization_info->organization_name;
+            }else{
+                $chapter_organization_name = '正文';
+            }
             $dir_url = './Book_List/'.$book_id.'/'.$chapter_organization_name;//对应的卷名的文件夹路径
             $file_url = './Book_List/'.$book_id.'/'.$chapter_organization_name.'/'.$chapter_name.'.txt';//对应的章节路径
             if(!file_exists($dir_url)){
@@ -263,7 +302,7 @@ class Admin_BookController extends BaseController{
         $addtime = time();
         $content = array('book_id'=>$book_id,'organization_name'=>$organization_name,'add_time'=>$addtime);
         if($this->BookModel->insertNewChapterOrganization($content)){
-            dd('添加成功');
+            return Redirect::to('/rgrassAdmin/chapter_manager?book_id='.$book_id);
         }else{
             dd('添加失败');
         }

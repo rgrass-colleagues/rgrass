@@ -99,7 +99,7 @@ class Admin_UserController extends BaseController{
     }
     public function doAddNewOrModifyOneUser(){
         $file_upload = new Common_FileUploadsModel();
-        $userInfo['user_picture'] = $file_upload->FileUpload('user_picture','users');//图片上传处理
+        $userInfo['user_picture'] = $file_upload->FileUpload('cover','covers');//图片上传处理
         foreach($_POST as $k=>$v){
             if($k=='page_type'){
                 $page_type=$_POST[$k];

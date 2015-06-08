@@ -12,13 +12,13 @@
 
         <i class="icon-home"></i>
 
-        <a href="IndexCenter">后台首页</a>
+        <a href="/rgrassAdmin/IndexCenter">后台首页</a>
 
         <i class="icon-angle-right"></i>
 
     </li>
 
-    <li><a href="ArticleLists">书籍管理</a></li>
+    <li><a href="/rgrassAdmin/BookLists">书籍管理</a></li>
 
     <li class="pull-right no-text-shadow">
 
@@ -41,6 +41,7 @@
     ----------------章节信息--------------<br><br>
     <!--    请选择封面:<input type="file" name="default_cover"><br>-->
     请你选择卷名:<select name="chapter_organization" class="select2-container">
+        <option value="0">正文</option>
         @foreach($chapter_organization as $v)
         <option value="{{$v->id}}">{{$v->organization_name}}</option>
         @endforeach

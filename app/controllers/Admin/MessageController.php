@@ -19,6 +19,7 @@ class Admin_MessageController extends BaseController{
      * */
     public function showMessageIndex(){
         $admin_message = $this->msg->getAllAdminMessage();
+
         foreach($admin_message as $v){
             //此处对从数据库里查询的信息作处理
             $v->sender_name = $this->messageViewSpall('user_id',$v->sender);
@@ -36,7 +37,13 @@ class Admin_MessageController extends BaseController{
     public function messageViewSpall($spall,$val){
         switch($spall){
             case 'user_id':
-                return $this->user->getUserNameByUserId($val)[0];
+                $str = $this->user->getUserNameByUserId($val);
+                if($str){
+                    return $str[0];
+                }else{
+                    return '<span style="color:gray">没有该用户</span>';
+                }
+            break;
             case 'admin_id':
                 return $this->user->getUserNameByUserId($val)[0];
             break;

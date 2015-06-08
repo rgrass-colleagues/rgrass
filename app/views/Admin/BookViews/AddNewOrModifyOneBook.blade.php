@@ -12,13 +12,13 @@
 
         <i class="icon-home"></i>
 
-        <a href="IndexCenter">后台首页</a>
+        <a href="/rgrassAdmin/IndexCenter">后台首页</a>
 
         <i class="icon-angle-right"></i>
 
     </li>
 
-    <li><a href="ArticleLists">书籍管理</a></li>
+    <li><a href="/rgrassAdmin/BookLists">书籍管理</a></li>
 
     <li class="pull-right no-text-shadow">
 
@@ -37,10 +37,15 @@
 </ul>
 @stop
 @section('content')
-<form action="doAddNewOrModifyOneBook" method="post">
+<form action="doAddNewOrModifyOneBook" method="post" enctype = 'multipart/form-data'>
     ----------------书籍基本信息--------------<br><br>
 <!--    请选择封面:<input type="file" name="default_cover"><br>-->
-    请选择封面:<input type="text" name="default_cover" value="@if(!empty($book_info)){{$book_info->cover}}@endif"><br>
+    @if(!empty($book_info->cover))
+    <img src="../../../uploads/covers/{{$book_info->cover}}" alt="" width="100px"/><br/>
+    @endif
+    <input type="hidden" name="default_last_book_picture" value="@if(!empty($book_info)){{$book_info->cover}}@endif"/>
+    <input type='hidden' name='MAX_FILE_SIZE' value='2621114' />
+    小说封面图:<input type="file" name="cover"><br><br/>
     请输入书名:<input type="text" name="default_book_name" value="@if(!empty($book_info)){{$book_info->book_name}}@endif"/><br>
     请输入作者:<input type="text" name="default_author" value="@if(!empty($book_info)){{$book_info->author}}@endif"><br>
     请输入简介:<input type="text" name="default_detail" value="@if(!empty($book_info)){{$book_info->detail}}@endif"><br>
@@ -48,13 +53,7 @@
         <select name="default_book_type">
             <option value="0">其它书籍</option>
         </select>
-    <br>
-    请选择权限:
-        <select name="default_book_authority">
-            <option value="">0</option>
-            <option value="">1</option>
-        </select>
-    <br><br><br>
+    <br><br>
     ----------------书籍详细信息--------------<br><br>
     书本章节数:<input type="text" name="book_length" value="@if(!empty($book_detail)){{$book_detail->book_length}}@endif"><br>
     书本总字数:<input type="text" name="word_number" value="@if(!empty($book_detail)){{$book_detail->word_number}}@endif"><br>

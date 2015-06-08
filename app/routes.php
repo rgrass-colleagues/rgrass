@@ -26,6 +26,10 @@ Route::post('/rgrassAdmin/doAddNewOrModifyOneBook','Admin_BookController@doAddNe
  * */
 Route::get('/rgrassAdmin/delBook','Admin_BookController@delBook');
 /*
+ * 审核
+ * */
+Route::get('/rgrassAdmin/BookReview','Admin_BookController@doBookReview');
+/*
  * 书本内容,章节管理
  * */
 Route::get('/rgrassAdmin/chapter_manager','Admin_BookController@booksManager');

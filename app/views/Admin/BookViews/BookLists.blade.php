@@ -12,13 +12,13 @@
 
         <i class="icon-home"></i>
 
-        <a href="IndexCenter">后台首页</a>
+        <a href="/rgrassAdmin/IndexCenter">后台首页</a>
 
         <i class="icon-angle-right"></i>
 
     </li>
 
-    <li><a href="ArticleLists">文章管理</a></li>
+    <li><a href="/rgrassAdmin/BookLists">文章管理</a></li>
 
     <li class="pull-right no-text-shadow">
 
@@ -51,18 +51,27 @@
     </tr>
     @foreach($bookBaseInfo as $bookList)
     <tr>
-        <td><img src="../../Cover/{{$bookList->cover}}" alt="" width="70px"/></td>
+        <td><img src="../../uploads/covers/{{$bookList->cover}}" alt="" width="70px"/></td>
         <td>{{$bookList->book_id}}</td>
         <td>{{$bookList->book_name}}</td>
         <td>{{$bookList->author}}</td>
-        <td>{{$bookList->book_authority}}</td>
-        <td>{{$bookList->book_add_time}}</td>
+        @if($bookList->book_authority=='0')
+        <td style="color:red">未审核</td>
+        @else
+        <td style="color:#060">已通过审核</td>
+        @endif
+        <td>{{date('Y-m-d H:i:s',$bookList->book_add_time)}}</td>
         <td>
             <a href="AddNewOrModifyOneBook?page_type=modify&&book_id={{$bookList->book_id}}" class="btn blue">修改</a>
-            <a href="/rgrassAdmin/chapter_manager?book_id={{$bookList->book_id}}" class="btn green">章节管理</a>
-            <button class="btn blue blue_book_detail" id="book_detail" value="{{$bookList->book_id}}">简介</button>
+        @if($bookList->book_authority=='0')
+            <a href="#" class="btn green" onclick="alert('小说未审核')">章节管理</a>
+        @else
+        <a href="/rgrassAdmin/chapter_manager?book_id={{$bookList->book_id}}" class="btn green">章节管理</a>
+        @endif
+
             <a href="" class="btn black">详情<i class="m-icon-swapright m-icon-white"></i></a>
-            <a href="delBook?id={{$bookList->book_id}}" class="btn red">删除</a>
+            <a href="/rgrassAdmin/BookReview?book_id={{$bookList->book_id}}" class="btn yellow" onclick="return confirm('是否让小说通过审核')">审核</a>
+            <a href="delBook?id={{$bookList->book_id}}" class="btn red" onclick="return confirm('确定要删除这本小说吗?')">删除</a>
         </td>
     </tr>
     @endforeach

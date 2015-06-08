@@ -18,7 +18,7 @@ class Book_CreateBookContentModel extends Eloquent{
 
         return $database;
     }
-    public function selectDatabaseByBookId($book_id){
+    public function createBookContentByBookId($book_id){
         $database = $this->useDatabaseByBookId($book_id);
         //拼接sql语句
         /*
@@ -36,13 +36,20 @@ class Book_CreateBookContentModel extends Eloquent{
         update_users int not null,
         chapter_organization int not null,
         PRIMARY KEY (id)
-        )engine=innodb default charset=utf8";
+        )
+        engine=innodb default charset=utf8";
         //执行sql语句
         $this->db->querySql($sql,$database);
         //还需要建立对应的txt文档文件夹,文件夹名字与数据库内一致
         $url = "./Book_List/".$book_id;
+        $default_organization = $url.'/'.'正文';
         if(!file_exists($url)){
             mkdir($url);
+        }else{
+            dd('创建书籍文件夹失败');
+        }
+        if(!file_exists($default_organization)){
+            mkdir($default_organization);
         }
         return true;
     }

@@ -96,9 +96,6 @@ class Book_BookInfoModel extends Eloquent{
                     $create_book_id = DB::table($this->book_info)
                         ->insertGetId($content);
                     //获取book_id后在对应的库内创建该书籍对应的表
-                    $book_content = new Book_CreateBookContentModel();
-                    $book_content->selectDatabaseByBookId($create_book_id);
-                    $this->createBookContent($create_book_id);
                     return $create_book_id;
                 }else{//添加进book_detail表中
                     return DB::table($this->book_detail)
@@ -135,6 +132,15 @@ class Book_BookInfoModel extends Eloquent{
                 ->delete();
         }
         return $delete_book;
+    }
+
+    /*
+     * 修改小说权限,通过审核
+     * */
+    public function crossReview($book_id){
+        return DB::table($this->book_info)
+            ->where('book_id',$book_id)
+            ->update(array('book_authority'=>'1'));
     }
     /*
      * 查询书本的数量

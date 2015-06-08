@@ -12,13 +12,13 @@
 
         <i class="icon-home"></i>
 
-        <a href="IndexCenter">后台首页</a>
+        <a href="/rgrassAdmin/IndexCenter">后台首页</a>
 
         <i class="icon-angle-right"></i>
 
     </li>
 
-    <li><a href="ArticleLists">文章管理</a></li>
+    <li><a href="/rgrassAdmin/BookLists">文章管理</a></li>
 
     <li class="pull-right no-text-shadow">
 
