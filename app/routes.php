@@ -33,12 +33,15 @@ Route::get('/rgrassAdmin/BookReview','Admin_BookController@doBookReview');
  * 书本内容,章节管理
  * */
 Route::get('/rgrassAdmin/chapter_manager','Admin_BookController@booksManager');
-Route::get('/rgrassAdmin/addBookChapter','Admin_BookController@addBookChapter');
-Route::get('/rgrassAdmin/addNewOrganization','Admin_BookController@addNewOrganization');
+Route::get('/rgrassAdmin/addBookChapter','Admin_BookController@addBookChapter');//添加章节
+Route::post('/rgrassAdmin/doAddBookChapter','Admin_BookController@doAddBookChapter');//执行添加
+Route::get('/rgrassAdmin/showChapterContent','Admin_BookController@showChapterContent');//显示章节内容
+Route::get('/rgrassAdmin/ModifyChapterContent','Admin_BookController@showModifyChapterContent');//修改章节内容
+Route::post('/rgrassAdmin/doModifyChapterContent','Admin_BookController@doModifyChapterContent');
+Route::get('/rgrassAdmin/DelChapterContent','Admin_BookController@doDelChapterContent');//删除章节
+Route::get('/rgrassAdmin/addNewOrganization','Admin_BookController@addNewOrganization');//添加分卷
 Route::post('/rgrassAdmin/doAddOrganization','Admin_BookController@doAddOrganization');
-Route::post('/rgrassAdmin/doAddBookChapter','Admin_BookController@doAddBookChapter');
-Route::get('/rgrassAdmin/showChapterContent','Admin_BookController@showChapterContent');
-Route::get('/rgrassAdmin/ModifyChapterContent','Admin_BookController@showModifyChapterContent');
+Route::get('/rgrassAdmin/ModifyChapterOrganization','Admin_BookController@showModifyChapterOrganization');//修改分卷信息
 //类型
 Route::get('/rgrassAdmin/BookTypeManager','Admin_BookTypeController@showTypeIndex');
 Route::get('/rgrassAdmin/AddNewType','Admin_BookTypeController@addNewType');

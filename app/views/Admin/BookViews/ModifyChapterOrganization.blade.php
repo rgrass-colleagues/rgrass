@@ -3,7 +3,7 @@
 文章管理
 @stop
 @section('pagetitle')
-文章列表
+添加新书籍
 @stop
 @section('ptitle')
 <ul class="breadcrumb">
@@ -18,7 +18,7 @@
 
     </li>
 
-    <li><a href="/rgrassAdmin/BookLists">文章管理</a></li>
+    <li><a href="/rgrassAdmin/BookLists">书籍管理</a></li>
 
     <li class="pull-right no-text-shadow">
 
@@ -37,15 +37,13 @@
 </ul>
 @stop
 @section('content')
-<a href="/rgrassAdmin/addBookChapter?book_id={{$book_id}}" class="btn blue">添加新章节</a>
-<a href="/rgrassAdmin/addNewOrganization?book_id={{$book_id}}" class="btn green">添加新卷</a>
-<a href="/rgrassAdmin/ModifyChapterOrganization?book_id={{$book_id}}" class="btn gray">修改分卷</a>
-<br/><br/>
-<table class="table table-hover book_content">
-    <tr><td style="text-align: left" colspan="3"><span>全书共<span style="color:red;">{{$chapter_count}}</span><span>张</span></span></td></tr>
-    {{$showCatalog}}
+<table>
+    <tr>
+        <td>分卷id</td>
+        <td>分卷名称</td>
+        <td>分卷名称</td>
+    </tr>
 </table>
-<script>
 
-</script>
+{{HTML::script('Admin/js/jquery-1.10.1.min.js')}}
 @stop

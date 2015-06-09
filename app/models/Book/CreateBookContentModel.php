@@ -9,14 +9,7 @@ class Book_CreateBookContentModel extends Eloquent{
     public function __construct(){
 
     }
-    public function createTable(){
-        return Schema::connection('rgrass_book_0')->create('test', function($table)
-        {
-            $table->increments('id');
-            $table->string('chapter_name',255);
-        });
 
-    }
     public function useDatabaseByBookId($book_id){
         //对书籍id取模,0~9
         $modulus_book_id = $book_id%10;
@@ -53,6 +46,7 @@ class Book_CreateBookContentModel extends Eloquent{
             mkdir($url);
         }else{
             dd('创建书籍文件夹失败');
+
         }
         if(!file_exists($default_organization)){//创建默认正文目录
             mkdir($default_organization);
@@ -127,5 +121,38 @@ class Book_CreateBookContentModel extends Eloquent{
         }else{
             dd("数据库查询失败");
         }
+    }
+    /*
+     * 修改小说的其中一章
+     *
+     * */
+    public function modifyChapterContentById($book_id,$chapter_id,$content){
+        $database = $this->useDatabaseByBookId($book_id);
+        $table = 'book_content_'.$book_id;
+        return DB::connection($database)
+            ->table($table)
+            ->where('id',$chapter_id)
+            ->update($content);
+    }
+    /*
+     * 删除小说的其中一章
+     * */
+    public function delChapterContentById($book_id,$chapter_id){
+        $database = $this->useDatabaseByBookId($book_id);
+        $table = 'book_content_'.$book_id;
+        return DB::connection($database)
+            ->table($table)
+            ->where('id',$chapter_id)
+            ->delete();
+    }
+    /*
+     * 查询某一本小说的章节数
+     * */
+    public function countBookChapter($book_id){
+        $database = $this->useDatabaseByBookId($book_id);
+        $table = 'book_content_'.$book_id;
+        return DB::connection($database)
+            ->table($table)
+            ->count();
     }
 }

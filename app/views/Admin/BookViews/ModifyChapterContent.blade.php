@@ -37,21 +37,25 @@
 </ul>
 @stop
 @section('content')
-<form action="/rgrassAdmin/doAddBookChapter" method="post">
+<form action="/rgrassAdmin/doModifyChapterContent" method="post">
     ----------------章节信息--------------<br><br>
-    请你选择卷名:<select name="chapter_organization" class="select2-container">
+    请你选择卷名:<select name="chapter_organization" class="select2-container" id="organization">
         <option value="0">正文</option>
         @foreach($chapter_organization as $v)
         <option value="{{$v->id}}">{{$v->organization_name}}</option>
         @endforeach
     </select><br>
     请输入章节名:<input type="text" name="chapter_name" value="{{$chapter_info->chapter_name}}" /><br>
-    请输入修改者:<input type="text" value="{{$update_user}}"  disabled><br>
-    输入章节内容:<br><textarea name="chapter_content" class="form-control" style="width:1000px;height:500px;"></textarea><br>
-    <input type="hidden" name="update_user" id="" value="{{$update_user}}"/>
+    请输入修改者:<input type="text" value="{{$update_user['user_name']}}"  disabled><br>
+    输入章节内容:<br><textarea name="chapter_content" class="form-control" style="width:1000px;height:500px;">{{$chapter_info->chapter_content}}</textarea><br>
+    <input type="hidden" name="update_user" id="" value="{{$update_user['user_id']}}"/>
     <input type="hidden" value="{{$book_id}}" name="book_id"/>
+    <input type="hidden" value="{{$chapter_id}}" name="chapter_id"/>
     <input type="submit" value="确定添加" class="btn blue"/>
 
 </form>
+<script>
+    $("#organization option[value={{$chapter_info->chapter_organization}}]").attr('selected','true');//默认选择
+</script>
 {{HTML::script('Admin/js/jquery-1.10.1.min.js')}}
 @stop

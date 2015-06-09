@@ -32,7 +32,8 @@ class User_UserInfoModel extends Eloquent{
     public function getUserNameByUserId($user_id){
         return DB::table($this->users)
             ->where('user_id',$user_id)
-            ->lists('username');
+            ->select('username')
+            ->first();
     }
     public function getUserIdByUserName($user_name){
         return DB::table($this->users)
