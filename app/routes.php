@@ -38,7 +38,7 @@ Route::get('/rgrassAdmin/addNewOrganization','Admin_BookController@addNewOrganiz
 Route::post('/rgrassAdmin/doAddOrganization','Admin_BookController@doAddOrganization');
 Route::post('/rgrassAdmin/doAddBookChapter','Admin_BookController@doAddBookChapter');
 Route::get('/rgrassAdmin/showChapterContent','Admin_BookController@showChapterContent');
-
+Route::get('/rgrassAdmin/ModifyChapterContent','Admin_BookController@showModifyChapterContent');
 //类型
 Route::get('/rgrassAdmin/BookTypeManager','Admin_BookTypeController@showTypeIndex');
 Route::get('/rgrassAdmin/AddNewType','Admin_BookTypeController@addNewType');

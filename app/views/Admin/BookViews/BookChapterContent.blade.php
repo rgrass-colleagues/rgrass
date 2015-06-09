@@ -37,7 +37,7 @@
 </ul>
 @stop
 @section('content')
-<a href="" class="btn green">修改本章节</a>
+<a href="/rgrassAdmin/ModifyChapterContent?book_id={{$book_id}}&&chapter_id={{$chapter_id}}" class="btn green">修改本章节</a>
 <div id="show_chapter_title">
     <span>{{$chapter_title}}</span><span style="color:red">本章字数:{{$count_chapter}}</span>
 </div>

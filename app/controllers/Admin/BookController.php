@@ -177,9 +177,9 @@ class Admin_BookController extends BaseController{
             }
             foreach($val as $k=>$v){
                     if((($i)%3)!=0){
-                        $html .= "<td><a href=\"/rgrassAdmin/showChapterContent?book_id={$book_id}&&organization_name={$key}&&chapter_name={$v['chapter_name']}&&chapter_id={$v['id']}\">{$v['chapter_name']}</a><a href=\"\"><i class=\"icon-pencil\" style='margin-left:10px;'></i></a></td>";
+                        $html .= "<td><a href=\"/rgrassAdmin/showChapterContent?book_id={$book_id}&&organization_name={$key}&&chapter_name={$v->chapter_name}&&chapter_id={$v->id}\">{$v->chapter_name}</a><a href=\"\"><i class=\"icon-pencil\" style='margin-left:10px;'></i></a></td>";
                     }else{
-                        $html .= "<td><a href=\"/rgrassAdmin/showChapterContent?book_id={$book_id}&&organization_name={$key}&&chapter_name={$v['chapter_name']}&&chapter_id={$v['id']}\">{$v['chapter_name']}</a><a href=\"\"><i class=\"icon-pencil\" style='margin-left:10px;'></i></a></td></tr><tr>";
+                        $html .= "<td><a href=\"/rgrassAdmin/showChapterContent?book_id={$book_id}&&organization_name={$key}&&chapter_name={$v->chapter_name}&&chapter_id={$v->id}\">{$v->chapter_name}</a><a href=\"\"><i class=\"icon-pencil\" style='margin-left:10px;'></i></a></td></tr><tr>";
                     }
                 $i++;
             }
@@ -202,7 +202,7 @@ class Admin_BookController extends BaseController{
             //如果该章节对应的txt文档不存在,先从数据库中查询得到,再重新创建一个新的txt文档
         $chapter_content = $this->BookContent->getChapterContentByChapterId($book_id,$chapter_id);
             //获取内容
-            $str_chapter_content = $chapter_content[0]['chapter_content'];
+            $str_chapter_content = $chapter_content->chapter_content;
 
             touch($file_url);
             file_put_contents($file_url,$str_chapter_content);//把内容放进新创建的txt文档里面
@@ -212,6 +212,8 @@ class Admin_BookController extends BaseController{
         }
         $count_chapter = strlen($str_chapter_content);
         return View::make('Admin.BookViews.BookChapterContent')->with(array(
+            'book_id'=>$book_id,
+            'chapter_id'=>$chapter_id,
             'chapter_title'=>$chapter_name,//标题
             'count_chapter'=>$count_chapter,//本章字数
             'str_chapter_content'=>$str_chapter_content//内容
@@ -307,5 +309,20 @@ class Admin_BookController extends BaseController{
             dd('添加失败');
         }
 
+    }
+    /*
+     * 修改章节内容
+     *
+     * */
+    public function showModifyChapterContent(){
+        $book_id = $this->get('book_id');
+        $chapter_id = $this->get('chapter_id');
+        $chapter_organization = $this->BookModel->getChapterOrganization($book_id);//该书号对应的所有分卷
+        $chapter_info = $this->BookContent->getChapterInfoByBookIdAndChapterId($book_id,$chapter_id);//获取该章节的信息
+        $update_user_name = $this->UserInfo->getUserNameByUserId($chapter_info->update_user);
+        return View::make('Admin.BookViews.ModifyChapterContent')->with(array(
+            'chapter_info'=>$chapter_info,
+            'chapter_organization'=>$chapter_organization
+        ));
     }
 }

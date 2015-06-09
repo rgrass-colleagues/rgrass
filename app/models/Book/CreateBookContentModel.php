@@ -6,9 +6,16 @@
  * Time: 10:20
  */
 class Book_CreateBookContentModel extends Eloquent{
-    private $db = null;
     public function __construct(){
-        $this->db = new SelfDatabase_DatabaseQuerySqlModel();
+
+    }
+    public function createTable(){
+        return Schema::connection('rgrass_book_0')->create('test', function($table)
+        {
+            $table->increments('id');
+            $table->string('chapter_name',255);
+        });
+
     }
     public function useDatabaseByBookId($book_id){
         //对书籍id取模,0~9
@@ -20,6 +27,7 @@ class Book_CreateBookContentModel extends Eloquent{
     }
     public function createBookContentByBookId($book_id){
         $database = $this->useDatabaseByBookId($book_id);
+        $table = "book_content_".$book_id;
         //拼接sql语句
         /*
          * chapter_name:章节名字
@@ -28,27 +36,25 @@ class Book_CreateBookContentModel extends Eloquent{
          * update_users:修改该章节对应的用户
          * chapter_organization:章节对应的组
          * */
-        $sql = "CREATE TABLE book_content_{$book_id}(
-        id int not null auto_increment,
-        chapter_name varchar(255) not null,
-        chapter_content text not null,
-        update_time int not null,
-        update_users int not null,
-        chapter_organization int not null,
-        PRIMARY KEY (id)
-        )
-        engine=innodb default charset=utf8";
-        //执行sql语句
-        $this->db->querySql($sql,$database);
+        //创建表
+        Schema::connection($database)->create($table, function($table)
+        {
+            $table->increments('id');
+            $table->string('chapter_name',255);
+            $table->text('chapter_content');
+            $table->integer('update_time');
+            $table->integer('update_name');
+            $table->integer('chapter_organization');
+        });
         //还需要建立对应的txt文档文件夹,文件夹名字与数据库内一致
         $url = "./Book_List/".$book_id;
         $default_organization = $url.'/'.'正文';
-        if(!file_exists($url)){
+        if(!file_exists($url)){//创建小说目录
             mkdir($url);
         }else{
             dd('创建书籍文件夹失败');
         }
-        if(!file_exists($default_organization)){
+        if(!file_exists($default_organization)){//创建默认正文目录
             mkdir($default_organization);
         }
         return true;
@@ -60,16 +66,16 @@ class Book_CreateBookContentModel extends Eloquent{
         $database = $this->useDatabaseByBookId($book_id);
         //拼接table
         $table = "book_content_".$book_id;
-        /*
-         * 拼接sql语句
-         * */
-        $sql = "INSERT INTO {$table} (chapter_name,chapter_content,update_time,update_users,chapter_organization) VALUES('{$chapter_name}','{$chapter_content}','{$update_time}','{$update_user}','{$chapter_organization}')";
-        //执行sql语句
-        if($this->db->querySql($sql,$database)){
-            return true;
-        }else{
-            dd('执行sql语句失败');
-        }
+
+        $content=array(
+            'chapter_name'=>$chapter_name,
+            'chapter_content'=>$chapter_content,
+            'update_time'=>$update_time,
+            'update_users'=>$update_user,
+            'chapter_organization'=>$chapter_organization
+        );
+        //执行插入
+        return DB::connection($database)->table($table)->insert($content);
     }
     /*
      * 获取小说目录
@@ -87,9 +93,11 @@ class Book_CreateBookContentModel extends Eloquent{
         "add_time"=>"0");
         array_push($chapter_organization_info,$text);
         foreach ($chapter_organization_info as $v) {
-            $sql = "SELECT id,chapter_name FROM {$table} WHERE chapter_organization={$v->id}";
-
-            $catalog[$v->organization_name]=$this->db->querySqlSelect($sql,$database);
+            $catalog[$v->organization_name] = DB::connection($database)
+                ->table($table)
+                ->where('chapter_organization',$v->id)
+                ->select('id','chapter_name')
+                ->get();
         }
             return $catalog;
     }
@@ -99,8 +107,7 @@ class Book_CreateBookContentModel extends Eloquent{
     public function getChapterContentByChapterId($book_id,$chapter_id){
         $database = $this->useDatabaseByBookId($book_id);
         $table = 'book_content_'.$book_id;
-        $sql = "SELECT chapter_content FROM {$table} WHERE id='".$chapter_id."'";
-        $res = $this->db->querySqlSelect($sql,$database);
+        $res = DB::connection($database)->table($table)->where('id',$chapter_id)->first();
         if($res){
             return $res;
         }else{
@@ -108,5 +115,17 @@ class Book_CreateBookContentModel extends Eloquent{
         }
 
     }
-
+    /*
+     * 通过书籍id和书籍表内的章节id得到该章节的信息
+     * */
+    public function getChapterInfoByBookIdAndChapterId($book_id,$chapter_id){
+        $database = $this->useDatabaseByBookId($book_id);
+        $table = 'book_content_'.$book_id;
+        $res = DB::connection($database)->table($table)->where('id',$chapter_id)->first();
+        if($res){
+            return $res;
+        }else{
+            dd("数据库查询失败");
+        }
+    }
 }
