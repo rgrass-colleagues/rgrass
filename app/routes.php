@@ -42,6 +42,11 @@ Route::get('/rgrassAdmin/DelChapterContent','Admin_BookController@doDelChapterCo
 Route::get('/rgrassAdmin/addNewOrganization','Admin_BookController@addNewOrganization');//添加分卷
 Route::post('/rgrassAdmin/doAddOrganization','Admin_BookController@doAddOrganization');
 Route::get('/rgrassAdmin/ModifyChapterOrganization','Admin_BookController@showModifyChapterOrganization');//修改分卷信息
+Route::get('/rgrassAdmin/DelChapterOrganization','Admin_BookController@doDelChapterOrganization');
+
+
+
+
 //类型
 Route::get('/rgrassAdmin/BookTypeManager','Admin_BookTypeController@showTypeIndex');
 Route::get('/rgrassAdmin/AddNewType','Admin_BookTypeController@addNewType');
@@ -49,6 +54,9 @@ Route::post('/rgrassAdmin/doAddNewType','Admin_BookTypeController@doAddNewType')
 Route::get('/rgrassAdmin/ModifyType','Admin_BookTypeController@modifyType');
 Route::post('/rgrassAdmin/doModifyType','Admin_BookTypeController@doModifyType');
 Route::get('/rgrassAdmin/DelType','Admin_BookTypeController@doDelType');
+
+
+
 
 //
 //日志管理

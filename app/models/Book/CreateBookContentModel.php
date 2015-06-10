@@ -155,4 +155,15 @@ class Book_CreateBookContentModel extends Eloquent{
             ->table($table)
             ->count();
     }
+    /*
+     * 根据分卷删除小说
+     * */
+    public function delBookContentByOrganizaitonId($book_id,$chapter_organization){
+        $database = $this->useDatabaseByBookId($book_id);
+        $table = 'book_content_'.$book_id;
+        return DB::connection($database)
+            ->table($table)
+            ->where('chapter_organization',$chapter_organization)
+            ->delete();
+    }
 }

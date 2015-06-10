@@ -39,7 +39,7 @@
 @section('content')
 <a href="/rgrassAdmin/addBookChapter?book_id={{$book_id}}" class="btn blue">添加新章节</a>
 <a href="/rgrassAdmin/addNewOrganization?book_id={{$book_id}}" class="btn green">添加新卷</a>
-<a href="/rgrassAdmin/ModifyChapterOrganization?book_id={{$book_id}}" class="btn gray">修改分卷</a>
+<a href="/rgrassAdmin/ModifyChapterOrganization?book_id={{$book_id}}" class="btn gray">分卷操作</a>
 <br/><br/>
 <table class="table table-hover book_content">
     <tr><td style="text-align: left" colspan="3"><span>全书共<span style="color:red;">{{$chapter_count}}</span><span>张</span></span></td></tr>

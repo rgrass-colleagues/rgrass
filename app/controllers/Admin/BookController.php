@@ -411,10 +411,56 @@ class Admin_BookController extends BaseController{
      * */
     public function showModifyChapterOrganization(){
         $book_id = $this->get('book_id');
+        $book_info = $this->BookModel->getBookBaseInfoById($book_id);
         $chapter_organization = $this->BookModel->getChapterOrganization($book_id);//该书号对应的所有分卷
         return View::make('Admin.BookViews.ModifyChapterOrganization')->with(array(
-            'chapter_organization'=>$chapter_organization
-
+            'chapter_organization'=>$chapter_organization,
+            'book_info'=>$book_info
         ));
+    }
+    /*
+     * 删除某一分卷
+     * */
+    public function doDelChapterOrganization(){
+        $id = $this->get('id');
+        $organization_info = $this->BookModel->getChapterOrganizationInfoByOid($id);
+        $dir_path = './Book_List/'.$organization_info->book_id.'/'.$organization_info->organization_name;//该分卷对应的文件夹
+        if($this->BookModel->delChapterOrganization($id)){
+            //删除成功后,同时删除分卷对应的书籍
+            if($this->BookContent->delBookContentByOrganizaitonId($organization_info->book_id,$id)){
+                //删除对应的文件
+                if(file_exists($dir_path)){
+                    $this->delDirAndDirFile($dir_path);
+                }
+            }
+            return Redirect::to('/rgrassAdmin/ModifyChapterOrganization');
+        }else{
+            dd('删除分卷失败');
+        }
+    }
+    /*
+     * 删除文件夹与文件夹下的文件
+     * */
+    public function delDirAndDirFile($dir){
+        //先删除目录下的文件：
+        $dh=opendir($dir);
+        while ($file=readdir($dh)) {
+            if($file!="." && $file!="..") {
+                $fullpath=$dir."/".$file;
+                if(!is_dir($fullpath)) {
+                    unlink($fullpath);
+                } else {
+                    deldir($fullpath);
+                }
+            }
+        }
+
+        closedir($dh);
+        //删除当前文件夹：
+        if(rmdir($dir)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

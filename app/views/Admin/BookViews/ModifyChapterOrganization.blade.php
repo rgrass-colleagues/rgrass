@@ -37,12 +37,23 @@
 </ul>
 @stop
 @section('content')
-<table>
+<span>书名:</span><a href="/rgrassAdmin/chapter_manager?book_id={{$book_info->book_id}}" style="color:#060">{{$book_info->book_name}}</a>
+<table class="table table-hover">
     <tr>
         <td>分卷id</td>
-        <td>分卷名称</td>
-        <td>分卷名称</td>
+        <td>分卷名</td>
+        <td>添加时间</td>
+        <td>操作</td>
     </tr>
+    @foreach($chapter_organization as $v)
+    <tr>
+        <td>{{$v->id}}</td>
+        <td>{{$v->organization_name}}</td>
+        <td>{{date('Y-m-d H:i:s',$v->add_time)}}</td>
+        <td><a href="/rgrassAdmin/ModifyChapterOrganizationInfo?id={{$v->id}}" class="btn blue">修改</a>
+            <a href="/rgrassAdmin/DelChapterOrganization?id={{$v->id}}" class="btn red" onclick="return confirm('删除分卷后会把该分卷的章节全部删除,慎用!确定删除该分卷吗?')">删除</a></td>
+    </tr>
+    @endforeach
 </table>
 
 {{HTML::script('Admin/js/jquery-1.10.1.min.js')}}

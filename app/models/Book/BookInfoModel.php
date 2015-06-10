@@ -165,8 +165,19 @@ class Book_BookInfoModel extends Eloquent{
             ->where('id',$id)
             ->first();
     }
+    /*
+     * 添加分卷
+     * */
     public function insertNewChapterOrganization($content){
         return DB::table($this->chapter_organization)
             ->insert($content);
+    }
+    /*
+     * 删除分卷
+     * */
+    public function delChapterOrganization($id){
+        return DB::table($this->chapter_organization)
+            ->where('id',$id)
+            ->delete();
     }
 }
