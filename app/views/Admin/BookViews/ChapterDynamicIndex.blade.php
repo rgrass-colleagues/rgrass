@@ -37,17 +37,27 @@
 </ul>
 @stop
 @section('content')
-<a href="/rgrassAdmin/addBookChapter?book_id={{$book_id}}" class="btn blue">添加章节</a>
-<a href="/rgrassAdmin/addNewOrganization?book_id={{$book_id}}" class="btn green">添加新卷</a>
-<a href="/rgrassAdmin/ModifyChapterOrganization?book_id={{$book_id}}" class="btn black">分卷操作</a>
-<a href="/rgrassAdmin/showChapterDynamic?book_id={{$book_id}}" class="btn purple">本书动态</a>
-<a href="/rgrassAdmin/showChapterDiscuss?book_id={{$book_id}}" class="btn yellow">评论专区</a>
-<br/><br/>
-<table class="table table-hover book_content">
-    <tr><td style="text-align: left" colspan="3"><span>全书共<span style="color:red;">{{$chapter_count}}</span><span>张</span></span></td></tr>
-    {{$showCatalog}}
-</table>
-<script>
-
-</script>
+    <table class="table table-hover">
+        <tr>
+            <td>用户</td>
+            <td>行为</td><!--行为与值拼接-->
+            <td>时间</td>
+            <td>操作</td>
+        </tr>
+        @foreach($dynamic_info as $v)
+        <tr>
+            <td>
+                <?php
+                //$user_info = new User_UserInfoModel();
+                //$user_infos = $user_info->getUserBaseInfoById($v->user_id);
+                ?>
+                {{User_UserInfoModel::getUserInfoByUserIdS($v->user_id)->username}}
+            </td>
+            <td>{{$v->behavior}}</td>
+            <td>{{$v->addtime}}</td>
+            <td><a href="" class="btn green-stripe">修改</a></td>
+            <td><a href="" class="btn red">删除</a></td>
+        </tr>
+        @endforeach
+    </table>
 @stop

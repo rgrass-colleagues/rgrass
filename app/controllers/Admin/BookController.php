@@ -477,6 +477,9 @@ class Admin_BookController extends BaseController{
             'organization_info'=>$organization_info
         ));
     }
+    /*
+     * 执行修改
+     * */
     public function doModifyChapterOrganizationInfo(){
         $id = $this->post('id');
         $book_id = $this->post('book_id');

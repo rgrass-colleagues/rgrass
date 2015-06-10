@@ -100,4 +100,9 @@ class User_UserInfoModel extends Eloquent{
             ->where('user_id',$user_id)
             ->delete();
     }
+    static function getUserInfoByUserIdS($user_id){
+        return DB::table('user_info')
+            ->where('user_id',$user_id)
+            ->first();
+    }
 }

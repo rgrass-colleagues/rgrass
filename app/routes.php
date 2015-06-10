@@ -45,7 +45,8 @@ Route::get('/rgrassAdmin/ModifyChapterOrganization','Admin_BookController@showMo
 Route::get('/rgrassAdmin/DelChapterOrganization','Admin_BookController@doDelChapterOrganization');
 Route::get('/rgrassAdmin/ModifyChapterOrganizationInfo','Admin_BookController@showModifyChapterOrganizationInfo');
 Route::post('/rgrassAdmin/doModifyChapterOrganizationInfo','Admin_BookController@doModifyChapterOrganizationInfo');
-
+/*用户对小说的动态*/
+Route::get('/rgrassAdmin/showChapterDynamic','Admin_DynamicController@showChapterDynamic');
 
 //类型
 Route::get('/rgrassAdmin/BookTypeManager','Admin_BookTypeController@showTypeIndex');
@@ -70,6 +71,8 @@ Route::get('/rgrassAdmin/MessageManager','Admin_MessageController@showMessageInd
 Route::get('/rgrassAdmin/DelAdminMessage','Admin_MessageController@delAdminMessage');
 Route::get('/rgrassAdmin/ReplyAdminMessage','Admin_MessageController@replyAdminMessage');
 Route::post('/rgrassAdmin/doReplyAdminMessage','Admin_MessageController@doReplyAdminMessage');
+
+
 
 
 
