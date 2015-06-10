@@ -189,7 +189,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
         <a href="/rgrassAdmin/MessageManager">
 
-            <i class="icon-sign-blank"></i>
+            <i class="icon-male"></i>
 
             <span class="title">留言管理</span>
 
@@ -218,7 +218,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         <button data-dismiss="modal" class="close" type="button"></button>
 
         <h3>Widget Settings</h3>
-
+j6j6
     </div>
 
     <div class="modal-body">
@@ -414,6 +414,8 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 </div>
 
 <!-- END FOOTER -->
+
+
 
 
 

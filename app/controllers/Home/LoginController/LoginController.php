@@ -5,7 +5,7 @@
  * Date: 15-4-22
  * Time: 上午12:11
  */
-class Home_LoginController extends BaseController{
+class Home_LoginControllerLoginController extends BaseController{
     private $from_url=null;
     function __construct(){
         parent::__construct();

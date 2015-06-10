@@ -11,20 +11,23 @@
 <div id="book_sign_left">
     <div id="book_sign_left_title">
         <div id="book_sign_left_title_left">
-            <img src="../../../Tongrenfang/img/zhujian.jpg" alt="宠物狂想曲"/>
-            <a href="">宠物狂想曲</a>
-            <span>(书号：1234567)</span>
+            <img src="../../../Tongrenfang/img/zhujian.jpg" alt="{{$book_info->book_name}}"/>
+            <a href="">{{$book_info->book_name}}</a>
+            <span>(书号：{{$book_info->book_id}})</span>
         </div>
         <div id="book_sign_left_title_right">
-            <a href="http://www.rgrass.com/book?book_id=1" class="btn-success">本站首发</a>
-
+            @if($book_info->book_from_status=='0')
+            <a href="{{$book_info->book_from_url}}" class="btn-success">本站首发</a>
+            @else
+            <a href="{{$book_info->book_from_url}}" class="btn-blue">它站首发</a>
+            @endif
         </div>
     </div>
     <div id="book_sign_content">
         <div id="book_sign_content_left">
-            <img src="../../../Tongrenfang/img/1.jpeg" alt=""/>
+            <img src="./uploads/covers/{{$book_info->cover}}" alt=""/>
             <ul>
-                <li><a href="http://www.rgrass.com/catalog?book_id=1" class="btn btn-default">>>点击阅读</a></li>
+                <li><a href="http://www.rgrass.com/Catalog?book_id=1" class="btn btn-default">>>点击阅读</a></li>
                 <li><a href="" class="btn btn-default">加入书架</a></li>
                 <li><a href="" class="btn btn-default">我要推荐</a></li>
                 <li><a href="" class="btn btn-default">下载本书</a></li>
@@ -33,40 +36,42 @@
         </div>
         <div id="book_sign_content_right">
             <div id="book_sign_content_right_nav">
-                <span><a href="">首页</a></span>>
-                <span><a href="">动漫同人</a></span>>
-                <span><a href="" style="color:black;font-size:16px;">宠物狂想曲</a></span>
+                <span><a href="/">首页</a></span>>
+                <span><a href="/Index">同人坊</a></span>>
+                <span><a href="" style="color:black;font-size:16px;">{{$book_info->book_name}}</a></span>
             </div>
             <div id="book_sign_content_right_data">
                 <ul>
                     <li>总点击：</li>
-                    <li>1232131</li>
+                    <li>{{$book_detail->click_number_all}}</li>
                     <li>总推荐：</li>
-                    <li>3213</li>
-                    <li>月点击</li>
-                    <li>211321</li>
-                    <li>周点击</li>
-                    <li>21321</li>
-                    <li style="color:red;margin-right:10px; ">燃草中文社区首发</li>
+                    <li>{{$book_detail->recommend_all}}</li>
+                    <li>月推荐</li>
+                    <li>{{$book_detail->recommend_month}}</li>
+                    <li>周推荐</li>
+                    <li>{{$book_detail->recommend_week}}</li>
+                    @if($book_info->book_from_status=='0')
+                        <li style="color:red;margin-right:10px; ">燃草中文社区首发</li>
+                        @else
+                        <li style="color:#060;margin-right:10px; ">它站首发</li>
+                    @endif
                 </ul>
             </div>
             <div id="book_sign_content_right_detail">
                 <br/>
                 <textarea id="book_sign_content_right_content" disabled="disabled">
-                    一个少年被创世神阿尔宙斯、时间之神帝牙鲁卡和空间之神帕路奇犽合力带到宠物小精灵世界后，与创世神达成协议，帮其寻找这个世界所谓的本源！那么，就意味着他将会和小智一般，踏遍每一个地区！但是……
-
-                    他有着丰富的口袋知识……
-
-                    他对剧情无比熟悉……
-
-                    他还有着无比坚挺……好吧，超超级巨挺的后台……
+                    {{$book_info->detail}}
                 </textarea>
                 <div id="book_sign_url">
                     <span>本书首发自</span>
-                    <a href="http://www.rgrass.com/book?book_id=1">http://www.rgrass.com/book?book_id=1</a>
-                    <br>
+                    @if($book_info->book_from_status=='0')
+                        <a href="{{$book_info->book_from_url}}">{{$book_info->book_from_url}}</a>
+                    @else
+                        <a href="{{$book_info->book_from_url}}">{{$book_info->book_from_url}}</a>
+                    @endif
+                        <br>
                     <span class="last_book_sign_content">
-                        特此声明：本站所有书籍皆由网友上传，如有版权问题，请联系管理员。
+                        特此声明：本站所有书籍皆由网友上传，如有版权问题，请<a href="">联系</a>管理员。
                         <br/>本故事纯属虚构，请不要随意模仿。
                     </span>
                 </div>
@@ -82,17 +87,17 @@
         <img src="../../../Tongrenfang/img/1.jpeg" alt=""/>
         <br/>
         <span>作者：</span>
-        <span id="author_sign_name"><a href="">陈程程</a></span>
+        <span id="author_sign_name"><a href="">{{$book_info->author}}</a></span>
         <br>
         <br>
-        <span id="author_sign_random_write">作者很懒，什么都木有写～</span>
+        <span id="author_sign_random_write">{{$book_info->author_in_mind}}</span>
     </div>
     <div id="book_sign_right_dynamic">
         <div id="book_dynamic_title"><img src="../../Home/img/black_ico.gif" alt="强烈推荐"/><span>本书最新动态</span></div>
         <ul>
             <li><span>程程陈</span><span>打赏了</span><span>100</span><span>燃草币</span></li>
             <li><span>彭老板</span><span>投了</span><span>1</span><span>推荐票</span></li>
-            <li><span>程dddsssffdg程陈</span><span>打赏了</span><span>100</span><span>燃草币</span></li>
+            <li><span>程dddsssffdfdsfdsg程陈</span><span>打赏了</span><span>100</span><span>燃草币</span></li>
             <li><span>彭老板</span><span>投了</span><span>1</span><span>推荐票</span></li>
             <li><span>彭老板</span><span>投了</span><span>1</span><span>推荐票</span></li>
             <li><span>彭老板</span><span>投了</span><span>1</span><span>推荐票</span></li>

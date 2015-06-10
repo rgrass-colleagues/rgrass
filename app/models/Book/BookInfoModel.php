@@ -180,4 +180,12 @@ class Book_BookInfoModel extends Eloquent{
             ->where('id',$id)
             ->delete();
     }
+    /*
+     * 修改分卷
+     * */
+    public function modifyChapterOrganizaiton($id,$content){
+        return DB::table($this->chapter_organization)
+            ->where('id',$id)
+            ->update($content);
+    }
 }

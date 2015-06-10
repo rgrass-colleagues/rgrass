@@ -3,7 +3,7 @@
 文章管理
 @stop
 @section('pagetitle')
-文章列表
+添加新书籍
 @stop
 @section('ptitle')
 <ul class="breadcrumb">
@@ -18,12 +18,7 @@
 
     </li>
 
-    <li>
-        <a href="/rgrassAdmin/BookLists">文章管理</a>
-        <i class="icon-angle-right"></i>
-    </li>
-
-    <li><a href="/rgrassAdmin/BookLists">{{$book_id}}</a></li>
+    <li><a href="/rgrassAdmin/BookLists">书籍管理</a></li>
 
     <li class="pull-right no-text-shadow">
 
@@ -42,12 +37,14 @@
 </ul>
 @stop
 @section('content')
-<a href="/rgrassAdmin/ModifyChapterContent?book_id={{$book_id}}&&chapter_id={{$chapter_id}}" class="btn green">修改本章节</a>
-<div id="show_chapter_title">
-    <span>{{$chapter_title}}</span><span style="color:red;">本章字数:{{$count_chapter}}</span>
-</div>
-<div id="show_chapter_content" style="text-indent: 2em;">
-    {{$str_chapter_content}}
-</div>
+<form action="/rgrassAdmin/doModifyChapterOrganizationInfo" method="post">
+    修改卷名:<input type="text" name="organization_name" value="{{$organization_info->organization_name}}"/>
+    <input type="hidden" name="book_id" value="{{$organization_info->book_id}}"/>
+    <input type="hidden" name="usual_organization_name" value="{{$organization_info->organization_name}}"/>
+    <input type="hidden" name="id" value="{{$organization_info->id}}"/>
+    <br/>
+    <input type="submit" class="btn blue" value="确定修改"/>
+</form>
 
+{{HTML::script('Admin/js/jquery-1.10.1.min.js')}}
 @stop

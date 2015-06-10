@@ -14,9 +14,9 @@
                 </div>
                 <div id="content_nav">
                     <ul id="Category">
-                        <li><a href="index">同人坊</a></li>
-                        <li><a href="">武侠</a></li>
+                        <li><a href="/Index">同人坊</a></li>
                         <li><a href="">动漫</a></li>
+                        <li><a href="">武侠</a></li>
                         <li><a href="">漫综</a></li>
                         <li><a href="">影视</a></li>
                         <li><a href="">历史</a></li>

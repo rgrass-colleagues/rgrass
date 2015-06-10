@@ -14,7 +14,7 @@
         <div class="high_comment_content">
             <ul>
                 @foreach($stronglyRecommend as $v)
-                <li><a href="/error" target="_blank">[玄幻]</a><a href="/book?book_id={{$v->book_id}}" target="_blank">{{$v->book_name}}</a></li>
+                <li><a href="/error" target="_blank">[玄幻]</a><a href="/Book?book_id={{$v->book_id}}" target="_blank">{{$v->book_name}}</a></li>
                 @endforeach
             </ul>
         </div>
@@ -29,11 +29,27 @@
             <ol class="carousel-indicators">
                 <li data-target="#myCarousel" data-slide-to="0"  class="" ></li>
                 <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+                <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+                <li data-target="#myCarousel" data-slide-to="1" class=""></li>
                 <li data-target="#myCarousel" data-slide-to="2" class="active"></li>
             </ol>
             <div class="carousel-inner">
                 <div class="item">
                     <img src="../../../Cover/4.jpg" alt="">
+                    <div class="carousel-caption">
+                        <h4></h4>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="../../../Cover/2.jpg" alt="">
+                    <div class="carousel-caption">
+                        <h4></h4>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="../../../Cover/2.jpg" alt="">
                     <div class="carousel-caption">
                         <h4></h4>
                         <p></p>

@@ -2,10 +2,10 @@
 /**
  * Created by PhpStorm.
  * User: Bob
- * Date: 15-5-27
- * Time: 下午18:43
+ * Date: 15-5-29
+ * Time: 下午9:59
  */
-class Home_BookController extends BaseController{
+class Home_BookController_BookCatalogController extends BaseController{
     private $is_user_login=null;
     private $from_url = null;
     public function __construct(){
@@ -14,10 +14,9 @@ class Home_BookController extends BaseController{
         $this->from_url = $this->from_url();
     }
     /*
-     * 展示一本书籍的首页
-     * 获取的是进行过静态化处理的书籍
+     * 展示一本小说的目录
      * */
-    public function showBookIndex(){
+    public function showBookCatalog(){
         $book_id = $this->get('book_id');
         //var_dump($book_id);exit;
         if(!isset($book_id)){
@@ -25,7 +24,7 @@ class Home_BookController extends BaseController{
                 'from_url'=>$this->from_url
             ));
         }
-        return View::make('Home.Tongrenfang.BookIndex')->with(array(
+        return View::make('Home.BookViews.BookCatalog')->with(array(
             'is_user_login'=>$this->is_user_login
         ));
     }

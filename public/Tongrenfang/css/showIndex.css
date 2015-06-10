@@ -47,6 +47,13 @@ nav ul a{
     margin-left:10px;
     width:100px;
     text-align:center;
+    height:50px;
+}
+nav ul a:nth-child(4){
+    margin-right:10px;
+    background:#FF5500;
+    position: relative;
+    bottom:6px;
 }
 nav ul a:last-child{
     float:right;
@@ -474,7 +481,7 @@ footer a{
 }
 #book_sign_left{
     width: 80%;
-    height: 500px;
+    min-height: 500px;
     border: 1px solid #D8D8D8;
     float: left;
     padding:5px;
@@ -757,3 +764,35 @@ span.emotion:hover{background-position:2px -28px;/*注意hover此属性在ie 6�
 .qqFace table td img{cursor:pointer;border:1px #fff solid;}
 .qqFace table td img:hover{border:1px #0066cc solid;}
 /**QQ表情插件结束**/
+
+
+/*****catalog by bob start,create time is 15-06-10,17:19******/
+#home_catalog tr td{
+    width:33%;
+    text-align: center;
+}
+#home_catalog tr td a{
+    color:#060;
+
+}
+
+
+/*****catalog by bob end,create time is 15-06-10,17:19******/
+/******chapter-content by bob start,time is 15-06-10,18:28************/
+#chapter_content{
+/*禁止复制*/
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+#chapter_content div{
+    text-align: center;
+    font-size: 25px;
+    line-height:50px;
+}
+#chapter_content p{
+    text-indent: 2em;
+    font-size:18px;
+}
+
+/******chapter-content by bob start,time is 15-06-10,18:28************/

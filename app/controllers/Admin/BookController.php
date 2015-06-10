@@ -202,19 +202,22 @@ class Admin_BookController extends BaseController{
         $chapter_id = $this->get('chapter_id');
         //拼接章节对应的路径
         $file_url = './Book_List/'.$book_id.'/'.$organization_name.'/'.$chapter_name.'.txt';
+        $dir_path = './Book_List/'.$book_id.'/'.$organization_name;
         if(!file_exists($file_url)){
             //如果该章节对应的txt文档不存在,先从数据库中查询得到,再重新创建一个新的txt文档
         $chapter_content = $this->BookContent->getChapterContentByChapterId($book_id,$chapter_id);
             //获取内容
             $str_chapter_content = $chapter_content->chapter_content;
-
+            if(!file_exists($dir_path)){//如果文件夹不存在,先创建文件夹
+                mkdir($dir_path);
+            }
             touch($file_url);
             file_put_contents($file_url,$str_chapter_content);//把内容放进新创建的txt文档里面
         }else{
             //获取内容
             $str_chapter_content = file_get_contents($file_url);
         }
-        $count_chapter = strlen($str_chapter_content);
+        $count_chapter = mb_strlen($str_chapter_content,'UTF-8');
         return View::make('Admin.BookViews.BookChapterContent')->with(array(
             'book_id'=>$book_id,
             'chapter_id'=>$chapter_id,
@@ -252,11 +255,9 @@ class Admin_BookController extends BaseController{
          * 2,在除第一段外的段首空两格
          * 3,在第一段段首空两格
          * */
-        $chapter_content = str_replace("&lt;br /&gt;","",$chapter_content);
-        $chapter_content = str_replace("&nbsp;","",$chapter_content);
-        $chapter_content = nl2br($chapter_content);
-//        $chapter_content = str_replace("<br />","<br />&nbsp;&nbsp;&nbsp;&nbsp;",$chapter_content);
-//        $chapter_content = "&nbsp;&nbsp;&nbsp;&nbsp;".$chapter_content;
+        $Text = new Common_TextBeautifyModel();
+        $chapter_content = $Text->addPInText($chapter_content);
+
         //通过username获取uid,得到修改本章节的人
         $update_user = $this->UserInfo->getUserInfoByUserName($update_user);
         $update_user = $update_user->user_id;
@@ -274,15 +275,18 @@ class Admin_BookController extends BaseController{
                 mkdir($dir_url);
                 touch($file_url);
                 file_put_contents($file_url,$chapter_content);
-                echo '成功执行所有操作0';
+                return Redirect::to('rgrassAdmin/chapter_manager?book_id='.$book_id);
+                //echo '成功执行所有操作0';
             }else{
                 if(!file_exists($file_url)){
                     touch($file_url);
                     file_put_contents($file_url,$chapter_content);
-                    echo '成功执行所有操作1';
+                    return Redirect::to('rgrassAdmin/chapter_manager?book_id='.$book_id);
+                    //echo '成功执行所有操作1';
                 }else{
                     file_put_contents($file_url,$chapter_content);
-                    echo '成功执行所有操作2';
+                    return Redirect::to('rgrassAdmin/chapter_manager?book_id='.$book_id);
+                    //echo '成功执行所有操作2';
                 }
             }
         }else{
@@ -346,14 +350,10 @@ class Admin_BookController extends BaseController{
         $update_time = time();
         $update_users = $this->post('update_user');
         $chapter_organization = $this->post('chapter_organization');
-        /*对内容进行编辑*/
-        $chapter_content = str_replace("&lt;br /&gt;","",$chapter_content);
-        $chapter_content = str_replace("&nbsp;","",$chapter_content);
-        $chapter_content = nl2br($chapter_content);
-//        $chapter_content = str_replace("<br />","<br />&nbsp;&nbsp;&nbsp;&nbsp;",$chapter_content);
-//        $chapter_content = "&nbsp;&nbsp;&nbsp;&nbsp;".$chapter_content;
-
-
+        /****对内容进行编辑****/
+        $Text = new Common_TextBeautifyModel();
+        $chapter_content = $Text->addPInText($chapter_content);
+        /****对内容进行编辑****/
         $content = array('chapter_name'=>$chapter_name,'chapter_content'=>$chapter_content,'update_time'=>$update_time,'update_users'=>$update_users,'chapter_organization'=>$chapter_organization);
         /*获取以前的文件夹信息*/
         $last_path = $this->getFilePathByBookIdAndChapterId($book_id,$chapter_id);
@@ -430,10 +430,15 @@ class Admin_BookController extends BaseController{
             if($this->BookContent->delBookContentByOrganizaitonId($organization_info->book_id,$id)){
                 //删除对应的文件
                 if(file_exists($dir_path)){
-                    $this->delDirAndDirFile($dir_path);
+                    if($this->delDirAndDirFile($dir_path)){
+                        return Redirect::to('/rgrassAdmin/ModifyChapterOrganization?book_id='.$organization_info->book_id);
+                    }else{
+                        dd('删除文件夹失败');
+                    }
                 }
+            }else{
+                dd('删除对应的书籍失败');
             }
-            return Redirect::to('/rgrassAdmin/ModifyChapterOrganization');
         }else{
             dd('删除分卷失败');
         }
@@ -444,23 +449,52 @@ class Admin_BookController extends BaseController{
     public function delDirAndDirFile($dir){
         //先删除目录下的文件：
         $dh=opendir($dir);
-        while ($file=readdir($dh)) {
-            if($file!="." && $file!="..") {
+        while ($file=readdir($dh)){
+            if($file!="." && $file!=".."){
                 $fullpath=$dir."/".$file;
-                if(!is_dir($fullpath)) {
+                if(!is_dir($fullpath)){
                     unlink($fullpath);
-                } else {
+                }else{
                     deldir($fullpath);
                 }
             }
         }
-
         closedir($dh);
         //删除当前文件夹：
-        if(rmdir($dir)) {
+        if(rmdir($dir)){
             return true;
-        } else {
+        }else{
             return false;
+        }
+    }
+    /*
+     * 修改某一分卷
+     * */
+    public function showModifyChapterOrganizationInfo(){
+        $id = $this->get('id');
+        $organization_info = $this->BookModel->getChapterOrganizationInfoByOid($id);
+        return View::make('Admin.BookViews.ModifyChapterOrganizationInfo')->with(array(
+            'organization_info'=>$organization_info
+        ));
+    }
+    public function doModifyChapterOrganizationInfo(){
+        $id = $this->post('id');
+        $book_id = $this->post('book_id');
+        $usual_organization_name = $this->post('usual_organization_name');//旧名字
+        $organization_name = $this->post('organization_name');//新修改的名字
+        $usual_dir_path = './Book_List/'.$book_id.'/'.$usual_organization_name;
+        $new_dir_path = './Book_List/'.$book_id.'/'.$organization_name;
+        $content = array('organization_name'=>$organization_name,'add_time'=>time());
+        if($this->BookModel->modifyChapterOrganizaiton($id,$content)){
+            if(file_exists($usual_dir_path)){
+                if(rename($usual_dir_path,$new_dir_path)){
+                    return Redirect::to('/rgrassAdmin/ModifyChapterOrganization?book_id='.$book_id);
+                }else{
+                    dd('文件名修改失败');
+                }
+            }
+        }else{
+            dd('数据库修改失败');
         }
     }
 }

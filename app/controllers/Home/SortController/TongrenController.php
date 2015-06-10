@@ -5,7 +5,7 @@
  * Date: 15-5-26
  * Time: 下午23:20
  */
-class Home_TongrenController extends BaseController{
+class Home_SortController_TongrenController extends BaseController{
     private $is_user_login=null;
     private $data_list=null;
     private $redis =null;
@@ -19,7 +19,7 @@ class Home_TongrenController extends BaseController{
     }
     public function showTongrenIndex(){
         $stronglyRecommend = $this->getStronglyRecommend();//每一周强烈推荐
-        return View::make('Home.Tongrenfang.tongrenIndex')->with(array(
+        return View::make('Home.SortViews.TongrenFangIndex')->with(array(
             'is_user_login'=>$this->is_user_login,
             'stronglyRecommend'=>$stronglyRecommend
         ));

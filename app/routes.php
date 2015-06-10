@@ -1,5 +1,5 @@
 <?php
-//后台
+//后台管理
 
 //登陆
 Route::get('wwwdotrgrassdotcomAdministrationLogin','Admin_LoginController@LoginIndex');
@@ -43,8 +43,8 @@ Route::get('/rgrassAdmin/addNewOrganization','Admin_BookController@addNewOrganiz
 Route::post('/rgrassAdmin/doAddOrganization','Admin_BookController@doAddOrganization');
 Route::get('/rgrassAdmin/ModifyChapterOrganization','Admin_BookController@showModifyChapterOrganization');//修改分卷信息
 Route::get('/rgrassAdmin/DelChapterOrganization','Admin_BookController@doDelChapterOrganization');
-
-
+Route::get('/rgrassAdmin/ModifyChapterOrganizationInfo','Admin_BookController@showModifyChapterOrganizationInfo');
+Route::post('/rgrassAdmin/doModifyChapterOrganizationInfo','Admin_BookController@doModifyChapterOrganizationInfo');
 
 
 //类型
@@ -73,18 +73,34 @@ Route::post('/rgrassAdmin/doReplyAdminMessage','Admin_MessageController@doReplyA
 
 
 
-//前台
-Route::get('/','Home_IndexController@showIndex');
-Route::get('/login','Home_LoginController@showLogin');
-Route::get('/reg','Home_LoginController@showReg');
-Route::get('/out','Home_LoginController@out');
-Route::post('/doLogin','Home_LoginController@doLogin');
-Route::post('/doReg','Home_LoginController@doReg');
-Route::post('/ajax/user_confirm','Home_LoginController@ajaxUserConfirm');
-Route::get('/activate','Home_LoginController@accountAcitvate');
-Route::get('/index','Home_TongrenController@showTongrenIndex');
-Route::get('/book','Home_BookController@showBookIndex');
-Route::get('/catalog','Home_BookCatalogController@showBookCatalog');
+//前台管理
+
+/****首页******/
+Route::get('/','Home_IndexController_IndexController@showIndex');
+/****首页******/
+
+
+/****登陆注册*****/
+Route::get('/Login','Home_LoginControllerLoginController@showLogin');
+Route::get('/Reg','Home_LoginControllerLoginController@showReg');
+Route::get('/Out','Home_LoginControllerLoginController@out');
+Route::post('/doLogin','Home_LoginControllerLoginController@doLogin');
+Route::post('/doReg','Home_LoginControllerLoginController@doReg');
+Route::post('/ajax/user_confirm','Home_LoginControllerLoginController@ajaxUserConfirm');
+Route::get('/Activate','Home_LoginControllerLoginController@accountAcitvate');
+/****登陆注册*****/
+
+/****分类栏目****/
+Route::get('/Index','Home_SortController_TongrenController@showTongrenIndex');
+/****分类栏目****/
+
+/*****小说相关*****/
+Route::get('/Book','Home_BookController_BookController@showBookIndex');
+Route::get('/Catalog','Home_BookController_BookCatalogController@showBookCatalog');
+Route::get('/ChapterContent','Home_BookController_ChapterContentController@showChapterContent');
+/*****小说相关*****/
+
+
 
 
 

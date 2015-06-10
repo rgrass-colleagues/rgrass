@@ -36,7 +36,7 @@ class Book_CreateBookContentModel extends Eloquent{
             $table->string('chapter_name',255);
             $table->text('chapter_content');
             $table->integer('update_time');
-            $table->integer('update_name');
+            $table->integer('update_users');
             $table->integer('chapter_organization');
         });
         //还需要建立对应的txt文档文件夹,文件夹名字与数据库内一致
