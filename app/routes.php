@@ -47,6 +47,23 @@ Route::get('/rgrassAdmin/ModifyChapterOrganizationInfo','Admin_BookController@sh
 Route::post('/rgrassAdmin/doModifyChapterOrganizationInfo','Admin_BookController@doModifyChapterOrganizationInfo');
 /*用户对小说的动态*/
 Route::get('/rgrassAdmin/showChapterDynamic','Admin_DynamicController@showChapterDynamic');
+Route::get('/rgrassAdmin/DelChapterDynamic','Admin_DynamicController@doDelChapterDynamic');
+Route::get('/rgrassAdmin/AddChapterDynamic','Admin_DynamicController@AddChapterDynamic');
+Route::post('/rgrassAdmin/doAddChapterDynamic','Admin_DynamicController@doAddChapterDynamic');
+Route::get('/rgrassAdmin/ModifyChapterDynamic','Admin_DynamicController@ModifyChapterDynamic');
+Route::post('/rgrassAdmin/doModifyChapterDynamic','Admin_DynamicController@doModifyChapterDynamic');
+
+/*小说评论*/
+Route::get('/rgrassAdmin/showBookDiscuss','Admin_DiscussController@showBookDiscuss');
+Route::get('/rgrassAdmin/AddMainDiscuss','Admin_DiscussController@AddMainDiscuss');
+Route::post('/rgrassAdmin/doAddMainDiscuss','Admin_DiscussController@doAddMainDiscuss');
+Route::get('/rgrassAdmin/ModifyMainDiscuss','Admin_DiscussController@ModifyMainDiscuss');
+Route::post('/rgrassAdmin/doModifyMainDiscuss','Admin_DiscussController@doModifyMainDiscuss');
+Route::get('/rgrassAdmin/DiscussChildIndex','Admin_DiscussController@showDiscussChildIndex');
+Route::get('/rgrassAdmin/AddDiscussChild','Admin_DiscussController@AddDiscussChild');
+Route::post('/rgrassAdmin/doAddDiscussChild','Admin_DiscussController@doAddDiscussChild');
+Route::get('/rgrassAdmin/ModifyChildDiscuss','Admin_DiscussController@ModifyChildDiscuss');
+Route::post('/rgrassAdmin/doModifyDiscussChild','Admin_DiscussController@doModifyDiscussChild');
 
 //类型
 Route::get('/rgrassAdmin/BookTypeManager','Admin_BookTypeController@showTypeIndex');

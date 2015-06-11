@@ -37,9 +37,9 @@
 </ul>
 @stop
 @section('content')
+<a href="/rgrassAdmin/AddChapterDynamic?book_id={{$book_id}}" class="btn green-stripe">添加动态</a><br><br>
     <table class="table table-hover">
         <tr>
-            <td>用户</td>
             <td>行为</td><!--行为与值拼接-->
             <td>时间</td>
             <td>操作</td>
@@ -47,16 +47,11 @@
         @foreach($dynamic_info as $v)
         <tr>
             <td>
-                <?php
-                //$user_info = new User_UserInfoModel();
-                //$user_infos = $user_info->getUserBaseInfoById($v->user_id);
-                ?>
-                {{User_UserInfoModel::getUserInfoByUserIdS($v->user_id)->username}}
+                {{ViewSpalls_AdminViewSpallsModel::expressiveBehavior($v->user_id,$v->behavior,$v->action_value)}}
             </td>
-            <td>{{$v->behavior}}</td>
-            <td>{{$v->addtime}}</td>
-            <td><a href="" class="btn green-stripe">修改</a></td>
-            <td><a href="" class="btn red">删除</a></td>
+            <td>{{date('Y-m-d H:i:s',$v->addtime)}}</td>
+            <td><a href="/rgrassAdmin/ModifyChapterDynamic?book_id={{$book_id}}&&id={{$v->id}}" class="btn blue">修改</a></td>
+            <td><a href="/rgrassAdmin/DelChapterDynamic?book_id={{$book_id}}&&id={{$v->id}}" class="btn red" onclick="return confirm('确定删除吗?')">删除</a></td>
         </tr>
         @endforeach
     </table>

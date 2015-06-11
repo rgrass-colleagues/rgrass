@@ -41,7 +41,7 @@
 <a href="/rgrassAdmin/addNewOrganization?book_id={{$book_id}}" class="btn green">添加新卷</a>
 <a href="/rgrassAdmin/ModifyChapterOrganization?book_id={{$book_id}}" class="btn black">分卷操作</a>
 <a href="/rgrassAdmin/showChapterDynamic?book_id={{$book_id}}" class="btn purple">本书动态</a>
-<a href="/rgrassAdmin/showChapterDiscuss?book_id={{$book_id}}" class="btn yellow">评论专区</a>
+<a href="/rgrassAdmin/showBookDiscuss?book_id={{$book_id}}" class="btn yellow">评论专区</a>
 <br/><br/>
 <table class="table table-hover book_content">
     <tr><td style="text-align: left" colspan="3"><span>全书共<span style="color:red;">{{$chapter_count}}</span><span>张</span></span></td></tr>
