@@ -20,56 +20,9 @@ class Admin_MessageController extends BaseController{
     public function showMessageIndex(){
         $admin_message = $this->msg->getAllAdminMessage();
 
-        foreach($admin_message as $v){
-            //此处对从数据库里查询的信息作处理
-            $v->sender_name = $this->messageViewSpall('user_id',$v->sender);
-            $v->receiver_name = $this->messageViewSpall('admin_id',$v->receiver);
-            $v->to_user_name = $this->messageViewSpall('to_user',$v->to_user);
-            $v->addtime = $this->messageViewSpall('addtime',$v->addtime);
-        }
         return View::make('Admin.MessageViews.MessageIndex')->with(array(
             'admin_message'=>$admin_message
         ));
-    }
-    /*
-     * 处理传进来的信息data
-     * */
-    public function messageViewSpall($spall,$val){
-        switch($spall){
-            case 'user_id':
-                $str = $this->user->getUserNameByUserId($val);
-                if($str){
-                    return $str[0];
-                }else{
-                    return '<span style="color:gray">没有该用户</span>';
-                }
-            break;
-            case 'admin_id':
-                return $this->user->getUserNameByUserId($val)[0];
-            break;
-            case 'to_user';
-                return $this->toUserCondition($val);
-            break;
-            case 'addtime';
-                return date('Y-m-d H:i:s',$val);
-            break;
-            default:
-                dd('error');
-        }
-
-    }
-    /*
-     * 处理信息的状态码(0,1)
-     * */
-    public function toUserCondition($to_user){
-        switch($to_user){
-            case 0:
-                return '<span style=\'color:red\'>管理员查收</span>';
-            break;
-            case 1:
-                return '<span style=\'color:#060\'>管理员回复</span>';
-                break;
-        }
     }
     /*
      * 管理员对留言用户的回复

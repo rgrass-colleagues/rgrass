@@ -57,4 +57,17 @@ class ViewSpalls_AdminViewSpallsModel extends Eloquent{
 
         }
     }
+    /*
+ * 处理信息的状态码(0,1)
+ * */
+    static public function toUserCondition($to_user){
+        switch($to_user){
+            case 0:
+                return '<span style=\'color:red\'>管理员查收</span>';
+                break;
+            case 1:
+                return '<span style=\'color:#060\'>管理员回复</span>';
+                break;
+        }
+    }
 }

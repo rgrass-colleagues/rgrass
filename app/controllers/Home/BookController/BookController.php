@@ -22,8 +22,12 @@ class Home_BookController_BookController extends BaseController{
      * */
     public function showBookIndex(){
         $book_id = $this->get('book_id');
-        $book_info = $this->bookModel->getBookBaseInfoById($book_id);
-        $book_detail = $this->bookModel->getOneBookAllDetailById($book_id);
+        if(!$book_info = $this->bookModel->getBookBaseInfoById($book_id)){
+            dd('抱歉，没有这本书');
+        }
+        if($book_detail = $this->bookModel->getOneBookAllDetailById($book_id)){
+//            dd('抱歉，这本书没有详情');
+        }
 //        dd($book_info);
         //var_dump($book_id);exit;
         if(empty($book_id)||!$book_info){//书籍id不存在,或者书籍不存在

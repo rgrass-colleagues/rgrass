@@ -27,7 +27,7 @@
         <div id="book_sign_content_left">
             <img src="./uploads/covers/{{$book_info->cover}}" alt=""/>
             <ul>
-                <li><a href="http://www.rgrass.com/Catalog?book_id=1" class="btn btn-default">>>点击阅读</a></li>
+                <li><a href="http://www.rgrass.com/Catalog?book_id={{$book_info->book_id}}" class="btn btn-default">>>点击阅读</a></li>
                 <li><a href="" class="btn btn-default">加入书架</a></li>
                 <li><a href="" class="btn btn-default">我要推荐</a></li>
                 <li><a href="" class="btn btn-default">下载本书</a></li>

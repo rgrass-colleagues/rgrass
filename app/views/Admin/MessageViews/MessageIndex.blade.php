@@ -37,8 +37,7 @@
 </ul>
 @stop
 @section('content')
-<a href="/rgrassAdmin/MessageManager" class="btn gray">给管理员的留言</a>
-<a href="/rgrassAdmin/BookDiscuss" class="btn blue">书籍评论</a>
+<a href="/rgrassAdmin/MessageManager" class="btn purple">给管理员的留言</a>
 <br/>
 <br/>
     <table class="table table-hover">
@@ -54,11 +53,11 @@
         @foreach($admin_message as $msg)
         <tr>
             <td>{{$msg->message_id}}</td>
-            <td>{{$msg->sender_name}}</td>
-            <td>{{$msg->receiver_name}}</td>
+            <td>{{ViewSpalls_AdminViewSpallsModel::getUserNameByUserIdS($msg->sender)}}</td>
+            <td>{{ViewSpalls_AdminViewSpallsModel::getUserNameByUserIdS($msg->receiver)}}</td>
             <td>{{$msg->estimate_content}}</td>
-            <td>{{$msg->to_user_name}}</td>
-            <td>{{$msg->addtime}}</td>
+            <td>{{ViewSpalls_AdminViewSpallsModel::toUserCondition($msg->to_user)}}</td>
+            <td>{{date('Y-m-d H:i:s',$msg->addtime)}}</td>
             <td><a href="/rgrassAdmin/ReplyAdminMessage?to_user={{$msg->to_user}}&&sender={{$msg->sender}}&&receiver={{$msg->receiver}}" class="btn green">回复</a> <a href="/rgrassAdmin/DelAdminMessage?message_id={{$msg->message_id}}" class="btn red" onclick="return confirm('确定删除该信息吗?')">删除</a></td>
         </tr>
         @endforeach

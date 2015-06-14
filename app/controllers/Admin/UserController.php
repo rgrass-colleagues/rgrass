@@ -17,7 +17,6 @@ class Admin_UserController extends BaseController{
     //在页面中列表显示
     public function showAdminUserInfo(){
         $userBaseInfo = $this->userModel->getUserBaseInfoAll();
-        //
         foreach($userBaseInfo as $k=>$v){
             $userBaseInfo[$k]->authority=$this->showUserAuthoirtysign($v->authority);
             $userBaseInfo[$k]->is_author = $this->showUserIsAuthorSign($userBaseInfo[$k]->is_author);//是否作者

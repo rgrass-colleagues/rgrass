@@ -47,7 +47,6 @@
     用户头像:<input type="file" name="user_picture"><br><br/>
     用户账号:<input type="text" name="info_username" value="@if(!empty($userInfo)){{$userInfo->username}}@endif"/><br>
     用户密码:<input type="text" name="info_password"><br>
-    用户积分:<input type="text" name="info_credit" value="@if(!empty($userInfo)){{$userInfo->credit}}@endif"><br>
     用户邮箱:<input type="text" name="info_email" value="@if(!empty($userInfo)){{$userInfo->email}}@endif"><br>
     用户手机:<input type="text" name="info_telephone" value="@if(!empty($userInfo)){{$userInfo->telephone}}@endif"><br>
     用户权限:<select name="info_authority">
@@ -55,10 +54,6 @@
         <option value="1">会员</option>
     </select>
     <br>
-    是否作者:<select name="info_is_author">
-        <option value="0">他/她不是作者</option>
-        <option value="1">他/她就是作者</option>
-    </select>
     <br><br><br>
     ----------------用户详细信息--------------<br><br>
     用户昵称:<input type="text" name="nick_name" value="@if(!empty($userDetail)){{$userDetail->nick_name}}@endif"><br>

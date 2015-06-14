@@ -1,5 +1,5 @@
 <header>
-    <a href="http://www.rgrass.com/index"><img src="../../Home/img/logo.jpg" alt="燃草中文同人坊" id="show_logo"/></a>
+    <a href="http://www.rgrass.com/Index"><img src="../../Home/img/logo.jpg" alt="燃草中文同人坊" id="show_logo"/></a>
     <div id="login_module">
         @if(!isset($is_user_login))
         <span id="login">

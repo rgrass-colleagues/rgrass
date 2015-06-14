@@ -87,16 +87,16 @@ class Book_CreateBookContentModel extends Eloquent{
         "add_time"=>"0");
         array_push($chapter_organization_info,$text);
         foreach ($chapter_organization_info as $v) {
-            $catalog[$v->organization_name] = DB::connection($database)
+            $catalog[] = DB::connection($database)
                 ->table($table)
                 ->where('chapter_organization',$v->id)
-                ->select('id','chapter_name')
+                ->select('id','chapter_name','chapter_organization')
                 ->get();
         }
             return $catalog;
     }
     /*
-     * 通过章节名获取章节内容
+     * 通过章节id获取章节内容
      * */
     public function getChapterContentByChapterId($book_id,$chapter_id){
         $database = $this->useDatabaseByBookId($book_id);
