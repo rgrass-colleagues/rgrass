@@ -11,6 +11,9 @@ class User_UserInfoModel extends Eloquent{
      * */
     protected $users = 'user_info';
     protected $user_detail = 'user_detail';
+    private $property = 'user_property';
+    private $tag = 'user_tag';
+    private $author = 'author';
     /*
      * 查询users表全部数据
      * */
@@ -99,5 +102,73 @@ class User_UserInfoModel extends Eloquent{
         return DB::table($this->users)
             ->where('user_id',$user_id)
             ->delete();
+    }
+    /*创建用户的时候同时创建用户财产*/
+    public function createUserProperty($user_id){
+        $content = array('user_id'=>$user_id);
+        return DB::table($this->property)
+            ->insert($content);
+    }
+    /*通过id查看用户财产情况*/
+    public function getUserPropertyByUserId($user_id){
+        return DB::table($this->property)
+            ->where('user_id',$user_id)
+            ->first();
+    }
+    /*通过id修改用户财产*/
+    public function modifyUserProperty($user_id,$content){
+        return DB::table($this->property)
+            ->where('user_id',$user_id)
+            ->update($content);
+    }
+
+
+
+    /*添加一条用户标签*/
+    public function addUserTags($user_id){
+        $content = array('user_id'=>$user_id);
+        return DB::table($this->tag)
+            ->insert($content);
+    }
+
+
+    /*把非作者状态改成作者状态*/
+    public function TransferToAuthor($user_id){
+        $content = array('is_author'=>1);
+        return DB::table($this->users)
+            ->where('user_id',$user_id)
+            ->update($content);
+    }
+
+    /*变为作者状态后对作者数据表插入*/
+    public function insertAuthorData($user_id){
+        $username = $this->getUserNameByUserId($user_id)->username;
+        $content = array(
+            'user_id'=>$user_id,
+            'pen_name'=>$username,
+            'addtime'=>time(),
+        );
+        return DB::table($this->author)
+            ->insert($content);
+    }
+
+    /*查询所有作者*/
+    public function getAllAuthorInfo(){
+        return DB::table($this->author)
+            ->get();
+    }
+
+    /*查询一条作者信息*/
+    public function getAuthorById($id){
+        return DB::table($this->author)
+            ->where('id',$id)
+            ->first();
+    }
+
+    /*修改对应的作者信息*/
+    public function modifyAuthorInfo($user_id,$content){
+        return DB::table($this->author)
+            ->where('user_id',$user_id)
+            ->update($content);
     }
 }

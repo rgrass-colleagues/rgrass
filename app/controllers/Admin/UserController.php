@@ -98,7 +98,7 @@ class Admin_UserController extends BaseController{
     }
     public function doAddNewOrModifyOneUser(){
         $file_upload = new Common_FileUploadsModel();
-        $userInfo['user_picture'] = $file_upload->FileUpload('cover','covers');//图片上传处理
+        $userInfo['user_picture'] = $file_upload->FileUpload('user_picture','users');//图片上传处理
         foreach($_POST as $k=>$v){
             if($k=='page_type'){
                 $page_type=$_POST[$k];
@@ -119,12 +119,13 @@ class Admin_UserController extends BaseController{
         $userInfo['last_login_time']=0;
         //删掉以前的图片
         $del_file_url = './uploads/users/'.$userInfo['last_user_picture'];
-        if(file_exists($del_file_url) && is_file($del_file_url)){
-            unlink($del_file_url);
-        }
         //判断是否有进行图片上传
         if(!$userInfo['user_picture']){
             $userInfo['user_picture']=$userInfo['last_user_picture'];
+        }else{//有进行图片上传才把以前的图片给删了
+            if(file_exists($del_file_url) && is_file($del_file_url)){
+                unlink($del_file_url);
+            }
         }
         unset($userInfo['last_user_picture']);
         //删除多余的变量
@@ -138,16 +139,21 @@ class Admin_UserController extends BaseController{
             $this->userModel->modifyUserInfoByUid($userInfo,$userInfo['user_id']);
             if(!$modifyDetail){
                 $userDetail['user_id']=$userInfo['user_id'];
-                $this->userModel->insertNewUserDetail($userDetail);
+                if(!$this->userModel->insertNewUserDetail($userDetail)){
+                    dd('创建user_detail内容失败');
+                }
+
             }
         }else{
             //用户处在增添状态的时候
             $user_create_id = $this->userModel->insertNewUser($userInfo);
             if(isset($user_create_id)){
                 $userDetail['user_id']=$user_create_id;
-                $create_new_detail = $this->userModel->insertNewUserDetail($userDetail);
-                if($create_new_detail){
-                    echo '<script>alert("添加用户成功")</script>';
+                if(!$this->userModel->insertNewUserDetail($userDetail)){
+                    dd('创建用户详情失败');
+                }
+                if(!$this->userModel->createUserProperty($user_create_id)){
+                    dd('创建用户财产失败');
                 }
             }
         }
@@ -157,9 +163,78 @@ class Admin_UserController extends BaseController{
     /*
      * 删除用户
      * */
+    /*//现在不能删除用户了
     public function doDelUser(){
         $user_id = $this->get('user_id');
         $this->userModel->delUserByUId($user_id);
         return Redirect::to('/rgrassAdmin/UserInfo');
+    }*/
+    /*查看用户财产*/
+    public function showUserPropertyIndex(){
+        $user_id = $this->get('user_id');
+        $user_property = $this->userModel->getUserPropertyByUserId($user_id);
+        return View::make('Admin.UserViews.UserPropertyIndex')->with(array(
+            'user_property'=>$user_property
+        ));
+    }
+    public function ModifyUserProperty(){
+        $user_id = $this->get('user_id');
+        $user_property = $this->userModel->getUserPropertyByUserId($user_id);
+        return View::make('Admin.UserViews.ModifyUserProperty')->with(array(
+            'user_property'=>$user_property
+        ));
+    }
+    public function doModifyUserProperty(){
+        $user_id = $this->post('user_id');
+        $content = array(
+            'user_id'=>$user_id,
+            'points'=>$this->post('points'),
+            'rgrass_coin'=>$this->post('rgrass_coin'),
+            'recommend_ticket'=>$this->post('recommend_ticket'),
+        );
+        if($this->userModel->modifyUserProperty($user_id,$content)){
+            return Redirect::to('/rgrassAdmin/UserPropertyIndex?user_id='.$user_id);
+        }
+
+    }
+    public function doUserTransferAuthor(){
+        $user_id = $this->get('user_id');
+        if($this->userModel->TransferToAuthor($user_id)){
+            /*需要在此处对作者表插入数据(暂无此功能)*/
+            if($this->userModel->insertAuthorData($user_id)){
+                Return Redirect::to('/rgrassAdmin/UserInfo');
+            }else{
+                dd('插入作者表失败');
+            }
+        }else{
+            dd('转职成作者失败');
+        }
+    }
+    public function showAuthorIndex(){
+        $author_info = $this->userModel->getAllAuthorInfo();
+        return View::make('Admin.UserViews.AuthorIndex')->with(array(
+            'author_info'=>$author_info
+        ));
+    }
+    public function showModifyAuthorInfo(){
+        $id = $this->get('id');
+        $author = $this->userModel->getAuthorById($id);
+        return View::make('Admin.UserViews.ModifyAuthorInfo')->with(array(
+            'author'=>$author
+        ));
+    }
+
+    public function doModifyAuthorInfo(){
+        $user_id = $this->post('user_id');
+        $content = array(
+            'pen_name'=>$this->post('pen_name'),
+            'author_in_mind'=>$this->post('author_in_mind'),
+            'addtime'=>time(),
+        );
+        if($this->userModel->modifyAuthorInfo($user_id,$content)){
+            return Redirect::to('/rgrassAdmin/AuthorIndex');
+        }else{
+            dd('修改失败');
+        }
     }
 }

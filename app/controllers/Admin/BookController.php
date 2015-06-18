@@ -9,12 +9,14 @@ class Admin_BookController extends BaseController{
     private $BookModel = null;
     private $BookContent = null;
     private $UserInfo=null;
+    private $book_type = null;
     public function __construct(){
         $this->is_admin_login();
         parent::__construct();
         $this->BookModel = new Book_BookInfoModel();
         $this->BookContent = new Book_CreateBookContentModel();
         $this->UserInfo = new User_UserInfoModel();
+        $this->book_type = new Type_TypeInfoModel();
     }
     public function showBookLists(){
         $BookBaseInfo = $this->BookModel->getBookBaseInfoAll();
@@ -48,11 +50,13 @@ class Admin_BookController extends BaseController{
      * 共同使用一个方法
      * */
     public function AddNewOrModifyOneBook(){
-        $page_type=$this->get('page_type');
+        $page_type=$this->get('page_type');//create&modify判断修改删除
+        $bookTypeInfo = $this->book_type->getBookTypeNotPidByZero();
         if($page_type=='create'){
             //创建新书籍
             return View::make('Admin.BookViews.AddNewOrModifyOneBook')->with(array(
-                'page_type'=>$page_type
+                'page_type'=>$page_type,
+                'book_type'=>$bookTypeInfo
             ));
         }else if($page_type=="modify"){
             //修改旧书籍
@@ -64,7 +68,8 @@ class Admin_BookController extends BaseController{
             return View::make('Admin.BookViews.AddNewOrModifyOneBook')->with(array(
                 'page_type'=>$page_type,
                 'book_info'=>$book_info,
-                'book_detail'=>$book_detail
+                'book_detail'=>$book_detail,
+                'book_type'=>$bookTypeInfo
             ));
         }
     }
@@ -100,16 +105,24 @@ class Admin_BookController extends BaseController{
         }else{
             $del_file_url="";
         }
-        if(file_exists($del_file_url) && is_file($del_file_url)){
-            unlink($del_file_url);
-        }
         //判断是否有进行图片上传
         if(!$bookBaseInfo['cover']){
             $bookBaseInfo['cover']=$bookBaseInfo['last_book_picture'];
+        }else{
+            if(file_exists($del_file_url) && is_file($del_file_url)){
+                unlink($del_file_url);
+            }
         }
         unset($bookBaseInfo['last_book_picture']);
         //删除多余的变量
         unset($bookDetailInfo['MAX_FILE_SIZE']);
+
+        /*对小说简介的处理*/
+        $Text = new Common_TextBeautifyModel();
+        $bookBaseInfo['detail'] = $Text->addPInText($bookBaseInfo['detail']);
+        if(mb_strlen($bookBaseInfo['detail'],'UTF-8')>2000){
+            dd('简介不要大于2000字符(加上p标签,真实汉字大约1000)');
+        }
         /********截止数据录入*********/
         $book_insert_base = $this->BookModel->AddOrModifyNewBook($bookBaseInfo,'info',$page_type,$book_id);
         if($book_insert_base&&$page_type=='create'){
@@ -119,11 +132,14 @@ class Admin_BookController extends BaseController{
         if(!($book_insert_base||$book_insert_detail))return false;
         return Redirect::to('/rgrassAdmin/BookLists');
     }
-    /*通过审核*/
+    /*
+     * 通过审核
+     * 不通过审核是无法对书籍内容进行编写
+    */
     public function doBookReview(){
         $book_id = $this->get('book_id');
         if($this->BookModel->crossReview($book_id)){
-            //修改完权限后,需要创建小说内容表
+            //修改完权限,通过审核后,需要在对应的库里面需要创建小说内容表
             $book_rgrass = new Book_CreateBookContentModel();
             $create_book_content = $book_rgrass->createBookContentByBookId($book_id);
             if($create_book_content){
@@ -135,7 +151,8 @@ class Admin_BookController extends BaseController{
             return '审核过程出错';
         }
     }
-    /*删除书籍*/
+    /*删除书籍(禁用删除小说)*/
+    /*
     public function delBook(){
         $delete_book=$this->BookModel->delBookById($this->get('id'));
         if($delete_book){
@@ -143,7 +160,7 @@ class Admin_BookController extends BaseController{
         }else{
             echo '删除书籍失败';
         }
-    }
+    }*/
 
     /*
      * 对书籍内容进行管理
@@ -171,14 +188,23 @@ class Admin_BookController extends BaseController{
          * 需要对表格对照$catalog的内容进行拼接
          * 有点难度,需要认真浏览
         */
+        $organization = new Book_BookInfoModel();
         $page=$page?$page:3;
         $html = "<tr>";
         foreach($catalog as $key=>$val){
-            $i=1;
-            $html .='<tr><td style="text-align: left" colspan="3"><span>'.$key.'</span></td></tr>';
             if(!is_array($val)){//如果该分卷里面的内容不是数组,略过去
                 continue;
             }
+            if(empty($val)){
+                continue;
+            }
+            //通过卷id号获取卷名
+            if(isset($catalog[$key][0])){
+                $organization_name = ($organization_info = $organization->getChapterOrganizationInfoByOid($catalog[$key][0]->chapter_organization))?$organization_info->organization_name:'正文';//通过卷id号获取卷名
+            }
+            $i=1;
+            $html .='<tr><td style="text-align: left" colspan="3"><span>'.$organization_name.'</span></td></tr>';
+
             foreach($val as $k=>$v){
                     if((($i)%$page)!=0){
                         $html .= "<td><a href=\"/rgrassAdmin/showChapterContent?book_id={$book_id}&&organization_name={$key}&&chapter_name={$v->chapter_name}&&chapter_id={$v->id}\">{$v->chapter_name}</a><a href=\"/rgrassAdmin/ModifyChapterContent?book_id={$book_id}&&chapter_id={$v->id}\"<i class=\"icon-pencil\" style='margin-left:10px;cursor: pointer;'></i></a><a href=\"/rgrassAdmin/DelChapterContent?book_id={$book_id}&&chapter_id={$v->id}\"  onclick=\"return confirm('确定删除吗?')\"><i class=\"icon-pencil\" style='margin-left:10px;cursor: pointer;'></i></a></td>";
@@ -249,6 +275,11 @@ class Admin_BookController extends BaseController{
         $update_time = time();
         $update_user = $this->post('update_user');
         $chapter_organization = $this->post('chapter_organization');
+        $book_path = './Book_List/'.$book_id;
+        $chapter_path = $book_path.'/'.$chapter_organization.'/'.$chapter_name.'.txt';//章节所在的txt文本路径
+        if(empty($chapter_name))dd('章节名不能为空');
+        if(empty($chapter_content))dd('章节内容不能为空');
+
         /*
          * 对章节内容进行处理
          * 1,把\n=><br/>
@@ -261,36 +292,41 @@ class Admin_BookController extends BaseController{
         //通过username获取uid,得到修改本章节的人
         $update_user = $this->UserInfo->getUserInfoByUserName($update_user);
         $update_user = $update_user->user_id;
-        if($this->BookContent->addNewBookContent($book_id,$chapter_name,$chapter_content,$update_time,$update_user,$chapter_organization)){
+
+        /*拼接插入的数据*/
+        $content=array(
+            'chapter_name'=>$chapter_name,
+            'chapter_content'=>$chapter_content,
+            'update_time'=>$update_time,
+            'update_users'=>$update_user,
+            'chapter_organization'=>$chapter_organization,
+            'chapter_path'=>$chapter_path
+        );
+        if($this->BookContent->addNewBookContent($book_id,$content)){
             //如果插入数据库成功，再进行txt文档存储
-            $chapter_organization_info = $this->BookModel->getChapterOrganizationInfoByOid($chapter_organization);
-            if($chapter_organization_info){
-                $chapter_organization_name = $chapter_organization_info->organization_name;
-            }else{
-                $chapter_organization_name = '正文';
+
+            $dir_url = $book_path.'/'.$chapter_organization;//对应的卷名的文件夹路径
+            if(!file_exists($book_path)){
+                mkdir($book_path);//如果连小说主文件夹都不存在,创建
             }
-            $dir_url = './Book_List/'.$book_id.'/'.$chapter_organization_name;//对应的卷名的文件夹路径
-            $file_url = './Book_List/'.$book_id.'/'.$chapter_organization_name.'/'.$chapter_name.'.txt';//对应的章节路径
             if(!file_exists($dir_url)){
                 mkdir($dir_url);
-                touch($file_url);
-                file_put_contents($file_url,$chapter_content);
-                return Redirect::to('rgrassAdmin/chapter_manager?book_id='.$book_id);
+                touch($chapter_path);
+                file_put_contents($chapter_path,$chapter_content);
                 //echo '成功执行所有操作0';
             }else{
-                if(!file_exists($file_url)){
-                    touch($file_url);
-                    file_put_contents($file_url,$chapter_content);
-                    return Redirect::to('rgrassAdmin/chapter_manager?book_id='.$book_id);
+                if(!file_exists($chapter_path)){
+                    touch($chapter_path);
+                    file_put_contents($chapter_path,$chapter_content);
                     //echo '成功执行所有操作1';
                 }else{
-                    file_put_contents($file_url,$chapter_content);
-                    return Redirect::to('rgrassAdmin/chapter_manager?book_id='.$book_id);
+                    file_put_contents($chapter_path,$chapter_content);
                     //echo '成功执行所有操作2';
                 }
             }
+            return Redirect::to('rgrassAdmin/chapter_manager?book_id='.$book_id);
         }else{
-            echo '插入数据库失败';
+            dd('插入数据库失败');
         }
     }
 

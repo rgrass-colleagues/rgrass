@@ -70,4 +70,21 @@ class ViewSpalls_AdminViewSpallsModel extends Eloquent{
                 break;
         }
     }
+    /*
+     * 显示书籍类型
+     * */
+    static public function showBookType($type_id){
+        if($type_id==0){
+            return '初始化';
+        }else{
+            $type = new Type_TypeInfoModel();
+            $type_info = $type->getTypeInfoById($type_id);
+            if($type_info->parent_type==0){
+                return '分类错误';
+            }else{
+                $p_type_info = $type->getTypeInfoById($type_info->parent_type);
+                return $p_type_info->type_name.'->'.$type_info->type_name;
+            }
+        }
+    }
 }

@@ -50,26 +50,44 @@
     请输入作者:<input type="text" name="default_author" value="@if(!empty($book_info)){{$book_info->author}}@endif"><br>
     请输入简介:<input type="text" name="default_detail" value="@if(!empty($book_info)){{$book_info->detail}}@endif"><br>
     请选择类型:
-        <select name="default_book_type">
-            <option value="0">其它书籍</option>
+        <select name="default_book_type" id="book_type">
+            <option value="0">初始化</option>
+            @foreach($book_type as $v)
+            <option value="{{$v->type_id}}">{{ViewSpalls_AdminViewSpallsModel::showBookType($v->type_id)}}</option>
+            @endforeach
         </select>
-    <br><br>
-    ----------------书籍详细信息--------------<br><br>
-    书本章节数:<input type="text" name="book_length" value="@if(!empty($book_detail)){{$book_detail->book_length}}@endif"><br>
-    书本总字数:<input type="text" name="word_number" value="@if(!empty($book_detail)){{$book_detail->word_number}}@endif"><br>
-    最后的更新:<input type="text" name="last_update_time" value="@if(!empty($book_detail)){{$book_detail->last_update_time}}@endif"><br>
-    书本的状态:
-    <select name="state">
-        <option value="1">新书首发</option>
-    </select><br>
-    书本总点击:<input type="text" name="click_number" value="@if(!empty($book_detail)){{$book_detail->click_number}}@endif"><br>
-    是否藏经阁:
-    <select name="is_store">
+    <br>
+    是否精品书籍:
+    <select name="default_is_boutiques" id="boutiques">
         <option value="0">否</option>
+        <option value="1">是</option>
+    </select><br>
+    小说首发站:
+    <select name="default_book_from_status" id="book_from">
+        <option value="0">本站首发</option>
+        <option value="1">它站首发</option>
+        <option value="2">起点首发</option>
+        <option value="3">纵横首发</option>
+        <option value="4">创世首发</option>
+        <option value="5">逐浪首发</option>
+        <option value="6">飞卢首发</option>
+    </select><br>
+    小说首发连接:
+    <input type="text" name="default_book_from_url" value="@if(!empty($book_info)){{$book_info->book_from_url}}@else{{'http://www.rgrass.com'}}@endif"/><br>
+    <br>
+    ----------------书籍详细信息--------------<br><br>
+<!--    书本章节数:<input type="text" name="book_length" value="@if(!empty($book_detail)){{$book_detail->book_length}}@endif"><br>-->
+<!--    书本总字数:<input type="text" name="word_number" value="@if(!empty($book_detail)){{$book_detail->word_number}}@endif"><br>-->
+<!--    最后的更新:<input type="text" name="last_update_time" value="@if(!empty($book_detail)){{$book_detail->last_update_time}}@endif"><br>-->
+    书本的状态:
+    <select name="state" id="book_state">
+        <option value="1">新书首发</option>
+        <option value="2">渐入佳境</option>
+        <option value="3">步入高潮</option>
+        <option value="4">曲终人散</option>
     </select><br>
     小编读后感:
-    <textarea name="editor_estimate">@if(!empty($book_detail)){{$book_detail->editor_estimate}}@endif
-    </textarea><br>
+    <textarea name="editor_estimate">@if(!empty($book_detail)){{$book_detail->editor_estimate}}@endif</textarea><br>
     @if($page_type=='modify')
     <input type="hidden" value="@if(!empty($book_info)){{$book_info->book_id}}@endif" name="default_book_id"/>
     @endif
@@ -78,4 +96,12 @@
 
 </form>
 {{HTML::script('Admin/js/jquery-1.10.1.min.js')}}
+@if((!empty($book_detail))&&(!empty($book_info)))
+<script>
+    $('#book_type option[value={{$book_info->book_type}}]').attr('selected','true');
+    $('#boutiques option[value={{$book_info->is_boutiques}}]').attr('selected','true');
+    $('#book_state option[value={{$book_detail->state}}]').attr('selected','true');
+    $('#book_from option[value={{$book_info->book_from_status}}]').attr('selected','true');
+</script>
+@endif
 @stop

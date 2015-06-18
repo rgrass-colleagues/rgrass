@@ -33,6 +33,12 @@ class Type_TypeInfoModel extends Eloquent{
         }
         return $baseType;
     }
+    /*获取pid非0的所有分类*/
+    public function getBookTypeNotPidByZero(){
+        return DB::table($this->type)
+            ->whereNotIn('parent_type',array(0))
+            ->get();
+    }
     /*
      * 获取第一层的类型
      * */
@@ -55,6 +61,9 @@ class Type_TypeInfoModel extends Eloquent{
             ->where('type_id',$type_id)
             ->delete();
         }
+    /*
+     * 修改一条类型
+     * */
     public function modifyBookType($type_id,$content){
         return DB::table($this->type)
             ->where('type_id',$type_id)

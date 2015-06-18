@@ -38,17 +38,17 @@ class Book_CreateBookContentModel extends Eloquent{
             $table->integer('update_time');
             $table->integer('update_users');
             $table->integer('chapter_organization');
+            $table->string('chapter_path',255);
         });
         //还需要建立对应的txt文档文件夹,文件夹名字与数据库内一致
         $url = "./Book_List/".$book_id;
-        $default_organization = $url.'/'.'正文';
+        $default_organization = $url.'/'.'0';
         if(!file_exists($url)){//创建小说目录
             mkdir($url);
         }else{
             dd('创建书籍文件夹失败');
-
         }
-        if(!file_exists($default_organization)){//创建默认正文目录
+        if(!file_exists($default_organization)){//创建默认的正文目录
             mkdir($default_organization);
         }
         return true;
@@ -56,18 +56,10 @@ class Book_CreateBookContentModel extends Eloquent{
     /*
      * 添加新章节到数据库
      * */
-    public function addNewBookContent($book_id,$chapter_name,$chapter_content,$update_time,$update_user,$chapter_organization){
+    public function addNewBookContent($book_id,$content){
         $database = $this->useDatabaseByBookId($book_id);
         //拼接table
         $table = "book_content_".$book_id;
-
-        $content=array(
-            'chapter_name'=>$chapter_name,
-            'chapter_content'=>$chapter_content,
-            'update_time'=>$update_time,
-            'update_users'=>$update_user,
-            'chapter_organization'=>$chapter_organization
-        );
         //执行插入
         return DB::connection($database)->table($table)->insert($content);
     }
@@ -86,6 +78,7 @@ class Book_CreateBookContentModel extends Eloquent{
         "organization_name"=>"正文",
         "add_time"=>"0");
         array_push($chapter_organization_info,$text);
+
         foreach ($chapter_organization_info as $v) {
             $catalog[] = DB::connection($database)
                 ->table($table)

@@ -43,7 +43,6 @@
     <img src="../../../uploads/users/{{$userInfo->user_picture}}" alt="" width="100px"/><br/>
     @endif
     用户账号:<input type="text" name="info_username" value="@if(!empty($userInfo)){{$userInfo->username}}@endif" disabled/><br>
-    用户积分:<input type="text" name="info_credit" value="@if(!empty($userInfo)){{$userInfo->credit}}@endif" disabled><br>
     用户邮箱:<input type="text" name="info_email" value="@if(!empty($userInfo)){{$userInfo->email}}@endif" disabled><br>
     用户手机:<input type="text" name="info_telephone" value="@if(!empty($userInfo)){{$userInfo->telephone}}@endif" disabled><br>
     用户权限:<input type="text" name="info_telephone" value="@if(!empty($userInfo)){{$userInfo->authority}}@endif" disabled><br>

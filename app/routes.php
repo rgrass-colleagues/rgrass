@@ -12,6 +12,17 @@ Route::get('/rgrassAdmin/UserDetail','Admin_UserController@showUserDetail');
 Route::get('/rgrassAdmin/AddNewOrModifyOneUser','Admin_UserController@AddNewOrModifyOneUser');
 Route::post('/rgrassAdmin/doAddNewOrModifyOneUser','Admin_UserController@doAddNewOrModifyOneUser');
 Route::get('rgrassAdmin/doDelUser','Admin_UserController@doDelUser');
+
+//用户财产
+Route::get('/rgrassAdmin/UserPropertyIndex','Admin_UserController@showUserPropertyIndex');
+Route::get('/rgrassAdmin/ModifyUserProperty','Admin_UserController@ModifyUserProperty');
+Route::post('/rgrassAdmin/doModifyUserProperty','Admin_UserController@doModifyUserProperty');
+//作者专区
+Route::get('/rgrassAdmin/UserTransferAuthor','Admin_UserController@doUserTransferAuthor');
+Route::get('/rgrassAdmin/AuthorIndex','Admin_UserController@showAuthorIndex');
+Route::get('/rgrassAdmin/ModifyAuthorInfo','Admin_UserController@showModifyAuthorInfo');
+Route::post('/rgrassAdmin/doModifyAuthorInfo','Admin_UserController@doModifyAuthorInfo');
+
 //书籍
 Route::get('/rgrassAdmin/BookLists','Admin_BookController@showBookLists');
 Route::get('/rgrassAdmin/BookDetail','Admin_BookController@showBookDetail');
