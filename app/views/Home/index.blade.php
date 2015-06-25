@@ -28,16 +28,18 @@
                         <li><a href="">金庸</a></li>
                     </ul>
                 </div>
-                <div id="search_body">
-                    <div id="search_input">
-                        <div class="form-group row">
-                            <input type="text" class="form-control" id="book_search_body" placeholder="亲，输入您想看的小说喔~">
+                <form action="/Search" method="get">
+                    <div id="search_body">
+                        <div id="search_input">
+                            <div class="form-group row">
+                                <input type="text" class="form-control" id="book_search_body" placeholder="亲，输入您想看的小说喔~" name="search_content">
+                            </div>
+                        </div>
+                        <div id="search_button" class="row">
+                            <input type="submit" class="btn btn-primary" id="btn_search" value="找小说"/>
                         </div>
                     </div>
-                    <div id="search_button" class="row">
-                        <input type="submit" class="btn btn-primary" id="btn_search" value="找小说"/>
-                    </div>
-                </div>
+                </form>
             </div>
         </section>
     <div id="login_module">

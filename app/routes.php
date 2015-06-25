@@ -135,8 +135,8 @@ Route::get('/Book','Home_BookController_BookController@showBookIndex');
 Route::get('/Catalog','Home_BookController_BookCatalogController@showBookCatalog');
 Route::get('/ChapterContent','Home_BookController_ChapterContentController@showChapterContent');
 /*****小说相关*****/
-
-
+/*****小说搜索****/
+Route::get('/Search','Home_SearchController_SearchIndexController@SearchIndex');
 
 
 
