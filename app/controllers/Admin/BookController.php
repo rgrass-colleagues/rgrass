@@ -118,8 +118,8 @@ class Admin_BookController extends BaseController{
         unset($bookDetailInfo['MAX_FILE_SIZE']);
 
         /*对小说简介的处理*/
-        $Text = new Common_TextBeautifyModel();
-        $bookBaseInfo['detail'] = $Text->addPInText($bookBaseInfo['detail']);
+//        $Text = new Common_TextBeautifyModel();
+//        $bookBaseInfo['detail'] = $Text->addPInText($bookBaseInfo['detail']);
         if(mb_strlen($bookBaseInfo['detail'],'UTF-8')>2000){
             dd('简介不要大于2000字符(加上p标签,真实汉字大约1000)');
         }
@@ -127,6 +127,13 @@ class Admin_BookController extends BaseController{
         $book_insert_base = $this->BookModel->AddOrModifyNewBook($bookBaseInfo,'info',$page_type,$book_id);
         if($book_insert_base&&$page_type=='create'){
             $bookDetailInfo['book_id']=$book_insert_base;
+        }
+        if($bookBaseInfo['book_from_status']=='0'&&$bookBaseInfo['book_from_url']=='http://www.rgrass.com'){
+            $book_from_url_new = 'http://www.rgrass.com/Book?book_id='.$book_insert_base;
+            $content = array('book_from_url'=>$book_from_url_new);
+            if(!$this->BookModel->AddOrModifyNewBook($content,'info','modify',$book_insert_base)){
+                dd('修改url失败');
+            }
         }
         $book_insert_detail = $this->BookModel->AddOrModifyNewBook($bookDetailInfo,'detail',$page_type,$book_id);
         if(!($book_insert_base||$book_insert_detail))return false;

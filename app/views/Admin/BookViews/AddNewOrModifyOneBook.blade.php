@@ -48,7 +48,8 @@
     小说封面图:<input type="file" name="cover"><br><br/>
     请输入书名:<input type="text" name="default_book_name" value="@if(!empty($book_info)){{$book_info->book_name}}@endif"/><br>
     请输入作者:<input type="text" name="default_author" value="@if(!empty($book_info)){{$book_info->author}}@endif"><br>
-    请输入简介:<input type="text" name="default_detail" value="@if(!empty($book_info)){{$book_info->detail}}@endif"><br>
+<!--    请输入简介:<input type="text" name="default_detail" value="@if(!empty($book_info)){{$book_info->detail}}@endif"><br>-->
+    请输入简介:<textarea name="default_detail" id="" cols="30" rows="10">@if(!empty($book_info)){{$book_info->detail}}@endif</textarea><br>
     请选择类型:
         <select name="default_book_type" id="book_type">
             <option value="0">初始化</option>

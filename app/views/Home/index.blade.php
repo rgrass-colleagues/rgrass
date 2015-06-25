@@ -10,7 +10,7 @@
         <section class="container-flush">
             <div id="indexBody">
                 <div id="indexLogo">
-                    <a href="http://www.rgrass.com/index"><img src="../../Home/img/logo.jpg" alt="" width="100%" height="100%"/></a>
+                    <a href="http://www.rgrass.com/Index"><img src="../../Home/img/logo.jpg" alt="" width="100%" height="100%"/></a>
                 </div>
                 <div id="content_nav">
                     <ul id="Category">

@@ -46,7 +46,7 @@
     <input type='hidden' name='MAX_FILE_SIZE' value='2621114' />
     用户头像:<input type="file" name="user_picture"><br><br/>
     用户账号:<input type="text" name="info_username" value="@if(!empty($userInfo)){{$userInfo->username}}@endif"/><br>
-    用户密码:<input type="text" name="info_password"><br>
+    用户密码:<input type="password" name="info_password"><br>
     用户邮箱:<input type="text" name="info_email" value="@if(!empty($userInfo)){{$userInfo->email}}@endif"><br>
     用户手机:<input type="text" name="info_telephone" value="@if(!empty($userInfo)){{$userInfo->telephone}}@endif"><br>
     用户权限:<select name="info_authority">

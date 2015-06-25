@@ -13,7 +13,7 @@
 
 ClassLoader::addDirectories(array(
     //新添加模块
-    app_path().'/viewSpall',
+    //app_path().'/viewSpall',
 
 
     //系统自带

@@ -14,7 +14,7 @@
         <div class="high_comment_content">
             <ul>
                 @foreach($stronglyRecommend as $v)
-                <li><a href="/error" target="_blank">[玄幻]</a><a href="/Book?book_id={{$v->book_id}}" target="_blank">{{$v->book_name}}</a></li>
+                <li><a href="/error" target="_blank">[玄幻]</a><a href="/Book?book_id=31" target="_blank">{{$v->book_name}}</a></li>
                 @endforeach
             </ul>
         </div>

@@ -22,6 +22,11 @@ Route::get('/rgrassAdmin/UserTransferAuthor','Admin_UserController@doUserTransfe
 Route::get('/rgrassAdmin/AuthorIndex','Admin_UserController@showAuthorIndex');
 Route::get('/rgrassAdmin/ModifyAuthorInfo','Admin_UserController@showModifyAuthorInfo');
 Route::post('/rgrassAdmin/doModifyAuthorInfo','Admin_UserController@doModifyAuthorInfo');
+/*个人标签*/
+Route::get('/rgrassAdmin/SelfTagIndex','Admin_UserController@showSelfTagIndex');
+Route::get('/rgrassAdmin/AddNewUserTag','Admin_UserController@showAddNewUserTag');
+
+
 
 //书籍
 Route::get('/rgrassAdmin/BookLists','Admin_BookController@showBookLists');

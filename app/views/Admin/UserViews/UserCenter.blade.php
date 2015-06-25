@@ -39,6 +39,7 @@
 @section('content')
 <a href="AddNewOrModifyOneUser?page_type=create" class="btn blue">添加</a>
 <a href="/rgrassAdmin/AuthorIndex" class="btn green">作者专区</a>
+<a href="/rgrassAdmin/SelfTagIndex" class=" btn purple">个人标签</a>
 <br/><br/>
 <table class="table table-hover">
     <tr>

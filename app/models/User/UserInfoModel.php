@@ -171,4 +171,11 @@ class User_UserInfoModel extends Eloquent{
             ->where('user_id',$user_id)
             ->update($content);
     }
+
+
+    /*查询所有标签*/
+    public function getAllSelftag(){
+        return DB::table($this->tag)
+            ->get();
+    }
 }
