@@ -89,7 +89,7 @@ nav ul a li:hover{
 /*导航结束*/
 
 section{
-    margin-top:-10px;
+    /*margin-top:-10px;*/
 }
 /*第一层主体部分*/
 
@@ -796,3 +796,68 @@ span.emotion:hover{background-position:2px -28px;/*注意hover此属性在ie 6�
 }
 
 /******chapter-content by bob start,time is 15-06-10,18:28************/
+
+
+
+/*****search_input by bob start,time is 15-06-28,9:37pm******/
+#search{
+    height:60px;
+    margin-top:-15px;
+    margin-bottom:-20px;
+
+}
+#search_text{
+    width: 300px;
+    display: inline-block;
+}
+#search_content_show{
+    /*border:1px solid #E8E8E8;*/
+    min-height:200px;
+    width:100%;
+}
+#search_content_show_left{
+    border:1px solid #E8E8E8;
+    width:20%;
+    min-height:200px;
+    float:left;
+}
+#search_content_show_right{
+    /*border: 1px solid cyan;*/
+    width:80%;
+    min-height:200px;
+    float:left;
+}
+.search_content_show_left_title{
+    padding:10px;
+    border-bottom:1px solid #E8E8E8;
+}
+.search_content_show_left_title span{
+    color:#666;
+    font-size:16px;
+    margin-left:5px;
+}
+.search_content_show_left_content{
+    padding:10px;
+    font-size:13px;
+    border-bottom:1px solid #E8E8E8;
+}
+.search_content_show_left_content_book_type{
+    border-bottom:1px solid #E8E8E8;
+}
+.search_content_show_left_content_book_type p{
+    color:#060;
+    border-bottom:1px solid #E8E8E8;
+}
+.search_content_show_left_content_book_type p a{
+    color:#060;
+    border:none;
+}
+.search_content_show_left_content_book_data p{
+    color:#060;
+    border-bottom:1px solid #E8E8E8;
+}
+.search_content_show_left_content_book_data p a{
+    color:#060;
+    border:none;
+}
+/*****search_input by bob end******/
