@@ -1,6 +1,6 @@
 @extends('layouts.home_master')
 @section('title')
-某书籍--燃草同人社区
+{{$book_info->book_name}}--燃草同人社区({{$book_info->book_id}})
 @stop
 @section('content')
 @include('layouts.header')
@@ -19,7 +19,7 @@
             @if($book_info->book_from_status=='0')
             <a href="{{$book_info->book_from_url}}" class="btn-success">本站首发</a>
             @else
-            <a href="{{$book_info->book_from_url}}" class="btn-blue">它站首发</a>
+            <a href="{{$book_info->book_from_url}}" class="btn-info">它站首发</a>
             @endif
         </div>
     </div>
@@ -71,7 +71,7 @@
                     @endif
                         <br>
                     <span class="last_book_sign_content">
-                        特此声明：本站所有书籍皆由网友上传，如有版权问题，请<a href="">联系</a>管理员。
+                        特此声明：本站所有书籍皆由网友上传，如有版权问题，请<a href="">>联系<</a>管理员。
                         <br/>本故事纯属虚构，请不要随意模仿。
                     </span>
                 </div>
@@ -95,13 +95,14 @@
     <div id="book_sign_right_dynamic">
         <div id="book_dynamic_title"><img src="../../Home/img/black_ico.gif" alt="强烈推荐"/><span>本书最新动态</span></div>
         <ul>
-            <li><span>程程陈</span><span>打赏了</span><span>100</span><span>燃草币</span></li>
-            <li><span>彭老板</span><span>投了</span><span>1</span><span>推荐票</span></li>
-            <li><span>程dddsssffdfdsfdsg程陈</span><span>打赏了</span><span>100</span><span>燃草币</span></li>
-            <li><span>彭老板</span><span>投了</span><span>1</span><span>推荐票</span></li>
-            <li><span>彭老板</span><span>投了</span><span>1</span><span>推荐票</span></li>
-            <li><span>彭老板</span><span>投了</span><span>1</span><span>推荐票</span></li>
-            <li><span>彭老板</span><span>投了</span><span>1</span><span>推荐票</span></li>
+                        <li>本书暂时没有动态</li>
+<!--            <li><span>程程陈</span><span>打赏了</span><span>100</span><span>燃草币</span></li>-->
+<!--            <li><span>彭老板</span><span>投了</span><span>1</span><span>推荐票</span></li>-->
+<!--            <li><span>程dddsssffdfdsfdsg程陈</span><span>打赏了</span><span>100</span><span>燃草币</span></li>-->
+<!--            <li><span>彭老板</span><span>投了</span><span>1</span><span>推荐票</span></li>-->
+<!--            <li><span>彭老板</span><span>投了</span><span>1</span><span>推荐票</span></li>-->
+<!--            <li><span>彭老板</span><span>投了</span><span>1</span><span>推荐票</span></li>-->
+<!--            <li><span>彭老板</span><span>投了</span><span>1</span><span>推荐票</span></li>-->
         </ul>
     </div>
 </div>
@@ -111,7 +112,7 @@
 <div class="m_floor_10"></div>
 <!--------------------------评论-------------->
 <div id="book_discuss">
-    <div id="book_discuss_title"><img src="../../../Home/img/black_ico.gif" alt="评论" /><span id="book_discuss_title_bname">宠物狂想曲</span><span>书评讨论区</span></div>
+    <div id="book_discuss_title"><img src="../../../Home/img/black_ico.gif" alt="评论" /><span id="book_discuss_title_bname">{{$book_info->book_name}}</span><span>书评讨论区</span></div>
     <!--书籍更新内容-->
     <div id="book_update_content" class="table-responsive">
         <div id="book_discuss_input">
@@ -138,76 +139,24 @@
         <div id="book_discuss_content">
             <!--评论内容-->
             <div id="book_discuss_content_title">
-                <span>宠物狂想曲</span>
+                <span>{{$book_info->book_name}}</span>
                 <span>已有</span>
-                <span>34</span>
+                <span>0</span>
                 <span>条评论</span>
             </div>
-            <div id="book_discuss_content_detail">
-                <img src="../../../Tongrenfang/img/1.jpeg" alt=""/>
-                <div id="book_discuss_content_detail_title">
-                    <a href="">狂想曲的测试</a>
-                </div>
-                <div id="book_discuss_content_detail_title_author"><a href="">程程陈</a>说：</div>
-                <div id="book_discuss_content_detail_content"><a href="">范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德范德萨范德萨飞范飞范德萨范德萨范德萨范德萨飞</a>
-                </div>
-                <div id="book_discuss_content_detail_content_data">
-                    评论时间:<span>2015-1-1 12:21:11</span>　　
-                    <span>回复（<span style="color:red">4</span>）</span>
-                </div>
-            </div>
-            <div id="book_discuss_content_detail">
-                <img src="../../../Tongrenfang/img/1.jpeg" alt=""/>
-                <div id="book_discuss_content_detail_title">
-                    <a href="">狂想曲的测试</a>
-                </div>
-                <div id="book_discuss_content_detail_title_author"><a href="">程程陈</a>说：</div>
-                <div id="book_discuss_content_detail_content"><a href="">范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨萨范德萨范德范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞</a>
-                </div>
-                <div id="book_discuss_content_detail_content_data">
-                    评论时间:<span>2015-1-1 12:21:11</span>　　
-                    <span>回复（<span style="color:red">4</span>）</span>
-                </div>
-            </div>
-            <div id="book_discuss_content_detail">
-                <img src="../../../Tongrenfang/img/1.jpeg" alt=""/>
-                <div id="book_discuss_content_detail_title">
-                    <a href="">狂想曲的测试</a>
-                </div>
-                <div id="book_discuss_content_detail_title_author"><a href="">程程陈</a>说：</div>
-                <div id="book_discuss_content_detail_content"><a href="">范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德</a>
-                </div>
-                <div id="book_discuss_content_detail_content_data">
-                    评论时间:<span>2015-1-1 12:21:11</span>　　
-                    <span>回复（<span style="color:red">4</span>）</span>
-                </div>
-            </div>
-            <div id="book_discuss_content_detail">
-                <img src="../../../Tongrenfang/img/1.jpeg" alt=""/>
-                <div id="book_discuss_content_detail_title">
-                    <a href="">狂想曲的测试</a>
-                </div>
-                <div id="book_discuss_content_detail_title_author"><a href="">程程陈</a>说：</div>
-                <div id="book_discuss_content_detail_content"><a href="">范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞</a>
-                </div>
-                <div id="book_discuss_content_detail_content_data">
-                    评论时间:<span>2015-1-1 12:21:11</span>　　
-                    <span>回复（<span style="color:red">4</span>）</span>
-                </div>
-            </div>
-            <div id="book_discuss_content_detail">
-                <img src="../../../Tongrenfang/img/1.jpeg" alt=""/>
-                <div id="book_discuss_content_detail_title">
-                    <a href="">狂想曲的测试</a>
-                </div>
-                <div id="book_discuss_content_detail_title_author"><a href="">程程陈</a>说：</div>
-                <div id="book_discuss_content_detail_content"><a href="">范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞范德萨范德萨范德萨范德萨飞</a>
-                </div>
-                <div id="book_discuss_content_detail_content_data">
-                    评论时间:<span>2015-1-1 12:21:11</span>　　
-                    <span>回复（<span style="color:red">4</span>）</span>
-                </div>
-            </div>
+<!--            <div id="book_discuss_content_detail">-->
+<!--                <img src="../../../Tongrenfang/img/1.jpeg" alt=""/>-->
+<!--                <div id="book_discuss_content_detail_title">-->
+<!--                    <a href="">狂想曲的测试</a>-->
+<!--                </div>-->
+<!--                <div id="book_discuss_content_detail_title_author"><a href="">程程陈</a>说：</div>-->
+<!--                <div id="book_discuss_content_detail_content"><a href="">评论内容</a>-->
+<!--                </div>-->
+<!--                <div id="book_discuss_content_detail_content_data">-->
+<!--                    评论时间:<span>2015-1-1 12:21:11</span>　　-->
+<!--                    <span>回复（<span style="color:red">4</span>）</span>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
 
     </div>
@@ -218,160 +167,8 @@
 
 <!--------------------------评论结束--------------------->
 <!--------------------------数据列(点击,推荐)周,月,总-------------->
-<div id="book_data">
-    <div id="book_data_click">
-        <div id="book_data_click_title">
-            <span class="high_comment_title_left"><img src="../../Home/img/black_ico.gif" alt="强烈推荐"/></span><span>小说点击榜</span>
-            <div id="book_data_click_part">
-                <ul>
-                    <li id="book_data_click_week">周</li>
-                    <li id="book_data_click_month">月</li>
-                    <li id="book_data_click_total">总</li>
-                </ul>
-            </div>
-
-        </div>
-        <div id="book_data_click_content">
-            <table class="table table-striped">
-                <tr>
-                    <td>1</td>
-                    <td><a href="" target="_blank">纯纯传</a></td>
-                    <td>314321</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td><a href="" target="_blank">纯纯传</a></td>
-                    <td>314321</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td><a href="" target="_blank">纯纯传</a></td>
-                    <td>314321</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td><a href="" target="_blank">纯纯传</a></td>
-                    <td>314321</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td><a href="" target="_blank">纯纯传</a></td>
-                    <td>314321</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td><a href="" target="_blank">纯纯传</a></td>
-                    <td>314321</td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td><a href="" target="_blank">纯纯传</a></td>
-                    <td>314321</td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                    <td><a href="" target="_blank">纯纯传</a></td>
-                    <td>314321</td>
-                </tr>
-                <tr>
-                    <td>9</td>
-                    <td><a href="" target="_blank">纯纯传</a></td>
-                    <td>314321</td>
-                </tr>
-                <tr>
-                    <td>10</td>
-                    <td><a href="" target="_blank">纯纯传</a></td>
-                    <td>314321</td>
-                </tr>
-                <tr>
-                    <td>11</td>
-                    <td><a href="" target="_blank">纯纯传</a></td>
-                    <td>314321</td>
-                </tr>
-            </table>
-        </div>
-        <div id="book_data_click_foot">
-            <a href="" target="_blank">查看更多...</a>
-        </div>
-    </div>
-    <div class="m_part_click_comment"></div>
-    <div id="book_data_comment">
-        <div id="book_data_comment_title">
-            <span class="high_comment_title_left"><img src="../../Home/img/black_ico.gif" alt="强烈推荐"/></span><span>小说推荐榜</span>
-            <div id="book_data_comment_part">
-                <ul>
-                    <li id="book_data_comment_week">周</li>
-                    <li id="book_data_comment_month">月</li>
-                    <li id="book_data_comment_total">总</li>
-                </ul>
-            </div>
-
-        </div>
-        <div id="book_data_comment_content">
-            <table class="table table-striped">
-                <tr>
-                    <td>1</td>
-                    <td><a href="" target="_blank">纯纯传</a></td>
-                    <td>314321</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td><a href="" target="_blank">纯纯传</a></td>
-                    <td>314321</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td><a href="" target="_blank">纯纯传</a></td>
-                    <td>314321</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td><a href="" target="_blank">纯纯传</a></td>
-                    <td>314321</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td><a href="" target="_blank">纯纯传</a></td>
-                    <td>314321</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td><a href="" target="_blank">纯纯传</a></td>
-                    <td>314321</td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td><a href="" target="_blank">纯纯传</a></td>
-                    <td>314321</td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                    <td><a href="" target="_blank">纯纯传</a></td>
-                    <td>314321</td>
-                </tr>
-                <tr>
-                    <td>9</td>
-                    <td><a href="" target="_blank">纯纯传</a></td>
-                    <td>314321</td>
-                </tr>
-                <tr>
-                    <td>10</td>
-                    <td><a href="" target="_blank">纯纯传</a></td>
-                    <td>314321</td>
-                </tr>
-                <tr>
-                    <td>11</td>
-                    <td><a href="" target="_blank">纯纯传</a></td>
-                    <td>314321</td>
-                </tr>
-            </table>
-        </div>
-        <div id="book_data_comment_foot">
-            <a href="" target="_blank">查看更多...</a>
-        </div>
-    </div>
-
-</div>
+<!--30%宽度-->
+@include('layouts.book_data')
 <!--------------------------数据列(点击,推荐)日,周,月,总结束-------------->
 <!--QQ表情插件-->
 

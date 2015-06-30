@@ -177,6 +177,7 @@ class Admin_UserController extends BaseController{
             'user_property'=>$user_property
         ));
     }
+    /*修改用户财产*/
     public function ModifyUserProperty(){
         $user_id = $this->get('user_id');
         $user_property = $this->userModel->getUserPropertyByUserId($user_id);
@@ -197,10 +198,10 @@ class Admin_UserController extends BaseController{
         }
 
     }
+    /*把一般用户转化成作者*/
     public function doUserTransferAuthor(){
         $user_id = $this->get('user_id');
         if($this->userModel->TransferToAuthor($user_id)){
-            /*需要在此处对作者表插入数据(暂无此功能)*/
             if($this->userModel->insertAuthorData($user_id)){
                 Return Redirect::to('/rgrassAdmin/UserInfo');
             }else{
@@ -210,12 +211,14 @@ class Admin_UserController extends BaseController{
             dd('转职成作者失败');
         }
     }
+    /*显示作者中心*/
     public function showAuthorIndex(){
         $author_info = $this->userModel->getAllAuthorInfo();
         return View::make('Admin.UserViews.AuthorIndex')->with(array(
             'author_info'=>$author_info
         ));
     }
+    /*修改作者信息*/
     public function showModifyAuthorInfo(){
         $id = $this->get('id');
         $author = $this->userModel->getAuthorById($id);
@@ -237,5 +240,7 @@ class Admin_UserController extends BaseController{
             dd('修改失败');
         }
     }
-
+    public function showSelfTagIndex(){
+        dd('暂无此功能');
+    }
 }

@@ -70,7 +70,7 @@
         @else
         <a href="/rgrassAdmin/chapter_manager?book_id={{$bookList->book_id}}" class="btn green">章节管理</a>
         @endif
-            <a href="" class="btn black">详情<i class="m-icon-swapright m-icon-white"></i></a>
+            <a target="_blank" href="/Book?book_id={{$bookList->book_id}}" class="btn black">详情<i class="m-icon-swapright m-icon-white"></i></a>
             <a href="/rgrassAdmin/BookReview?book_id={{$bookList->book_id}}" class="btn yellow" onclick="return confirm('是否让小说通过审核')">审核</a>
 <!--            <a href="delBook?id={{$bookList->book_id}}" class="btn red" onclick="return confirm('确定要删除这本小说吗?')">删除</a>-->
         </td>

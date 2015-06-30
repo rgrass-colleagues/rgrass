@@ -146,7 +146,7 @@ class Admin_BookController extends BaseController{
     public function doBookReview(){
         $book_id = $this->get('book_id');
         if($this->BookModel->crossReview($book_id)){
-            //修改完权限,通过审核后,需要在对应的库里面需要创建小说内容表
+            //修改完权限,通过审核后,需要在对应的库里面需要创建小说内容表,并且再Book_List里面创建小说对应的文件夹
             $book_rgrass = new Book_CreateBookContentModel();
             $create_book_content = $book_rgrass->createBookContentByBookId($book_id);
             if($create_book_content){
@@ -191,6 +191,7 @@ class Admin_BookController extends BaseController{
      * 对目录数组进行拼接排列
      * */
     public function showBookCatalog($catalog,$book_id,$page=false){
+//        dd($catalog);
         /*
          * 需要对表格对照$catalog的内容进行拼接
          * 有点难度,需要认真浏览
@@ -202,21 +203,22 @@ class Admin_BookController extends BaseController{
             if(!is_array($val)){//如果该分卷里面的内容不是数组,略过去
                 continue;
             }
-            if(empty($val)){
-                continue;
-            }
             //通过卷id号获取卷名
             if(isset($catalog[$key][0])){
                 $organization_name = ($organization_info = $organization->getChapterOrganizationInfoByOid($catalog[$key][0]->chapter_organization))?$organization_info->organization_name:'正文';//通过卷id号获取卷名
+            }else{
+                $organization_name = $catalog[$key]['chapter_organization'];
             }
             $i=1;
             $html .='<tr><td style="text-align: left" colspan="3"><span>'.$organization_name.'</span></td></tr>';
-
+            if(isset($val['chapter_organization'])){
+                continue;
+            }
             foreach($val as $k=>$v){
                     if((($i)%$page)!=0){
-                        $html .= "<td><a href=\"/rgrassAdmin/showChapterContent?book_id={$book_id}&&organization_name={$key}&&chapter_name={$v->chapter_name}&&chapter_id={$v->id}\">{$v->chapter_name}</a><a href=\"/rgrassAdmin/ModifyChapterContent?book_id={$book_id}&&chapter_id={$v->id}\"<i class=\"icon-pencil\" style='margin-left:10px;cursor: pointer;'></i></a><a href=\"/rgrassAdmin/DelChapterContent?book_id={$book_id}&&chapter_id={$v->id}\"  onclick=\"return confirm('确定删除吗?')\"><i class=\"icon-pencil\" style='margin-left:10px;cursor: pointer;'></i></a></td>";
+                        $html .= "<td><a href=\"/rgrassAdmin/showChapterContent?book_id={$book_id}&&organization_name={$v->chapter_organization}&&chapter_name={$v->chapter_name}&&chapter_id={$v->id}\">{$v->chapter_name}</a><a href=\"/rgrassAdmin/ModifyChapterContent?book_id={$book_id}&&chapter_id={$v->id}\"<i class=\"icon-pencil\" style='margin-left:10px;cursor: pointer;'></i></a><a href=\"/rgrassAdmin/DelChapterContent?book_id={$book_id}&&chapter_id={$v->id}\"  onclick=\"return confirm('确定删除吗?')\"><i class=\"icon-pencil\" style='margin-left:10px;cursor: pointer;'></i></a></td>";
                     }else{
-                        $html .= "<td><a href=\"/rgrassAdmin/showChapterContent?book_id={$book_id}&&organization_name={$key}&&chapter_name={$v->chapter_name}&&chapter_id={$v->id}\">{$v->chapter_name}</a><a href=\"/rgrassAdmin/ModifyChapterContent?book_id={$book_id}&&chapter_id={$v->id}\"<i class=\"icon-pencil\" style='margin-left:10px;cursor: pointer;'></i></a><a href=\"/rgrassAdmin/DelChapterContent?book_id={$book_id}&&chapter_id={$v->id}\"  onclick=\"return confirm('确定删除吗?')\"><i class=\"icon-pencil\" style='margin-left:10px;cursor: pointer;'></i></a></td></tr><tr>";
+                        $html .= "<td><a href=\"/rgrassAdmin/showChapterContent?book_id={$book_id}&&organization_name={$v->chapter_organization}&&chapter_name={$v->chapter_name}&&chapter_id={$v->id}\">{$v->chapter_name}</a><a href=\"/rgrassAdmin/ModifyChapterContent?book_id={$book_id}&&chapter_id={$v->id}\"<i class=\"icon-pencil\" style='margin-left:10px;cursor: pointer;'></i></a><a href=\"/rgrassAdmin/DelChapterContent?book_id={$book_id}&&chapter_id={$v->id}\"  onclick=\"return confirm('确定删除吗?')\"><i class=\"icon-pencil\" style='margin-left:10px;cursor: pointer;'></i></a></td></tr><tr>";
                     }
                 $i++;
             }
@@ -234,8 +236,9 @@ class Admin_BookController extends BaseController{
         $chapter_name = $this->get('chapter_name');
         $chapter_id = $this->get('chapter_id');
         //拼接章节对应的路径
-        $file_url = './Book_List/'.$book_id.'/'.$organization_name.'/'.$chapter_name.'.txt';
+//        $file_url = './Book_List/'.$book_id.'/'.$organization_name.'/'.$chapter_name.'.txt';
         $dir_path = './Book_List/'.$book_id.'/'.$organization_name;
+        $file_url = $this->getFilePathByBookIdAndChapterId($book_id,$chapter_id);
         if(!file_exists($file_url)){
             //如果该章节对应的txt文档不存在,先从数据库中查询得到,再重新创建一个新的txt文档
         $chapter_content = $this->BookContent->getChapterContentByChapterId($book_id,$chapter_id);
@@ -310,6 +313,9 @@ class Admin_BookController extends BaseController{
             'chapter_path'=>$chapter_path
         );
         if($this->BookContent->addNewBookContent($book_id,$content)){
+            //如果插入数据成功，进行一些额外的修改
+            $this->InsertOrUpdateSuccessThen($book_id);
+
             //如果插入数据库成功，再进行txt文档存储
 
             $dir_url = $book_path.'/'.$chapter_organization;//对应的卷名的文件夹路径
@@ -336,7 +342,6 @@ class Admin_BookController extends BaseController{
             dd('插入数据库失败');
         }
     }
-
     /*
      * 添加新分卷
      * */
@@ -402,13 +407,16 @@ class Admin_BookController extends BaseController{
         $last_path = $this->getFilePathByBookIdAndChapterId($book_id,$chapter_id);
         /*现在文件夹信息*/
         if($chapter_organization=='0'){
-            $new_chapter_organization_name = '正文';
+            $new_chapter_organization_name = 0;
         }else{
-            $new_chapter_organization_name = $this->BookModel->getChapterOrganizationInfoByOid($chapter_organization)->organization_name;
+            $new_chapter_organization_name = $this->BookModel->getChapterOrganizationInfoByOid($chapter_organization)->id;
         }
         $new_chapter_name = $chapter_name;
         $new_path = './Book_List/'.$book_id.'/'.$new_chapter_organization_name.'/'.$new_chapter_name.'.txt';
+//        dd($last_path);
         if($this->BookContent->modifyChapterContentById($book_id,$chapter_id,$content)){
+            //修改成功，更新最后一次更新时间
+            $this->InsertOrUpdateSuccessThen($book_id);
             //修改成功后把以前的文本删除,重新建立文本
             if(file_exists($last_path)){/*删除旧文件*/
                 unlink($last_path);
@@ -419,6 +427,21 @@ class Admin_BookController extends BaseController{
             }
             return Redirect::to('rgrassAdmin/chapter_manager?book_id='.$book_id);
         }
+    }
+    /*
+     * 修改成功后，1更新最后修改时间2更新redis
+     * */
+    public function InsertOrUpdateSuccessThen($book_id){
+        //1,最后一次修改时间的更新
+        if(!$this->BookModel->modifyLastUpdateTime($book_id)){
+            dd('最后一次修改时间更新失败');
+        }
+        //2，redis中上一页下一页排列组删除
+        $redis = new Redis();
+        $redis->connect('127.0.0.1',6379);
+        $redis->del($book_id.'pre_list');
+        $redis->del($book_id.'next_list');
+        return true;
     }
     /*
      * 删除某一章节
@@ -442,12 +465,12 @@ class Admin_BookController extends BaseController{
     public function getFilePathByBookIdAndChapterId($book_id,$chapter_id){
         $chapter_info = $this->BookContent->getChapterContentByChapterId($book_id,$chapter_id);
         if($chapter_info->chapter_organization=='0'){
-            $chapter_organization_name = '正文';
+            $chapter_organization_id = 0;
         }else{
-            $chapter_organization_name = $this->BookModel->getChapterOrganizationInfoByOid($chapter_info->chapter_organization)->organization_name;
+            $chapter_organization_id = $this->BookModel->getChapterOrganizationInfoByOid($chapter_info->chapter_organization)->id;
         }
         $chapter_name = $chapter_info->chapter_name;
-        return './Book_List/'.$book_id.'/'.$chapter_organization_name.'/'.$chapter_name.'.txt';
+        return './Book_List/'.$book_id.'/'.$chapter_organization_id.'/'.$chapter_name.'.txt';
     }
     /*
      * 对分卷信息进行修改
@@ -467,7 +490,7 @@ class Admin_BookController extends BaseController{
     public function doDelChapterOrganization(){
         $id = $this->get('id');
         $organization_info = $this->BookModel->getChapterOrganizationInfoByOid($id);
-        $dir_path = './Book_List/'.$organization_info->book_id.'/'.$organization_info->organization_name;//该分卷对应的文件夹
+        $dir_path = './Book_List/'.$organization_info->book_id.'/'.$organization_info->id;//该分卷对应的文件夹
         if($this->BookModel->delChapterOrganization($id)){
             //删除成功后,同时删除分卷对应的书籍
             if($this->BookContent->delBookContentByOrganizaitonId($organization_info->book_id,$id)){

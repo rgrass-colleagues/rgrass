@@ -188,4 +188,12 @@ class Book_BookInfoModel extends Eloquent{
             ->where('id',$id)
             ->update($content);
     }
+
+
+    /*更新最后一次修改时间*/
+    public function modifyLastUpdateTime($book_id){
+        return DB::table($this->book_detail)
+            ->where('book_id',$book_id)
+            ->update(array('last_update_time'=>time()));
+    }
 }

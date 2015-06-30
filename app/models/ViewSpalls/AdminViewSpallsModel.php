@@ -87,4 +87,12 @@ class ViewSpalls_AdminViewSpallsModel extends Eloquent{
             }
         }
     }
+    /*
+     * 通过书籍id得到书名
+     * */
+    static public function changeBookIdIntoBookName($book_id){
+        $book = new Book_BookInfoModel();
+        $book_name = $book->getBookBaseInfoById($book_id)->book_name;
+        return $book_name;
+    }
 }

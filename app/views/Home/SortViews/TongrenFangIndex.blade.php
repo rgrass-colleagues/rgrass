@@ -28,6 +28,7 @@
 
         <div id="myCarousel" class="carousel slide">
             <ol class="carousel-indicators">
+
                 <li data-target="#myCarousel" data-slide-to="0"  class="" ></li>
                 <li data-target="#myCarousel" data-slide-to="1" class=""></li>
                 <li data-target="#myCarousel" data-slide-to="1" class=""></li>
@@ -35,42 +36,21 @@
                 <li data-target="#myCarousel" data-slide-to="2" class="active"></li>
             </ol>
             <div class="carousel-inner">
+                @foreach($flashData as $v)
                 <div class="item">
-                    <img src="../../../Cover/4.jpg" alt="">
+                    <a href="/Book?book_id={{$v->book_id}}">
+                        <img src="/uploads/special_picture/{{$v->special_picture}}" alt="">
+                    </a>
                     <div class="carousel-caption">
                         <h4></h4>
                         <p></p>
                     </div>
                 </div>
-                <div class="item">
-                    <img src="../../../Cover/2.jpg" alt="">
-                    <div class="carousel-caption">
-                        <h4></h4>
-                        <p></p>
-                    </div>
-                </div>
-                <div class="item">
-                    <img src="../../../Cover/2.jpg" alt="">
-                    <div class="carousel-caption">
-                        <h4></h4>
-                        <p></p>
-                    </div>
-                </div>
-                <div class="item">
-                    <img src="../../../Cover/2.jpg" alt="">
-                    <div class="carousel-caption">
-                        <h4></h4>
-                        <p></p>
-                    </div>
-                </div>
-                <div class="item active">
-                    <img src="../../../Cover/3.gif" alt="">
-                    <div class="carousel-caption">
-                        <h4></h4>
-                        <p></p>
-                    </div>
-                </div>
+                @endforeach
             </div>
+            <script>
+                $('.item').eq(4).addClass('active');
+            </script>
             <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
             <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
         </div>
@@ -100,7 +80,7 @@
         <div class="author_invite_content">
             <img src="../../../Tongrenfang/img/1.jpeg" alt="" class="author_pic"/>
             <br>
-            <a href="" target="_blank" class="author_name">作者:陈诚城</a>
+            <a href="" target="_blank" class="author_name">作者:bob</a>
             <br>
             <a href="" target="_blank" class="author_say">引领小说文化从我做起,推进网络文明阅读</a>
         </div>
@@ -128,166 +108,13 @@
                 </tr>
                 <!--总共23本放在首页作为更新栏-->
                 <tr>
-                    <td><a href="" class="book_update_content_style">[同人]</a></td>
-                    <td><a href="book?book_id=1" class="book_update_content_bname">火影忍者之旅</a></td>
+                    <td><a href="" class="book_update_content_style">[玄幻]</a></td>
+                    <td><a href="Book?book_id=1" class="book_update_content_bname">完美世界</a></td>
                     <td><a href="" class="book_update_content_charter">第一章:穿越</a></td>
                     <td><a href="" class="book_update_content_author">未来人类</a></td>
                     <td>2015-1-1 12:03:02</td>
                 </tr>
-                <tr>
-                    <td><a href="" class="book_update_content_style">[同人]</a></td>
-                    <td><a href="" class="book_update_content_bname">火影忍者之旅</a></td>
-                    <td><a href="" class="book_update_content_charter">第一章:穿越</a></td>
-                    <td><a href="" class="book_update_content_author">未来人类</a></td>
-                    <td>2015-1-1 12:03:02</td>
-                </tr>
-                <tr>
-                    <td><a href="" class="book_update_content_style">[同人]</a></td>
-                    <td><a href="" class="book_update_content_bname">火影忍者之旅</a></td>
-                    <td><a href="" class="book_update_content_charter">第一章:穿越</a></td>
-                    <td><a href="" class="book_update_content_author">未来人类</a></td>
-                    <td>2015-1-1 12:03:02</td>
-                </tr>
-                <tr>
-                    <td><a href="" class="book_update_content_style">[同人]</a></td>
-                    <td><a href="" class="book_update_content_bname">火影忍者之旅</a></td>
-                    <td><a href="" class="book_update_content_charter">第一章:穿越</a></td>
-                    <td><a href="" class="book_update_content_author">未来人类</a></td>
-                    <td>2015-1-1 12:03:02</td>
-                </tr>
-                <tr>
-                    <td><a href="" class="book_update_content_style">[同人]</a></td>
-                    <td><a href="" class="book_update_content_bname">火影忍者之旅</a></td>
-                    <td><a href="" class="book_update_content_charter">第一章:穿越</a></td>
-                    <td><a href="" class="book_update_content_author">未来人类</a></td>
-                    <td>2015-1-1 12:03:02</td>
-                </tr>
-                <tr>
-                    <td><a href="" class="book_update_content_style">[同人]</a></td>
-                    <td><a href="" class="book_update_content_bname">火影忍者之旅</a></td>
-                    <td><a href="" class="book_update_content_charter">第一章:穿越</a></td>
-                    <td><a href="" class="book_update_content_author">未来人类</a></td>
-                    <td>2015-1-1 12:03:02</td>
-                </tr>
-                <tr>
-                    <td><a href="" class="book_update_content_style">[同人]</a></td>
-                    <td><a href="" class="book_update_content_bname">火影忍者之旅</a></td>
-                    <td><a href="" class="book_update_content_charter">第一章:穿越</a></td>
-                    <td><a href="" class="book_update_content_author">未来人类</a></td>
-                    <td>2015-1-1 12:03:02</td>
-                </tr>
-                <tr>
-                    <td><a href="" class="book_update_content_style">[同人]</a></td>
-                    <td><a href="" class="book_update_content_bname">火影忍者之旅</a></td>
-                    <td><a href="" class="book_update_content_charter">第一章:穿越</a></td>
-                    <td><a href="" class="book_update_content_author">未来人类</a></td>
-                    <td>2015-1-1 12:03:02</td>
-                </tr>
-                <tr>
-                    <td><a href="" class="book_update_content_style">[同人]</a></td>
-                    <td><a href="" class="book_update_content_bname">火影忍者之旅</a></td>
-                    <td><a href="" class="book_update_content_charter">第一章:穿越</a></td>
-                    <td><a href="" class="book_update_content_author">未来人类</a></td>
-                    <td>2015-1-1 12:03:02</td>
-                </tr>
-                <tr>
-                    <td><a href="" class="book_update_content_style">[同人]</a></td>
-                    <td><a href="" class="book_update_content_bname">火影忍者之旅</a></td>
-                    <td><a href="" class="book_update_content_charter">第一章:穿越</a></td>
-                    <td><a href="" class="book_update_content_author">未来人类</a></td>
-                    <td>2015-1-1 12:03:02</td>
-                </tr>
-                <tr>
-                    <td><a href="" class="book_update_content_style">[同人]</a></td>
-                    <td><a href="" class="book_update_content_bname">火影忍者之旅</a></td>
-                    <td><a href="" class="book_update_content_charter">第一章:穿越</a></td>
-                    <td><a href="" class="book_update_content_author">未来人类</a></td>
-                    <td>2015-1-1 12:03:02</td>
-                </tr>
-                <tr>
-                    <td><a href="" class="book_update_content_style">[同人]</a></td>
-                    <td><a href="" class="book_update_content_bname">火影忍者之旅</a></td>
-                    <td><a href="" class="book_update_content_charter">第一章:穿越</a></td>
-                    <td><a href="" class="book_update_content_author">未来人类</a></td>
-                    <td>2015-1-1 12:03:02</td>
-                </tr>
-                <tr>
-                    <td><a href="" class="book_update_content_style">[同人]</a></td>
-                    <td><a href="" class="book_update_content_bname">火影忍者之旅</a></td>
-                    <td><a href="" class="book_update_content_charter">第一章:穿越</a></td>
-                    <td><a href="" class="book_update_content_author">未来人类</a></td>
-                    <td>2015-1-1 12:03:02</td>
-                </tr>
-                <tr>
-                    <td><a href="" class="book_update_content_style">[同人]</a></td>
-                    <td><a href="" class="book_update_content_bname">火影忍者之旅</a></td>
-                    <td><a href="" class="book_update_content_charter">第一章:穿越</a></td>
-                    <td><a href="" class="book_update_content_author">未来人类</a></td>
-                    <td>2015-1-1 12:03:02</td>
-                </tr>
-                <tr>
-                    <td><a href="" class="book_update_content_style">[同人]</a></td>
-                    <td><a href="" class="book_update_content_bname">火影忍者之旅</a></td>
-                    <td><a href="" class="book_update_content_charter">第一章:穿越</a></td>
-                    <td><a href="" class="book_update_content_author">未来人类</a></td>
-                    <td>2015-1-1 12:03:02</td>
-                </tr>
-                <tr>
-                    <td><a href="" class="book_update_content_style">[同人]</a></td>
-                    <td><a href="" class="book_update_content_bname">火影忍者之旅</a></td>
-                    <td><a href="" class="book_update_content_charter">第一章:穿越</a></td>
-                    <td><a href="" class="book_update_content_author">未来人类</a></td>
-                    <td>2015-1-1 12:03:02</td>
-                </tr>
-                <tr>
-                    <td><a href="" class="book_update_content_style">[同人]</a></td>
-                    <td><a href="" class="book_update_content_bname">火影忍者之旅</a></td>
-                    <td><a href="" class="book_update_content_charter">第一章:穿越</a></td>
-                    <td><a href="" class="book_update_content_author">未来人类</a></td>
-                    <td>2015-1-1 12:03:02</td>
-                </tr>
-                <tr>
-                    <td><a href="" class="book_update_content_style">[同人]</a></td>
-                    <td><a href="" class="book_update_content_bname">火影忍者之旅</a></td>
-                    <td><a href="" class="book_update_content_charter">第一章:穿越</a></td>
-                    <td><a href="" class="book_update_content_author">未来人类</a></td>
-                    <td>2015-1-1 12:03:02</td>
-                </tr>
-                <tr>
-                    <td><a href="" class="book_update_content_style">[同人]</a></td>
-                    <td><a href="" class="book_update_content_bname">火影忍者之旅</a></td>
-                    <td><a href="" class="book_update_content_charter">第一章:穿越</a></td>
-                    <td><a href="" class="book_update_content_author">未来人类</a></td>
-                    <td>2015-1-1 12:03:02</td>
-                </tr>
-                <tr>
-                    <td><a href="" class="book_update_content_style">[同人]</a></td>
-                    <td><a href="" class="book_update_content_bname">火影忍者之旅</a></td>
-                    <td><a href="" class="book_update_content_charter">第一章:穿越</a></td>
-                    <td><a href="" class="book_update_content_author">未来人类</a></td>
-                    <td>2015-1-1 12:03:02</td>
-                </tr>
-                <tr>
-                    <td><a href="" class="book_update_content_style">[同人]</a></td>
-                    <td><a href="" class="book_update_content_bname">火影忍者之旅</a></td>
-                    <td><a href="" class="book_update_content_charter">第一章:穿越</a></td>
-                    <td><a href="" class="book_update_content_author">未来人类</a></td>
-                    <td>2015-1-1 12:03:02</td>
-                </tr>
-                <tr>
-                    <td><a href="" class="book_update_content_style">[同人]</a></td>
-                    <td><a href="" class="book_update_content_bname">火影忍者之旅</a></td>
-                    <td><a href="" class="book_update_content_charter">第一章:穿越</a></td>
-                    <td><a href="" class="book_update_content_author">未来人类</a></td>
-                    <td>2015-1-1 12:03:02</td>
-                </tr>
-                <tr>
-                    <td><a href="" class="book_update_content_style">[同人]</a></td>
-                    <td><a href="" class="book_update_content_bname">火影忍者之旅</a></td>
-                    <td><a href="" class="book_update_content_charter">第一章:穿越</a></td>
-                    <td><a href="" class="book_update_content_author">未来人类</a></td>
-                    <td>2015-1-1 12:03:02</td>
-                </tr>
+
             </table>
 
         </div>
@@ -298,160 +125,7 @@
 
     <!--------------------------书籍更新状态栏--------------------->
     <!--------------------------数据列(点击,推荐)周,月,总-------------->
-    <div id="book_data">
-        <div id="book_data_click">
-            <div id="book_data_click_title">
-                <span class="high_comment_title_left"><img src="../../Home/img/black_ico.gif" alt="强烈推荐"/></span><span>小说点击榜</span>
-                <div id="book_data_click_part">
-                    <ul>
-                        <li id="book_data_click_week">周</li>
-                        <li id="book_data_click_month">月</li>
-                        <li id="book_data_click_total">总</li>
-                    </ul>
-                </div>
-
-            </div>
-            <div id="book_data_click_content">
-                    <table class="table table-striped">
-                        <tr>
-                            <td>1</td>
-                            <td><a href="" target="_blank">纯纯传</a></td>
-                            <td>314321</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a href="" target="_blank">纯纯传</a></td>
-                            <td>314321</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td><a href="" target="_blank">纯纯传</a></td>
-                            <td>314321</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td><a href="" target="_blank">纯纯传</a></td>
-                            <td>314321</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td><a href="" target="_blank">纯纯传</a></td>
-                            <td>314321</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td><a href="" target="_blank">纯纯传</a></td>
-                            <td>314321</td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td><a href="" target="_blank">纯纯传</a></td>
-                            <td>314321</td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td><a href="" target="_blank">纯纯传</a></td>
-                            <td>314321</td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td><a href="" target="_blank">纯纯传</a></td>
-                            <td>314321</td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td><a href="" target="_blank">纯纯传</a></td>
-                            <td>314321</td>
-                        </tr>
-                        <tr>
-                            <td>11</td>
-                            <td><a href="" target="_blank">纯纯传</a></td>
-                            <td>314321</td>
-                        </tr>
-                    </table>
-            </div>
-            <div id="book_data_click_foot">
-                <a href="" target="_blank">查看更多...</a>
-            </div>
-        </div>
-        <div class="m_part_click_comment"></div>
-        <div id="book_data_comment">
-            <div id="book_data_comment_title">
-                <span class="high_comment_title_left"><img src="../../Home/img/black_ico.gif" alt="强烈推荐"/></span><span>小说推荐榜</span>
-                <div id="book_data_comment_part">
-                    <ul>
-                        <li id="book_data_comment_week">周</li>
-                        <li id="book_data_comment_month">月</li>
-                        <li id="book_data_comment_total">总</li>
-                    </ul>
-                </div>
-
-            </div>
-            <div id="book_data_comment_content">
-                <table class="table table-striped">
-                    <tr>
-                        <td>1</td>
-                        <td><a href="" target="_blank">纯纯传</a></td>
-                        <td>314321</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td><a href="" target="_blank">纯纯传</a></td>
-                        <td>314321</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td><a href="" target="_blank">纯纯传</a></td>
-                        <td>314321</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td><a href="" target="_blank">纯纯传</a></td>
-                        <td>314321</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td><a href="" target="_blank">纯纯传</a></td>
-                        <td>314321</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td><a href="" target="_blank">纯纯传</a></td>
-                        <td>314321</td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td><a href="" target="_blank">纯纯传</a></td>
-                        <td>314321</td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td><a href="" target="_blank">纯纯传</a></td>
-                        <td>314321</td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td><a href="" target="_blank">纯纯传</a></td>
-                        <td>314321</td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td><a href="" target="_blank">纯纯传</a></td>
-                        <td>314321</td>
-                    </tr>
-                    <tr>
-                        <td>11</td>
-                        <td><a href="" target="_blank">纯纯传</a></td>
-                        <td>314321</td>
-                    </tr>
-                </table>
-            </div>
-            <div id="book_data_comment_foot">
-                <a href="" target="_blank">查看更多...</a>
-            </div>
-        </div>
-
-    </div>
+    @include('layouts.book_data')
     <!--------------------------数据列(点击,推荐)日,周,月,总结束-------------->
 
     <!--------------第二层内容结束---------->

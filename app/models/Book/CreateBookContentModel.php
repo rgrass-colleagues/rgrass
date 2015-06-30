@@ -42,7 +42,7 @@ class Book_CreateBookContentModel extends Eloquent{
         });
         //还需要建立对应的txt文档文件夹,文件夹名字与数据库内一致
         $url = "./Book_List/".$book_id;
-        $default_organization = $url.'/'.'0';
+        $default_organization = $url.'/'.'0';//这个是正文
         if(!file_exists($url)){//创建小说目录
             mkdir($url);
         }else{
@@ -78,13 +78,17 @@ class Book_CreateBookContentModel extends Eloquent{
         "organization_name"=>"正文",
         "add_time"=>"0");
         array_push($chapter_organization_info,$text);
-
         foreach ($chapter_organization_info as $v) {
-            $catalog[] = DB::connection($database)
+            $content_info = DB::connection($database)
                 ->table($table)
                 ->where('chapter_organization',$v->id)
                 ->select('id','chapter_name','chapter_organization')
                 ->get();
+            if($content_info){
+                $catalog[] = $content_info;
+            }else{
+                $catalog[] = array('chapter_organization'=>$v->organization_name);
+            }
         }
             return $catalog;
     }

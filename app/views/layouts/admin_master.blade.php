@@ -197,6 +197,18 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
         </a>
     </li>
+    <li class="starting">
+
+        <a href="/rgrassAdmin/HomeData">
+
+            <i class="icon-apple"></i>
+
+            <span class="title">前台数据</span>
+
+            <span class="arrow "></span>
+
+        </a>
+    </li>
 </ul>
 
 <!-- END SIDEBAR MENU -->

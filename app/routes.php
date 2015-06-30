@@ -105,10 +105,15 @@ Route::get('/rgrassAdmin/DelAdminMessage','Admin_MessageController@delAdminMessa
 Route::get('/rgrassAdmin/ReplyAdminMessage','Admin_MessageController@replyAdminMessage');
 Route::post('/rgrassAdmin/doReplyAdminMessage','Admin_MessageController@doReplyAdminMessage');
 
-
-
-
-
+/*前台数据管理*/
+Route::get('/rgrassAdmin/HomeData','Admin_HomeDataController@HomeDataIndex');
+//轮播图的
+Route::get('/rgrassAdmin/HomeFlash','Admin_HomeDataController@HomeFlashUpdate');
+Route::get('/rgrassAdmin/ModifyHomeFlash','Admin_HomeDataController@showModifyHomeFlash');
+Route::post('/rgrassAdmin/doModifyHomeFlash','Admin_HomeDataController@doModifyHomeFlash');
+Route::get('/rgrassAdmin/doChangeFlashState','Admin_HomeDataController@doChangeFlashState');
+//强烈推荐的
+Route::get('/rgrassAdmin/HomeStronglyRecommend','Admin_HomeDataController@HomeStronglyRecommend');
 //前台管理
 
 /****首页******/

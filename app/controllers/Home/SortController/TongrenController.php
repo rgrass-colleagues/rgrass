@@ -13,15 +13,18 @@ class Home_SortController_TongrenController extends BaseController{
         parent::__construct();
         $this->is_user_login = $this->is_user_login();
         $this->data_list = new Book_dataListInfoModel();
+
         $this->redis = new Redis();
         $this->redis->connect('127.0.0.1', 6379);
 
     }
     public function showTongrenIndex(){
-        $stronglyRecommend = $this->getStronglyRecommend();//每一周强烈推荐
+        $stronglyRecommend = $this->getStronglyRecommend();//获取强烈推荐
+        $flashData = $this->getFlashData();//获取首页轮播
         return View::make('Home.SortViews.TongrenFangIndex')->with(array(
             'is_user_login'=>$this->is_user_login,
-            'stronglyRecommend'=>$stronglyRecommend
+            'stronglyRecommend'=>$stronglyRecommend,
+            'flashData'=>$flashData
         ));
     }
     /*
@@ -49,5 +52,18 @@ class Home_SortController_TongrenController extends BaseController{
         $stronglyRecommend = serialize($srecommend);//序列化
         $this->redis->set('stronglyRecommend',$stronglyRecommend);//把数据存进redis
         return $stronglyRecommend;
+    }
+    /*
+     * 获取轮播图
+     * */
+    public function getFlashData(){
+        $flash_data = $this->redis->get('flashHomeData');
+        if(!$flash_data){
+            $flash_data = HomeData_HomeDataModel::getFlashDataStateShow();
+            $flash_data = serialize($flash_data);
+            $this->redis->set('flashHomeData',$flash_data);//把数据存进redis
+        }
+        $flash_data = unserialize($flash_data);
+        return $flash_data;
     }
 }

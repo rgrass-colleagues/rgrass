@@ -25,7 +25,7 @@ class Home_BookController_BookCatalogController extends BaseController{
         $catalog = $this->BookContent->getCatalog($book_id);//直接从数据库里获取目录
 //        dd($catalog);
         /*测试*/
-        $catalog_html = ViewSpalls_BookViewSpallsModel::showHomeBookCatalog($catalog,$book_id);
+        //$catalog_html = ViewSpalls_BookViewSpallsModel::showHomeBookCatalog($catalog,$book_id);
         /*测试*/
         $book_info = $this->BookBaseInfo->getBookBaseInfoById($book_id);
         //var_dump($book_id);exit;

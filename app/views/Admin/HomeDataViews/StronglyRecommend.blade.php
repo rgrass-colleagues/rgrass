@@ -18,7 +18,7 @@
 
     </li>
 
-    <li><a href="/rgrassAdmin/UserInfo">用户管理</a></li>
+    <li><a href="/rgrassAdmin/HomeData">前台数据</a></li>
 
     <li class="pull-right no-text-shadow">
 
@@ -37,22 +37,20 @@
 </ul>
 @stop
 @section('content')
+<a href="" class="btn blue">一键轮换</a>
+<br><br>
+<span>目前处在显示状态的书籍有</span>
+<span style="color:red"></span>
+<span>本（超过5本后不能再选择显示）</span>
+<br><br>
 <table class="table table-hover">
     <tr>
-        <td>用户名</td>
-        <td>笔名</td>
-        <td>作者语</td>
-        <td>添加时间</td>
+        <td>id</td>
+        <td>书号</td>
+        <td>特制图片</td>
+        <td>可用</td>
+        <td>更改时间</td>
         <td>操作</td>
     </tr>
-    @foreach($author_info as $v)
-    <tr>
-        <td>{{ViewSpalls_AdminViewSpallsModel::getUserNameByUserIdS($v->user_id)}}</td>
-        <td>{{$v->pen_name}}</td>
-        <td>{{$v->author_in_mind}}</td>
-        <td>{{date('Y-m-d H:i:s',$v->addtime)}}</td>
-        <td><a href="/rgrassAdmin/ModifyAuthorInfo?id={{$v->id}}" class="btn blue">修改</a></td>
-    </tr>
-    @endforeach
 </table>
 @stop
