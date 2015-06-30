@@ -15,11 +15,11 @@ class Home_SearchController_SearchIndexController extends BaseController{
         $this->search  =new Book_SearchModel();
     }
     public function SearchIndex(){
-        $search_content = $this->get('search_content')?$this->get('search_content'):'输入关键字有误,请重新输入!';
+        $search_content = $this->get('search_content')?$this->get('search_content'):'XX';
         if(!$search_book = $this->search->showSearchResult($search_content)){
-            $search_book = '没有找到该书籍相关信息,请重新输入!';
+            $search_book = false;
         }
-
+//        dd($search_book);
         return View::make('Home.SearchViews.SearchContentIndex')->with(array(
             'search_content'=>$search_content,
             'search_book'=>$search_book

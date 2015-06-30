@@ -1,6 +1,5 @@
 <nav class="navbar navbar-inverse" id="nav">
     <ul>
-        <li><img src="" alt=""/></li>
         <a href="http://www.rgrass.com/Index"><li>同人坊</li></a>
         <a href="http://www.rgrass.com"><li>搜索</li></a>
         <a href="/error"><li>精品站</li></a>
