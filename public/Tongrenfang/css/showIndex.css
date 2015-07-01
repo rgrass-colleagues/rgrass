@@ -343,7 +343,7 @@ section{
     line-height:50px;
     padding:0px 15px;
 }
-#book_data_click_week{
+#book_data_click_total{
     background:white;
     color: #000000;
 }
@@ -412,7 +412,7 @@ section{
     line-height:50px;
     padding:0px 15px;
 }
-#book_data_comment_week{
+#book_data_comment_total{
     background:white;
     color: #000000;
 }

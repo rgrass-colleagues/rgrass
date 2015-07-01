@@ -196,4 +196,6 @@ class Book_BookInfoModel extends Eloquent{
             ->where('book_id',$book_id)
             ->update(array('last_update_time'=>time()));
     }
+
+
 }

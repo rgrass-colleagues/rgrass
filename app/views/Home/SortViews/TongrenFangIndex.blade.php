@@ -15,7 +15,7 @@
         <div class="high_comment_content">
             <ul>
                 @foreach($stronglyRecommend as $v)
-                <li><a href="/error" target="_blank">[玄幻]</a><a href="/Book?book_id={{$v->book_id}}" target="_blank">{{$v->book_name}}</a></li>
+                <li><a href="/error" target="_blank">[{{$v->type_name}}]</a><a href="/Book?book_id={{$v->book_id}}" target="_blank">{{$v->book_name}}</a></li>
                 @endforeach
             </ul>
         </div>
@@ -102,19 +102,19 @@
                 <tr>
                     <td>类别</td>
                     <td>书名</td>
-                    <td>最新章节</td>
                     <td>作者</td>
                     <td>更新时间</td>
+
                 </tr>
                 <!--总共23本放在首页作为更新栏-->
+                @foreach($bookUpdateData as $k=>$v)
                 <tr>
-                    <td><a href="" class="book_update_content_style">[玄幻]</a></td>
-                    <td><a href="Book?book_id=1" class="book_update_content_bname">完美世界</a></td>
-                    <td><a href="" class="book_update_content_charter">第一章:穿越</a></td>
-                    <td><a href="" class="book_update_content_author">未来人类</a></td>
-                    <td>2015-1-1 12:03:02</td>
+                    <td><a href="" class="book_update_content_style">[{{$v->type_name}}]</a></td>
+                    <td><a href="Book?book_id={{$v->book_id}}" class="book_update_content_bname">{{$v->book_name}}</a></td>
+                    <td><a href="" class="book_update_content_author">{{$v->author}}</a></td>
+                    <td>{{date('Y-m-d H:i:s',$v->last_update_time)}}</td>
                 </tr>
-
+                @endforeach
             </table>
 
         </div>

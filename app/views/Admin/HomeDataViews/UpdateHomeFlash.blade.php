@@ -37,7 +37,8 @@
 </ul>
 @stop
 @section('content')
-<a href="" class="btn blue">一键轮换</a>
+<a href="/rgrassAdmin/AddHideHomeFlash" class="btn blue">添加首页轮播</a>
+<a href="" class="btn green">一键轮换</a>
 <br><br>
 <span>目前处在显示状态的书籍有</span>
 <span style="color:red">{{$count}}</span>
@@ -71,10 +72,10 @@
             @if($count>=5)
             <a href="#" onclick="alert('处于显示状态的不能大于5个')" class="btn green">显示</a>
             @else
-            <a href="/rgrassAdmin/doChangeFlashState?state=show&&id={{$v->id}}" class="btn green">显示</a>
+            <a href="/rgrassAdmin/doChangeState?state=show&&id={{$v->id}}&&redirect=flash" class="btn green">显示</a>
             @endif
             @else
-            <a href="/rgrassAdmin/doChangeFlashState?state=hide&&id={{$v->id}}" class="btn gray">隐藏</a>
+            <a href="/rgrassAdmin/doChangeState?state=hide&&id={{$v->id}}&&redirect=flash" class="btn gray">隐藏</a>
             @endif
         </td>
     </tr>

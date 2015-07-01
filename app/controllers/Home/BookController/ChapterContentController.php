@@ -10,29 +10,34 @@ class Home_BookController_ChapterContentController extends BaseController{
     private $from_url = null;
     private $BookContent = null;
     private $BookBaseInfo = null;
+    private $redis = null;
     public function __construct(){
         parent::__construct();
         $this->is_user_login = $this->is_user_login();
         $this->from_url = $this->from_url();
         $this->BookContent = new Book_CreateBookContentModel();
         $this->BookBaseInfo = new Book_BookInfoModel();
+        $this->redis = new Redis();
+        $this->redis->connect('127.0.0.1',6379);
     }
-    /*
+    /**
      * 展示一本小说的内容...其中一章
      * */
     public function showChapterContent(){
         $book_id = $this->get('book_id');
+        if(!Book_BookNewInfoModel::incrementFields('click_number_all',$book_id)){
+            //没看一张，点击数+1
+            dd('数据库执行错误');
+        }
         $chapter_id = $this->get('chapter_id');
-        $redis = new Redis();
-        $redis->connect('127.0.0.1',6379);
-        $pre_list = $redis->get($book_id.'pre_list');
-        $next_list = $redis->get($book_id.'next_list');
+        $pre_list = $this->redis->get($book_id.'pre_list');
+        $next_list = $this->redis->get($book_id.'next_list');
         if((!$pre_list)||(!$next_list)){
             $pn_list = $this->getBookCatalogIntoPreAndNext($book_id);
             $pre_list = $pn_list[0];
             $next_list = $pn_list[1];
-            $redis->set($book_id.'pre_list',$pre_list);
-            $redis->set($book_id.'next_list',$next_list);
+            $this->redis->set($book_id.'pre_list',$pre_list);
+            $this->redis->set($book_id.'next_list',$next_list);
         }
         $pre_arr = explode(',',$pre_list);
         $next_arr = explode(',',$next_list);

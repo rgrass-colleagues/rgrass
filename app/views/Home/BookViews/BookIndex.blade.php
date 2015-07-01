@@ -1,6 +1,6 @@
 @extends('layouts.home_master')
 @section('title')
-{{$book_info->book_name}}--燃草同人社区({{$book_info->book_id}})
+{{$book_info->book_name}}--燃草同人社区
 @stop
 @section('content')
 @include('layouts.header')

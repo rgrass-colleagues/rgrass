@@ -12,63 +12,15 @@
 
         </div>
         <div id="book_data_click_content">
-<!--            <table class="table table-striped">-->
-<!--                <tr>-->
-<!--                    <td>1</td>-->
-<!--                    <td><a href="" target="_blank">纯纯传</a></td>-->
-<!--                    <td>314321</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>2</td>-->
-<!--                    <td><a href="" target="_blank">纯纯传</a></td>-->
-<!--                    <td>314321</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>3</td>-->
-<!--                    <td><a href="" target="_blank">纯纯传</a></td>-->
-<!--                    <td>314321</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>4</td>-->
-<!--                    <td><a href="" target="_blank">纯纯传</a></td>-->
-<!--                    <td>314321</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>5</td>-->
-<!--                    <td><a href="" target="_blank">纯纯传</a></td>-->
-<!--                    <td>314321</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>6</td>-->
-<!--                    <td><a href="" target="_blank">纯纯传</a></td>-->
-<!--                    <td>314321</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>7</td>-->
-<!--                    <td><a href="" target="_blank">纯纯传</a></td>-->
-<!--                    <td>314321</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>8</td>-->
-<!--                    <td><a href="" target="_blank">纯纯传</a></td>-->
-<!--                    <td>314321</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>9</td>-->
-<!--                    <td><a href="" target="_blank">纯纯传</a></td>-->
-<!--                    <td>314321</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>10</td>-->
-<!--                    <td><a href="" target="_blank">纯纯传</a></td>-->
-<!--                    <td>314321</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>11</td>-->
-<!--                    <td><a href="" target="_blank">纯纯传</a></td>-->
-<!--                    <td>314321</td>-->
-<!--                </tr>-->
-<!--            </table>-->
+            <table class="table table-striped">
+                @foreach($clickNumAll as $k=>$v)
+                <tr>
+                    <td>{{$k+1}}</td>
+                    <td><a href="/Book?book_id={{$v->book_id}}" target="_blank">{{$v->book_name}}</a></td>
+                    <td>{{$v->click_number_all}}</td>
+                </tr>
+                @endforeach
+            </table>
         </div>
         <div id="book_data_click_foot">
             <a href="" target="_blank">查看更多...</a>
@@ -85,66 +37,17 @@
                     <li id="book_data_comment_total">总</li>
                 </ul>
             </div>
-
         </div>
         <div id="book_data_comment_content">
-<!--            <table class="table table-striped">-->
-<!--                <tr>-->
-<!--                    <td>1</td>-->
-<!--                    <td><a href="" target="_blank">纯纯传</a></td>-->
-<!--                    <td>314321</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>2</td>-->
-<!--                    <td><a href="" target="_blank">纯纯传</a></td>-->
-<!--                    <td>314321</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>3</td>-->
-<!--                    <td><a href="" target="_blank">纯纯传</a></td>-->
-<!--                    <td>314321</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>4</td>-->
-<!--                    <td><a href="" target="_blank">纯纯传</a></td>-->
-<!--                    <td>314321</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>5</td>-->
-<!--                    <td><a href="" target="_blank">纯纯传</a></td>-->
-<!--                    <td>314321</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>6</td>-->
-<!--                    <td><a href="" target="_blank">纯纯传</a></td>-->
-<!--                    <td>314321</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>7</td>-->
-<!--                    <td><a href="" target="_blank">纯纯传</a></td>-->
-<!--                    <td>314321</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>8</td>-->
-<!--                    <td><a href="" target="_blank">纯纯传</a></td>-->
-<!--                    <td>314321</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>9</td>-->
-<!--                    <td><a href="" target="_blank">纯纯传</a></td>-->
-<!--                    <td>314321</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>10</td>-->
-<!--                    <td><a href="" target="_blank">纯纯传</a></td>-->
-<!--                    <td>314321</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>11</td>-->
-<!--                    <td><a href="" target="_blank">纯纯传</a></td>-->
-<!--                    <td>314321</td>-->
-<!--                </tr>-->
-<!--            </table>-->
+            <table class="table table-striped">
+                @foreach($recommendAll as $k=>$v)
+                <tr>
+                    <td>{{$k+1}}</td>
+                    <td><a href="/Book?book_id={{$v->book_id}}" target="_blank">{{$v->book_name}}</a></td>
+                    <td>{{$v->recommend_all}}</td>
+                </tr>
+                @endforeach
+            </table>
         </div>
         <div id="book_data_comment_foot">
             <a href="" target="_blank">查看更多...</a>
