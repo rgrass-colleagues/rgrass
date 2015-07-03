@@ -21,6 +21,8 @@ class Home_BookController_BookController extends BaseController{
      * 获取的是进行过静态化处理的书籍
      * */
     public function showBookIndex(){
+        $clickNumAll = Book_BookNewInfoModel::clickNumberAll();//获取小说总点击榜
+        $recommendAll = Book_BookNewInfoModel::RecommendAll();//获取小说总推荐榜
         $book_id = $this->get('book_id');
         if(!$book_info = $this->bookModel->getBookBaseInfoById($book_id)){
             dd('抱歉，没有这本书');
@@ -38,7 +40,9 @@ class Home_BookController_BookController extends BaseController{
         return View::make('Home.BookViews.BookIndex')->with(array(
             'is_user_login'=>$this->is_user_login,
             'book_info'=>$book_info,
-            'book_detail'=>$book_detail
+            'book_detail'=>$book_detail,
+            'clickNumAll'=>$clickNumAll,
+            'recommendAll'=>$recommendAll
         ));
     }
 

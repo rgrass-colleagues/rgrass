@@ -105,7 +105,10 @@ Route::get('/rgrassAdmin/DelAdminMessage','Admin_MessageController@delAdminMessa
 Route::get('/rgrassAdmin/ReplyAdminMessage','Admin_MessageController@replyAdminMessage');
 Route::post('/rgrassAdmin/doReplyAdminMessage','Admin_MessageController@doReplyAdminMessage');
 
-/*前台数据管理*/
+
+
+
+/***前台数据管理(轮播,推荐,追忆,各种榜单)***/
 Route::get('/rgrassAdmin/HomeData','Admin_HomeDataController@HomeDataIndex');
 //轮播图的
 Route::get('/rgrassAdmin/HomeFlash','Admin_HomeDataController@HomeFlashUpdate');
@@ -115,18 +118,29 @@ Route::get('/rgrassAdmin/doChangeState','Admin_HomeDataController@doChangeState'
 Route::get('/rgrassAdmin/AddHideHomeFlash','Admin_HomeDataController@AddHideHomeFlash');
 Route::post('/rgrassAdmin/doAddHideHomeFlash','Admin_HomeDataController@doAddHideHomeFlash');
 //强烈推荐的
+/****同人坊强烈推荐****/
 Route::get('/rgrassAdmin/HomeStronglyRecommend','Admin_HomeDataController@HomeStronglyRecommend');
+//添加与修改,同人坊,精品站,动漫,武侠,影视,经典,原创共用
 Route::get('/rgrassAdmin/AddHideStronglyRecommend','Admin_HomeDataController@AddHideStronglyRecommend');
 Route::post('/rgrassAdmin/doAddHideStronglyRecommend','Admin_HomeDataController@doAddHideStronglyRecommend');
 Route::get('/rgrassAdmin/ModifyStronglyRecommend','Admin_HomeDataController@ModifyStronglyRecommend');
 Route::post('/rgrassAdmin/doModifyStronglyRecommend','Admin_HomeDataController@doModifyStronglyRecommend');
+/****同人坊强烈推荐****/
+/****精品站强烈推荐*****/
+Route::get('/rgrassAdmin/BoutiqueStronglyRecommend','Admin_HomeDataController@BoutiqueStronglyRecommend');
+/****精品站强烈推荐*****/
+
+/******精品追忆********/
+Route::get('/rgrassAdmin/BoutiqueRecall','Admin_HomeDataController@BoutiqueRecall');
+//添加修改,追忆list,精品站,动漫,武侠,影视,经典,原创共用
+Route::get('/rgrassAdmin/AddHideRecall','Admin_HomeDataController@AddHideRecall');
+Route::post('/rgrassAdmin/doAddHideRecall','Admin_HomeDataController@doAddHideRecall');
+Route::get('/rgrassAdmin/ModifyRecall','Admin_HomeDataController@ModifyRecall');
+Route::post('/rgrassAdmin/doModifyRecall','Admin_HomeDataController@doModifyRecall');
 
 
 
-
-
-
-
+/******精品追忆********/
 
 
 
@@ -159,8 +173,38 @@ Route::get('/Book','Home_BookController_BookController@showBookIndex');
 Route::get('/Catalog','Home_BookController_BookCatalogController@showBookCatalog');
 Route::get('/ChapterContent','Home_BookController_ChapterContentController@showChapterContent');
 /*****小说相关*****/
+
+
+
 /*****小说搜索****/
 Route::get('/Search','Home_SearchController_SearchIndexController@SearchIndex');
+/*****搜索相关******/
+
+
+/*****子栏目*****/
+Route::get('/Boutique','Home_SortController_SortBoutiqueController@showSortIndex');//全站精品书籍栏
+
+
+
+/*****子栏目*****/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

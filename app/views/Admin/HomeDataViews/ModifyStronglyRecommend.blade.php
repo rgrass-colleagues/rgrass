@@ -18,21 +18,9 @@
 
     </li>
 
-    <li><a href="/rgrassAdmin/HomeData">前台数据</a></li>
+    <li><a href="/rgrassAdmin/HomeData">前台数据</a><i class="icon-angle-right"></i></li>
+    <li><a href="">推荐修改</a></li>
 
-    <li class="pull-right no-text-shadow">
-
-        <div id="dashboard-report-range" class="dashboard-date-range tooltips no-tooltip-on-touch-device responsive" data-tablet="" data-desktop="tooltips" data-placement="top" data-original-title="Change dashboard date range">
-
-            <i class="icon-calendar"></i>
-
-            <span></span>
-
-            <i class="icon-angle-down"></i>
-
-        </div>
-
-    </li>
 
 </ul>
 @stop
@@ -43,6 +31,7 @@
         <option value="{{$v->book_id}}">{{$v->book_name}}</option>
         @endforeach
     </select><br>
+    <input type="hidden" name="column" value="{{$column}}"/>
     <input type="hidden" value="{{$data->id}}" name="id"/>
     <input type="submit" class="btn blue" value="确定修改"/>
 </form>

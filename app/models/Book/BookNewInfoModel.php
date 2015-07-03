@@ -64,4 +64,11 @@ class Book_BookNewInfoModel extends Eloquent{
             ->get();
     }
 
+
+
+    static public function getAllBookInfo(){
+        return DB::table(self::$book_info)
+            ->get();
+    }
+
 }

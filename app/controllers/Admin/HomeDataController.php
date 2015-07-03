@@ -78,18 +78,32 @@ class Admin_HomeDataController extends BaseController{
         $state = $this->get('state');
         $id = $this->get('id');
         $redirect = $this->get('redirect');
-        if(!HomeData_HomeDataModel::changeFlashState($state,$id)){
+        if(!HomeData_HomeDataModel::changeFlashState($state,$id,$redirect)){
             dd('修改失败');
         }else{
             switch($redirect){
-                case 'stronglyrecommend':
-                    $this->redis->del('stronglyRecommend');
-                    return Redirect::to('/rgrassAdmin/HomeStronglyRecommend');
-                break;
                 case 'flash':
                     $this->redis->del('flashHomeData');
                     return Redirect::to('/rgrassAdmin/HomeFlash');
                 break;
+
+
+                case 'stronglyRecommend':
+                    $this->redis->del('stronglyRecommend');
+                    return Redirect::to('/rgrassAdmin/HomeStronglyRecommend');
+                break;
+                case 'boutiqueRecommend':
+                    $this->redis->del('boutiqueStronglyRecommend');
+                    return Redirect::to('/rgrassAdmin/BoutiqueStronglyRecommend');
+                break;
+
+
+
+                case 'boutiqueRecall':
+                    $this->redis->del('boutiqueRecall');
+                    return Redirect::to('/rgrassAdmin/BoutiqueRecall');
+                break;
+
             }
         }
 
@@ -122,60 +136,176 @@ class Admin_HomeDataController extends BaseController{
         }
     }
 
-    /*前台强烈推荐*/
+    /*****强烈推荐****/
+    //同人坊强烈推荐
     public function HomeStronglyRecommend(){
-        $count = HomeData_HomeDataModel::getCountStronglyRecommend();
-        $stronglyRecommend = HomeData_HomeDataModel::getStronglyRecommend();
+        $count = HomeData_RecommendDataModel::getCountRecommend('1');
+        $stronglyRecommend = HomeData_RecommendDataModel::getAllRecommend('1');
         return View::make('Admin.HomeDataViews.StronglyRecommend')->with(array(
             'stronglyRecommend'=>$stronglyRecommend,
             'count'=>$count
         ));
     }
+    //精品站强烈推荐
+    public function BoutiqueStronglyRecommend(){
+        $boutique =HomeData_RecommendDataModel::getAllRecommend('2');
+        $count = HomeData_RecommendDataModel::getCountRecommend('2');
+        return View::make('Admin.HomeDataViews.Boutique.BoutiqueStronglyRecommendIndex')->with(array(
+            'boutique'=>$boutique,
+            'count'=>$count
+        ));
+    }
+    /*****针对强烈推荐的添加与修改(同人坊,精品站,动漫,武侠,影视,经典,原创,这些栏目中的强烈推荐共用)****/
     //添加
     public function AddHideStronglyRecommend(){
+        $column = $this->get('column');
         $book_list = $this->BookModel->getBookBaseInfoAll();
         return View::make('Admin.HomeDataViews.AddHideStronglyRecommend')->with(array(
-            'book_list'=>$book_list
+            'book_list'=>$book_list,
+            'column'=>$column
         ));
     }
     public function doAddHideStronglyRecommend(){
+        $column = $this->post('column');
         $book_id = $this->post('book_id');
+        switch($column){
+            case 'tongrenfan':
+                $this->doInsertStronglyRecommend('1',$book_id);
+                $this->redis->del('stronglyRecommend');
+                return Redirect::to('/rgrassAdmin/HomeStronglyRecommend');
+            break;
+            case 'boutique':
+                $this->doInsertStronglyRecommend('2',$book_id);
+                $this->redis->del('boutiqueStronglyRecommend');
+                return Redirect::to('/rgrassAdmin/BoutiqueStronglyRecommend');
+            break;
+        }
+
+    }
+    public function doInsertStronglyRecommend($type,$book_id){
         $content = array(
-            'type'=>1,
+            'type'=>$type,
             'book_id'=>$book_id,
             'add_time'=>time(),
             'state'=>0
         );
-        if(HomeData_HomeDataModel::insertStronglyRecommend($content)){
-            return Redirect::to('/rgrassAdmin/HomeStronglyRecommend');
-        }else{
-            dd('插入数据库失败');
-        }
+        return HomeData_RecommendDataModel::insertRecommend($content);
     }
 
     //修改
     public function ModifyStronglyRecommend(){
+        $column = $this->get('column');
         $id = $this->get('id');
-        $data = HomeData_HomeDataModel::getStronglyRecommendById($id);
+        $data = HomeData_RecommendDataModel::getRecommendById($id);
         $book_list = $this->BookModel->getBookBaseInfoAll();
         return View::make('Admin.HomeDataViews.ModifyStronglyRecommend')->with(array(
             'book_list'=>$book_list,
-            'data'=>$data
+            'data'=>$data,
+            'column'=>$column
         ));
     }
     public function doModifyStronglyRecommend(){
+        $column = $this->post('column');
         $id = $this->post('id');
         $book_id = $this->post('book_id');
+        switch($column){
+            case 'tongrenfan':
+                $this->doUpdateStronglyRecommend('1',$book_id,$id);
+                $this->redis->del('stronglyRecommend');
+                return Redirect::to('/rgrassAdmin/HomeStronglyRecommend');
+            break;
+            case 'boutique':
+                $this->doUpdateStronglyRecommend('2',$book_id,$id);
+                $this->redis->del('stronglyRecommend');
+                return Redirect::to('/rgrassAdmin/BoutiqueStronglyRecommend');
+            break;
+        }
+    }
+    public function doUpdateStronglyRecommend($type,$book_id,$id){
         $content = array(
-            'type'=>1,
+            'type'=>$type,
             'book_id'=>$book_id,
             'add_time'=>time(),
         );
-        if(HomeData_HomeDataModel::modifyStronglyRecommend($id,$content)){
-            $this->redis->del('stronglyRecommend');
-            return Redirect::to('/rgrassAdmin/HomeStronglyRecommend');
-        }else{
-            dd('插入数据库失败');
+        return HomeData_RecommendDataModel::modifyRecommend($id,$content);
+    }
+    /*****强烈推荐****/
+
+
+    /******精品追忆*********/
+    public function BoutiqueRecall(){
+        $boutique =HomeData_RecommendDataModel::getAllRecommend('1','recall');
+        $count = HomeData_RecommendDataModel::getCountRecommend('1','recall');
+        return View::make('Admin.HomeDataViews.Boutique.BoutiqueRecall')->with(array(
+            'count'=>$count,
+            'boutique'=>$boutique
+        ));
+    }
+
+    /*****针对追忆的添加与修改(精品站,动漫,武侠,影视,经典,原创,这些栏目中的追忆共用)****/
+//添加
+    public function AddHideRecall(){
+        $column = $this->get('column');
+        $book_list = $this->BookModel->getBookBaseInfoAll();
+        return View::make('Admin.HomeDataViews.AddHideRecall')->with(array(
+            'book_list'=>$book_list,
+            'column'=>$column
+        ));
+    }
+    public function doAddHideRecall(){
+        $column = $this->post('column');
+        $book_id = $this->post('book_id');
+        switch($column){
+            case 'boutique':
+                $this->doInsertRecall('1',$book_id);
+                $this->redis->del('boutiqueRecall');
+                return Redirect::to('/rgrassAdmin/BoutiqueRecall');
+                break;
+        }
+
+    }
+    public function doInsertRecall($type,$book_id){
+        $content = array(
+            'type'=>$type,
+            'book_id'=>$book_id,
+            'add_time'=>time(),
+            'state'=>0
+        );
+        return HomeData_RecommendDataModel::insertRecommend($content,'recall');
+    }
+
+    //修改
+    public function ModifyRecall(){
+        $column = $this->get('column');
+        $id = $this->get('id');
+        $data = HomeData_RecommendDataModel::getRecommendById($id,'recall');
+        $book_list = $this->BookModel->getBookBaseInfoAll();
+        return View::make('Admin.HomeDataViews.ModifyRecall')->with(array(
+            'book_list'=>$book_list,
+            'data'=>$data,
+            'column'=>$column
+        ));
+    }
+    public function doModifyRecall(){
+        $column = $this->post('column');
+        $id = $this->post('id');
+        $book_id = $this->post('book_id');
+        switch($column){
+            case 'boutique':
+                $this->doUpdateRecall('1',$book_id,$id);
+                $this->redis->del('stronglyRecommend');
+                return Redirect::to('/rgrassAdmin/BoutiqueRecall');
+                break;
         }
     }
+    public function doUpdateRecall($type,$book_id,$id){
+        $content = array(
+            'type'=>$type,
+            'book_id'=>$book_id,
+            'add_time'=>time(),
+        );
+        return HomeData_RecommendDataModel::modifyRecommend($id,$content,'recall');
+    }
+    /******精品追忆*********/
+
 }

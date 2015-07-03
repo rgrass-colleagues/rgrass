@@ -20,6 +20,8 @@ class Home_SortController_TongrenController extends BaseController{
         $clickNumAll = Book_BookNewInfoModel::clickNumberAll();//获取小说总点击榜
         $recommendAll = Book_BookNewInfoModel::RecommendAll();//获取小说总推荐榜
         $bookUpdateData = Book_BookNewInfoModel::BookUpdateData();//获取小说近期更新状态
+
+        $site_name = '同人坊';
         return View::make('Home.SortViews.TongrenFangIndex')->with(array(
             'is_user_login'=>$this->is_user_login,
             'stronglyRecommend'=>$stronglyRecommend,//首页强烈推荐
@@ -27,6 +29,7 @@ class Home_SortController_TongrenController extends BaseController{
             'clickNumAll'=>$clickNumAll,//小说总点击榜
             'recommendAll'=>$recommendAll,//小说推荐榜
             'bookUpdateData'=>$bookUpdateData,//最近更新的小说
+            'site_name'=>$site_name
         ));
     }
     /*
@@ -46,7 +49,7 @@ class Home_SortController_TongrenController extends BaseController{
      * */
     public function showStrongRecommend(){
         //连表查询出所有需要的相关数据
-        $strongly_recommend = HomeData_HomeDataModel::getStronglyRecommendBookInfo();
+        $strongly_recommend = HomeData_RecommendDataModel::getStronglyRecommendBookInfo('1');
         $stronglyRecommend = serialize($strongly_recommend);//序列化
         $this->redis->set('stronglyRecommend',$stronglyRecommend);//把数据存进redis
         return $stronglyRecommend;
