@@ -24,6 +24,7 @@ class Home_SortController_SortAnimeController extends BaseController{
 
         $site_name = '动漫';
         return View::make('Home.SortViews.AnimeIndex')->with(array(
+            'is_user_login'=>$this->is_user_login,
             'stronglyRecommend'=>$stronglyRecommend,
             'recall'=>$recall,
             'site_name'=>$site_name,

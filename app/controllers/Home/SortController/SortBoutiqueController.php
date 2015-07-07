@@ -24,6 +24,7 @@ class Home_SortController_SortBoutiqueController extends BaseController{
 
         $site_name = '精品';
         return View::make('Home.SortViews.BoutiqueIndex')->with(array(
+            'is_user_login'=>$this->is_user_login,
             'stronglyRecommend'=>$stronglyRecommend,
             'recall'=>$recall,
             'site_name'=>$site_name,

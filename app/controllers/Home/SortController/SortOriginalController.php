@@ -23,6 +23,7 @@ class Home_SortController_SortOriginalController extends BaseController{
         $bookUpdateData = Book_BookNewInfoModel::BookUpdateData('original');//获取小说近期更新状态
         $site_name = '原创';
         return View::make('Home.SortViews.OriginalIndex')->with(array(
+            'is_user_login'=>$this->is_user_login,
             'stronglyRecommend'=>$stronglyRecommend,
             'recall'=>$recall,
             'site_name'=>$site_name,

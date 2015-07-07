@@ -939,10 +939,25 @@ span.emotion:hover{background-position:2px -28px;/*注意hover此属性在ie 6�
     margin:0 auto;
     border:1px solid #e8e8e8;
     width:90%;
-    height:600px;
+    min-height:600px;
     margin-top:-10px;
 }
-
+.user_section_left{
+    min-height:600px;
+    width:20%;
+    border:1px solid red;
+    float:left;
+}
+.user_section_right{
+    min-height:600px;
+    width:79%;
+    border:1px solid green;
+    float: left;
+    margin-left:1%;
+}
+.user_picture{
+    text-align: center;
+}
 
 
 

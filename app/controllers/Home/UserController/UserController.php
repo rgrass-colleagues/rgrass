@@ -15,6 +15,8 @@ class Home_UserController_UserController extends BaseController{
         $this->redis->connect('127.0.0.1', 6379);
     }
     public function showUserCenter(){
-        return View::make('Home.UserViews.UserCenter');
+        return View::make('Home.UserViews.UserCenter')->with(array(
+            'is_user_login'=>$this->is_user_login,
+        ));
     }
 }

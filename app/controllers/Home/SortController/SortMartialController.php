@@ -24,6 +24,7 @@ class Home_SortController_SortMartialController extends BaseController{
 
         $site_name = '武侠';
         return View::make('Home.SortViews.MartialIndex')->with(array(
+            'is_user_login'=>$this->is_user_login,
             'stronglyRecommend'=>$stronglyRecommend,
             'recall'=>$recall,
             'site_name'=>$site_name,

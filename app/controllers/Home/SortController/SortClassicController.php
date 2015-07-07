@@ -23,6 +23,7 @@ class Home_SortController_SortClassicController extends BaseController{
         $bookUpdateData = Book_BookNewInfoModel::BookUpdateData('classic');//获取小说近期更新状态
         $site_name = '经典';
         return View::make('Home.SortViews.ClassicIndex')->with(array(
+            'is_user_login'=>$this->is_user_login,
             'stronglyRecommend'=>$stronglyRecommend,
             'recall'=>$recall,
             'site_name'=>$site_name,
