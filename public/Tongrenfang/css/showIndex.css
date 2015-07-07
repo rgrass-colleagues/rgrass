@@ -97,7 +97,7 @@ section{
 /*站点强烈推荐*/
 #high_comment{
     padding:5px;
-    width:20%;
+    max-width:20%;
     height:400px;
     border: 1px solid #D8D8D8;
     float: left;
@@ -873,8 +873,8 @@ span.emotion:hover{background-position:2px -28px;/*注意hover此属性在ie 6�
 
 /*****recallRecommend by bob start,time is 2015-07-03 15:22******************/
 #recall_recommend{
-    width:79%;
-    height:400px;
+    max-width:79%;
+    min-height:400px;
     border: 1px solid #D8D8D8;
     float: left;
     margin-left:5px;
@@ -898,12 +898,12 @@ span.emotion:hover{background-position:2px -28px;/*注意hover此属性在ie 6�
 .recall_recommend_content{
     width:100%;
     margin-top:35px;
-    height:250px;
+    min-height:250px;
     border-top:1px dashed gray;
     padding:10px 20px;
 }
 .recall_recommend_content_show{
-    width:143px;
+    width:140px;
     height:230px;
     float:left;
 }
@@ -930,3 +930,21 @@ span.emotion:hover{background-position:2px -28px;/*注意hover此属性在ie 6�
 }
 
 /*****recallRecommend by bob end******************/
+
+
+
+
+/**********UserCenter By Bob Start time:2015-07-07 18:54************/
+#user_section{
+    margin:0 auto;
+    border:1px solid #e8e8e8;
+    width:90%;
+    height:600px;
+    margin-top:-10px;
+}
+
+
+
+
+
+/**********UserCenter By Bob end************/

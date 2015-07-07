@@ -19,7 +19,14 @@
 </body>
 </html>
 <script>
+    var from_url = "{{$from_url}}";
+    console.log(from_url);
+    if(!from_url && typeof(from_url)!="undefined" && from_url!=0){
+        from_url = "http://rgrass.com/Index";
+    }else if("{{$from_url}}"=='http://www.rgrass.com/doLogin'){
+        from_url = "http://rgrass.com/Index";
+    }
     setTimeout(function(){
-        window.location.href="{{$from_url}}";
+        window.location.href=from_url;
     },3000);
 </script>

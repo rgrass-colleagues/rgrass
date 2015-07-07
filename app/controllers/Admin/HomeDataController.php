@@ -82,28 +82,69 @@ class Admin_HomeDataController extends BaseController{
             dd('修改失败');
         }else{
             switch($redirect){
+                //轮播
                 case 'flash':
                     $this->redis->del('flashHomeData');
                     return Redirect::to('/rgrassAdmin/HomeFlash');
                 break;
 
-
-                case 'stronglyRecommend':
+                //强烈推荐
+                case 'tongrenfanRecommend':
                     $this->redis->del('stronglyRecommend');
-                    return Redirect::to('/rgrassAdmin/HomeStronglyRecommend');
+                    return Redirect::to('/rgrassAdmin/StronglyRecommend?nav=tongrenfan');
                 break;
                 case 'boutiqueRecommend':
                     $this->redis->del('boutiqueStronglyRecommend');
-                    return Redirect::to('/rgrassAdmin/BoutiqueStronglyRecommend');
+                    return Redirect::to('/rgrassAdmin/StronglyRecommend?nav=boutique');
                 break;
+                case 'animeRecommend':
+                    $this->redis->del('animeStronglyRecommend');
+                    return Redirect::to('/rgrassAdmin/StronglyRecommend?nav=anime');
+                    break;
+                case 'martialRecommend':
+                    $this->redis->del('martialStronglyRecommend');
+                    return Redirect::to('/rgrassAdmin/StronglyRecommend?nav=martial');
+                    break;
+                case 'filmRecommend':
+                    $this->redis->del('filmStronglyRecommend');
+                    return Redirect::to('/rgrassAdmin/StronglyRecommend?nav=film');
+                    break;
+                case 'classicRecommend':
+                    $this->redis->del('classicStronglyRecommend');
+                    return Redirect::to('/rgrassAdmin/StronglyRecommend?nav=classic');
+                    break;
+                case 'originalRecommend':
+                    $this->redis->del('originalStronglyRecommend');
+                    return Redirect::to('/rgrassAdmin/StronglyRecommend?nav=original');
+                    break;
 
 
 
+                //追忆
                 case 'boutiqueRecall':
                     $this->redis->del('boutiqueRecall');
-                    return Redirect::to('/rgrassAdmin/BoutiqueRecall');
+                    return Redirect::to('/rgrassAdmin/Recall?nav=boutique');
                 break;
-
+                case 'animeRecall':
+                    $this->redis->del('animeRecall');
+                    return Redirect::to('/rgrassAdmin/Recall?nav=anime');
+                    break;
+                case 'martialRecall':
+                    $this->redis->del('martialRecall');
+                    return Redirect::to('/rgrassAdmin/Recall?nav=martial');
+                    break;
+                case 'filmRecall':
+                    $this->redis->del('filmRecall');
+                    return Redirect::to('/rgrassAdmin/Recall?nav=film');
+                    break;
+                case 'classicRecall':
+                    $this->redis->del('classicRecall');
+                    return Redirect::to('/rgrassAdmin/Recall?nav=classic');
+                    break;
+                case 'originalRecall':
+                    $this->redis->del('originalRecall');
+                    return Redirect::to('/rgrassAdmin/Recall?nav=original');
+                    break;
             }
         }
 
@@ -137,29 +178,54 @@ class Admin_HomeDataController extends BaseController{
     }
 
     /*****强烈推荐****/
-    //同人坊强烈推荐
-    public function HomeStronglyRecommend(){
-        $count = HomeData_RecommendDataModel::getCountRecommend('1');
-        $stronglyRecommend = HomeData_RecommendDataModel::getAllRecommend('1');
+    //强烈推荐
+    public function StronglyRecommend(){
+        $nav = $this->get('nav');
+        switch($nav){
+            case 'tongrenfan':
+                $table_num = 1;
+                $site_name = '同人坊';
+                break;
+            case 'boutique':
+                $table_num = 2;
+                $site_name= '精品站';
+                break;
+            case 'anime':
+                $table_num = 3;
+                $site_name= '动漫';
+                break;
+            case 'martial':
+                $table_num = 4;
+                $site_name= '武侠';
+                break;
+            case 'film':
+                $table_num = 5;
+                $site_name= '影视';
+                break;
+            case 'classic':
+                $table_num = 6;
+                $site_name= '经典';
+                break;
+            case 'original':
+                $table_num = 7;
+                $site_name= '原创';
+                break;
+        }
+        $count = HomeData_RecommendDataModel::getCountRecommend($table_num);
+        $stronglyRecommend = HomeData_RecommendDataModel::getAllRecommend($table_num);
         return View::make('Admin.HomeDataViews.StronglyRecommend')->with(array(
             'stronglyRecommend'=>$stronglyRecommend,
-            'count'=>$count
+            'count'=>$count,
+            'site_name'=>$site_name,
+            'nav'=>$nav
         ));
     }
-    //精品站强烈推荐
-    public function BoutiqueStronglyRecommend(){
-        $boutique =HomeData_RecommendDataModel::getAllRecommend('2');
-        $count = HomeData_RecommendDataModel::getCountRecommend('2');
-        return View::make('Admin.HomeDataViews.Boutique.BoutiqueStronglyRecommendIndex')->with(array(
-            'boutique'=>$boutique,
-            'count'=>$count
-        ));
-    }
+
     /*****针对强烈推荐的添加与修改(同人坊,精品站,动漫,武侠,影视,经典,原创,这些栏目中的强烈推荐共用)****/
     //添加
     public function AddHideStronglyRecommend(){
         $column = $this->get('column');
-        $book_list = $this->BookModel->getBookBaseInfoAll();
+        $book_list = Book_BookNewInfoModel::getAllBookInfo($column);
         return View::make('Admin.HomeDataViews.AddHideStronglyRecommend')->with(array(
             'book_list'=>$book_list,
             'column'=>$column
@@ -172,14 +238,33 @@ class Admin_HomeDataController extends BaseController{
             case 'tongrenfan':
                 $this->doInsertStronglyRecommend('1',$book_id);
                 $this->redis->del('stronglyRecommend');
-                return Redirect::to('/rgrassAdmin/HomeStronglyRecommend');
             break;
             case 'boutique':
                 $this->doInsertStronglyRecommend('2',$book_id);
                 $this->redis->del('boutiqueStronglyRecommend');
-                return Redirect::to('/rgrassAdmin/BoutiqueStronglyRecommend');
+            break;
+            case 'anime':
+                $this->doInsertStronglyRecommend('3',$book_id);
+                $this->redis->del('animeStronglyRecommend');
+            break;
+            case 'martial':
+                $this->doInsertStronglyRecommend('4',$book_id);
+                $this->redis->del('martialStronglyRecommend');
+            break;
+            case 'film':
+                $this->doInsertStronglyRecommend('5',$book_id);
+                $this->redis->del('filmStronglyRecommend');
+            break;
+            case 'classic':
+                $this->doInsertStronglyRecommend('6',$book_id);
+                $this->redis->del('classicStronglyRecommend');
+            break;
+            case 'original':
+                $this->doInsertStronglyRecommend('7',$book_id);
+                $this->redis->del('originalStronglyRecommend');
             break;
         }
+        return Redirect::to('/rgrassAdmin/StronglyRecommend?nav='.$column);
 
     }
     public function doInsertStronglyRecommend($type,$book_id){
@@ -197,7 +282,7 @@ class Admin_HomeDataController extends BaseController{
         $column = $this->get('column');
         $id = $this->get('id');
         $data = HomeData_RecommendDataModel::getRecommendById($id);
-        $book_list = $this->BookModel->getBookBaseInfoAll();
+        $book_list = Book_BookNewInfoModel::getAllBookInfo($column);
         return View::make('Admin.HomeDataViews.ModifyStronglyRecommend')->with(array(
             'book_list'=>$book_list,
             'data'=>$data,
@@ -212,14 +297,30 @@ class Admin_HomeDataController extends BaseController{
             case 'tongrenfan':
                 $this->doUpdateStronglyRecommend('1',$book_id,$id);
                 $this->redis->del('stronglyRecommend');
-                return Redirect::to('/rgrassAdmin/HomeStronglyRecommend');
             break;
             case 'boutique':
                 $this->doUpdateStronglyRecommend('2',$book_id,$id);
-                $this->redis->del('stronglyRecommend');
-                return Redirect::to('/rgrassAdmin/BoutiqueStronglyRecommend');
+                $this->redis->del('boutiqueStronglyRecommend');
             break;
+            case 'anime':
+                $this->doUpdateStronglyRecommend('3',$book_id,$id);
+                $this->redis->del('animeStronglyRecommend');
+                break;
+            case 'film':
+                $this->doUpdateStronglyRecommend('4',$book_id,$id);
+                $this->redis->del('filmStronglyRecommend');
+                break;
+            case 'classic':
+                $this->doUpdateStronglyRecommend('5',$book_id,$id);
+                $this->redis->del('classicStronglyRecommend');
+                break;
+            case 'original':
+                $this->doUpdateStronglyRecommend('6',$book_id,$id);
+                $this->redis->del('originalStronglyRecommend');
+                break;
+
         }
+        return Redirect::to('/rgrassAdmin/StronglyRecommend?nav='.$column);
     }
     public function doUpdateStronglyRecommend($type,$book_id,$id){
         $content = array(
@@ -232,13 +333,42 @@ class Admin_HomeDataController extends BaseController{
     /*****强烈推荐****/
 
 
-    /******精品追忆*********/
-    public function BoutiqueRecall(){
-        $boutique =HomeData_RecommendDataModel::getAllRecommend('1','recall');
-        $count = HomeData_RecommendDataModel::getCountRecommend('1','recall');
-        return View::make('Admin.HomeDataViews.Boutique.BoutiqueRecall')->with(array(
+    /******追忆*********/
+    public function Recall(){
+        $nav = $this->get('nav');
+        switch($nav){
+            case 'boutique':
+                $table_num = 1;
+                $site_name= '精品站';
+                break;
+            case 'anime':
+                $table_num = 2;
+                $site_name= '动漫';
+                break;
+            case 'martial':
+                $table_num = 3;
+                $site_name= '武侠';
+                break;
+            case 'film':
+                $table_num = 4;
+                $site_name= '影视';
+                break;
+            case 'classic':
+                $table_num = 5;
+                $site_name= '经典';
+                break;
+            case 'original':
+                $table_num = 6;
+                $site_name= '原创';
+                break;
+        }
+        $boutique =HomeData_RecommendDataModel::getAllRecommend($table_num,'recall');
+        $count = HomeData_RecommendDataModel::getCountRecommend($table_num,'recall');
+        return View::make('Admin.HomeDataViews.Recall')->with(array(
             'count'=>$count,
-            'boutique'=>$boutique
+            'boutique'=>$boutique,
+            'site_name'=>$site_name,
+            'nav'=>$nav
         ));
     }
 
@@ -246,7 +376,7 @@ class Admin_HomeDataController extends BaseController{
 //添加
     public function AddHideRecall(){
         $column = $this->get('column');
-        $book_list = $this->BookModel->getBookBaseInfoAll();
+        $book_list = Book_BookNewInfoModel::getAllBookInfo($column);
         return View::make('Admin.HomeDataViews.AddHideRecall')->with(array(
             'book_list'=>$book_list,
             'column'=>$column
@@ -259,10 +389,29 @@ class Admin_HomeDataController extends BaseController{
             case 'boutique':
                 $this->doInsertRecall('1',$book_id);
                 $this->redis->del('boutiqueRecall');
-                return Redirect::to('/rgrassAdmin/BoutiqueRecall');
+                break;
+            case 'anime':
+                $this->doInsertRecall('2',$book_id);
+                $this->redis->del('animeRecall');
+                break;
+            case 'martial':
+                $this->doInsertRecall('3',$book_id);
+                $this->redis->del('martialRecall');
+                break;
+            case 'film':
+                $this->doInsertRecall('4',$book_id);
+                $this->redis->del('filmRecall');
+                break;
+            case 'classic':
+                $this->doInsertRecall('5',$book_id);
+                $this->redis->del('classicRecall');
+                break;
+            case 'original':
+                $this->doInsertRecall('6',$book_id);
+                $this->redis->del('originalRecall');
                 break;
         }
-
+        return Redirect::to('/rgrassAdmin/Recall?nav='.$column);
     }
     public function doInsertRecall($type,$book_id){
         $content = array(
@@ -279,7 +428,7 @@ class Admin_HomeDataController extends BaseController{
         $column = $this->get('column');
         $id = $this->get('id');
         $data = HomeData_RecommendDataModel::getRecommendById($id,'recall');
-        $book_list = $this->BookModel->getBookBaseInfoAll();
+        $book_list = Book_BookNewInfoModel::getAllBookInfo($column);
         return View::make('Admin.HomeDataViews.ModifyRecall')->with(array(
             'book_list'=>$book_list,
             'data'=>$data,
@@ -293,10 +442,31 @@ class Admin_HomeDataController extends BaseController{
         switch($column){
             case 'boutique':
                 $this->doUpdateRecall('1',$book_id,$id);
-                $this->redis->del('stronglyRecommend');
-                return Redirect::to('/rgrassAdmin/BoutiqueRecall');
+                $this->redis->del('boutiqueRecall');
+                break;
+            case 'anime':
+                $this->doUpdateRecall('2',$book_id,$id);
+                $this->redis->del('animeRecall');
+                break;
+            case 'martial':
+                $this->doUpdateRecall('3',$book_id,$id);
+                $this->redis->del('martialRecall');
+                break;
+            case 'film':
+                $this->doUpdateRecall('4',$book_id,$id);
+                $this->redis->del('filmRecall');
+                break;
+            case 'classic':
+                $this->doUpdateRecall('5',$book_id,$id);
+                $this->redis->del('classicRecall');
+                break;
+            case 'original':
+                $this->doUpdateRecall('6',$book_id,$id);
+                $this->redis->del('originalRecall');
                 break;
         }
+        return Redirect::to('/rgrassAdmin/Recall?nav='.$column);
+
     }
     public function doUpdateRecall($type,$book_id,$id){
         $content = array(

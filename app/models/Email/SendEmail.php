@@ -24,7 +24,7 @@ class Email_SendEmail{
         //$mail->AddAttachment('xx.xls','我的附件.xls'); // 添加附件,并指定名称
         $mail->IsHTML(true); //支持html格式内容
         //$mail->AddEmbeddedImage("logo.jpg", "my-attach", "logo.jpg"); //设置邮件中的图片
-        $mail->Body = '你好, <b>朋友</b><br/>这是一封来自<a href="http://www.rgrass.com" target="_blank">rgrass.com</a>的邮件！<br/>首先,,恭喜你注册成功!但是,你还需要进行下面的操作!<br/><a href="http://www.rgrass.com/activate?token='.$token.'&&username='.$to_email.'">请点击这里,进行激活</a>'; //邮件主体内容
+        $mail->Body = '你好, <b>朋友</b><br/>这是一封来自<a href="http://www.rgrass.com" target="_blank">rgrass.com</a>的邮件！<br/>首先,,恭喜你注册成功!但是,你还需要进行下面的操作!<br/><a href="http://www.rgrass.com/Activate?token='.$token.'&&username='.$to_email.'">请点击这里,进行激活</a>'; //邮件主体内容
 
 //发送
         if($mail->Send()){

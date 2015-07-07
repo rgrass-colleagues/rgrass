@@ -52,7 +52,7 @@
             <input type="submit" class="button btn-green" value="登陆" id="login_confirm">
         </div>
       </div>
-          </form><a href="/reg" id="to_reg">还没有账号?->>快速注册</a>
+          </form><a href="/Reg" id="to_reg">还没有账号?->>快速注册</a>
     </div>
   </div>
 </div>

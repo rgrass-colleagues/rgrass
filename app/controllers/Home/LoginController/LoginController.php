@@ -30,14 +30,13 @@ class Home_LoginController_LoginController extends BaseController{
         $type = $this->isEmail($name);
         $login=new Login_LoginModel();
         $doLogin=$login->isHomeLogin($name,$pass,$type);
-        if(is_null($doLogin)){
+        if(!$doLogin){
             return View::make("Home.login_reg.loginError")->with(array(
                 'from_url'=>$from_url
             ));
 
         }else{
             $user_info = $login->isUsernameEsist($name,$type);
-
             $_SESSION['user_login']=$user_info->username;
             return View::make("Home.login_reg.loginSuccess")->with(array(
                 'from_url'=>$from_url
@@ -49,18 +48,41 @@ class Home_LoginController_LoginController extends BaseController{
      * */
     public function doReg(){
         $username = $this->post('email');
+        if(User_UserNewInfoModel::isEmailExists($username)){
+            return View::make('Home.login_reg.regError')->with(array(
+                'course'=>'该用户已经存在'
+            ));
+        }
         $password = $this->post('password');
+        $from_url = $this->post('from_url');
         $pwdCache = md5($password.'rgrass.com');//设置密码缓存
         $type = $this->isEmail($username);
         $reg = new Login_LoginModel();
         $doReg = $reg->doHomeReg($username,$password,$type);
         if($doReg){
+            //如果成功注册了,还需要创建该账号对应的详情表信息与财产表信息
+            $detail_content = array(
+                'user_id'=>$doReg,
+                'nick_name'=>$username,
+            );
+            $insertDetail = User_UserNewInfoModel::insertUserDetail($detail_content);
+            $property_content = array(
+                'user_id'=>$doReg
+            );
+            $insertProperty = User_UserNewInfoModel::insertUserProperty($property_content);
+            if(!($insertDetail && $insertProperty)){
+                return View::make('Home.login_reg.regError');
+            }
+            $user_info = $reg->isUsernameEsist($username,$type);
+            $_SESSION['user_login']=$user_info->username;
             $redis = new Redis();
             $redis->connect('127.0.0.1', 6379);
             $redis->set($username,$pwdCache,3600);//设置redis
             $sendEmail = new Email_SendEmail();
             $sendEmail->sendEmail($username,$pwdCache);//发送邮件
-            return View::make("Home.login_reg.regSuccess");
+            return View::make("Home.login_reg.regSuccess")->with(array(
+                'from_url'=>$from_url
+            ));
         }else{
             return View::make('Home.login_reg.regError');
         }

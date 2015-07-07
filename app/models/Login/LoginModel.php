@@ -44,9 +44,9 @@ class Login_LoginModel extends Eloquent{
     public function doHomeReg($username,$password,$type){
         $content = $this->regContent($username,$password,$type);
         if($type=='email'){
-            return DB::table($this->login)
-                ->insert($content);
+            return User_UserNewInfoModel::insertUserByContent($content);
         }
+
     }
     /*
      * 注册内容
@@ -63,10 +63,7 @@ class Login_LoginModel extends Eloquent{
 
         $content['username']=$username;
         $content['password'] = $this->authcode($password,$key="www.rgrass.com");
-        $content['user_picture']='0.jpg';
-        $content['authority']=1;
-        $content['credit']=0;
-        $content['is_author']=0;
+        $content['authority']=1;//设置成普通会员权限
         $content['addtime']=time();
         $content['last_login_time']=time();
         $content['email']=$email;

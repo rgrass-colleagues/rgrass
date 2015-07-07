@@ -22,13 +22,13 @@
         <a href="/rgrassAdmin/HomeData">前台数据</a>
         <i class="icon-angle-right"></i>
     </li>
-    <li><a href="/rgrassAdmin/BoutiqueRecall">精品追忆</a></li>
+    <li><a href="/rgrassAdmin/BoutiqueRecall">{{$site_name}}追忆</a></li>
 
 </ul>
 @stop
 @section('content')
 <br><br>
-<a href="/rgrassAdmin/AddHideRecall?column=boutique" class="btn blue">添加推荐</a>
+<a href="/rgrassAdmin/AddHideRecall?column={{$nav}}" class="btn blue">添加推荐</a>
 <a href="" class="btn green">一键轮换</a>
 <br><br>
 <span>目前处在显示状态的书籍有</span>
@@ -56,15 +56,15 @@
         </td>
         <td>{{date('Y-m-d H:i:s',$v->add_time)}}</td>
         <td>
-            <a href="/rgrassAdmin/ModifyRecall?id={{$v->id}}&&column=boutique" class="btn blue">修改</a>
+            <a href="/rgrassAdmin/ModifyRecall?id={{$v->id}}&&column={{$nav}}" class="btn blue">修改</a>
             @if($v->state==0)
             @if($count>=6)
             <a href="#" onclick="alert('处于显示状态的不能大于10个')" class="btn green">显示</a>
             @else
-            <a href="/rgrassAdmin/doChangeState?state=show&&id={{$v->id}}&&redirect=boutiqueRecall" class="btn green">显示</a>
+            <a href="/rgrassAdmin/doChangeState?state=show&&id={{$v->id}}&&redirect={{$nav}}Recall" class="btn green">显示</a>
             @endif
             @else
-            <a href="/rgrassAdmin/doChangeState?state=hide&&id={{$v->id}}&&redirect=boutiqueRecall" class="btn gray">隐藏</a>
+            <a href="/rgrassAdmin/doChangeState?state=hide&&id={{$v->id}}&&redirect={{$nav}}Recall" class="btn gray">隐藏</a>
             @endif
         </td>
     </tr>

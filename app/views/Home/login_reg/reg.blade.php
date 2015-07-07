@@ -47,9 +47,10 @@
                             <label for="js-mail_chk">同意<a href="#" target="_blank">《燃草中文社区用户服务协议》</a></label>
                         </div>
                         <input type="hidden" id="login_flag" value=""/>
+                        <input type="hidden" name="from_url" value="{{$from_url}}"/>
                         <div class="bottom"> <input type="submit" class="button btn-green" value="我要注册" id="login_confirm"></div>
                     </div>
-                </form><a href="/login" id="to_login">已经有账号?点击快速登陆>></a>
+                </form><a href="/Login" id="to_login">已经有账号?点击快速登陆>></a>
             </div>
         </div>
     </div>

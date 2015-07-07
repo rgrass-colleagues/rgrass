@@ -5,7 +5,7 @@
  * Date: 15-5-26
  * Time: 下午23:20
  */
-class Home_SortController_SortBoutiqueController extends BaseController{
+class Home_SortController_SortMartialController extends BaseController{
     private $is_user_login=null;
     private $redis =null;
     public function __construct(){
@@ -15,15 +15,15 @@ class Home_SortController_SortBoutiqueController extends BaseController{
         $this->redis->connect('127.0.0.1', 6379);
     }
 
-    public function showBoutique(){
+    public function showMartial(){
         $stronglyRecommend = $this->getStronglyRecommend();//获取强烈推荐
         $recall = $this->getRecall();//获取追忆
-        $clickNumAll = Book_BookNewInfoModel::clickNumberAll('boutique');//获取小说总点击榜
-        $recommendAll = Book_BookNewInfoModel::RecommendAll('boutique');//获取小说总推荐榜
-        $bookUpdateData = Book_BookNewInfoModel::BookUpdateData('boutique');//获取小说近期更新状态
+        $clickNumAll = Book_BookNewInfoModel::clickNumberAll('martial');//获取小说总点击榜
+        $recommendAll = Book_BookNewInfoModel::RecommendAll('martial');//获取小说总推荐榜
+        $bookUpdateData = Book_BookNewInfoModel::BookUpdateData('martial');//获取小说近期更新状态
 
-        $site_name = '精品';
-        return View::make('Home.SortViews.BoutiqueIndex')->with(array(
+        $site_name = '武侠';
+        return View::make('Home.SortViews.MartialIndex')->with(array(
             'stronglyRecommend'=>$stronglyRecommend,
             'recall'=>$recall,
             'site_name'=>$site_name,
@@ -37,7 +37,7 @@ class Home_SortController_SortBoutiqueController extends BaseController{
      * 精品站强烈推荐
      * */
     public function getStronglyRecommend(){
-        $stronglyRecommend = $this->redis->get('boutiqueStronglyRecommend');//获取redis里面的数据
+        $stronglyRecommend = $this->redis->get('martialStronglyRecommend');//获取redis里面的数据
         if(!$stronglyRecommend){
             //如果不存在,调用方法,重新进行查询
             $stronglyRecommend = $this->showStrongRecommend();
@@ -50,9 +50,9 @@ class Home_SortController_SortBoutiqueController extends BaseController{
      * */
     public function showStrongRecommend(){
         //连表查询出所有需要的相关数据
-        $strongly_recommend = HomeData_RecommendDataModel::getStronglyRecommendBookInfo('2');
+        $strongly_recommend = HomeData_RecommendDataModel::getStronglyRecommendBookInfo('4');
         $stronglyRecommend = serialize($strongly_recommend);//序列化
-        $this->redis->set('boutiqueStronglyRecommend',$stronglyRecommend);//把数据存进redis
+        $this->redis->set('martialStronglyRecommend',$stronglyRecommend);//把数据存进redis
         return $stronglyRecommend;
     }
 
@@ -60,7 +60,7 @@ class Home_SortController_SortBoutiqueController extends BaseController{
      * 获取精品追忆
      * */
     public function getRecall(){
-        $recall = $this->redis->get('boutiqueRecall');//获取redis里面的数据
+        $recall = $this->redis->get('martialRecall');//获取redis里面的数据
         if(!$recall){
             //如果不存在,调用方法,重新进行查询
             $recall = $this->showRecall();
@@ -70,9 +70,9 @@ class Home_SortController_SortBoutiqueController extends BaseController{
     }
     public function showRecall(){
         //连表查询出所有需要的相关数据
-        $recall = HomeData_RecommendDataModel::getRecallBookInfo('1');//1为精品追忆
+        $recall = HomeData_RecommendDataModel::getRecallBookInfo('3');//1为精品追忆
         $recall = serialize($recall);//序列化
-        $this->redis->set('boutiqueRecall',$recall);//把数据存进redis
+        $this->redis->set('martialRecall',$recall);//把数据存进redis
         return $recall;
     }
 

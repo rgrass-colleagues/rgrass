@@ -118,8 +118,8 @@ Route::get('/rgrassAdmin/doChangeState','Admin_HomeDataController@doChangeState'
 Route::get('/rgrassAdmin/AddHideHomeFlash','Admin_HomeDataController@AddHideHomeFlash');
 Route::post('/rgrassAdmin/doAddHideHomeFlash','Admin_HomeDataController@doAddHideHomeFlash');
 //强烈推荐的
-/****同人坊强烈推荐****/
-Route::get('/rgrassAdmin/HomeStronglyRecommend','Admin_HomeDataController@HomeStronglyRecommend');
+/****强烈推荐****/
+Route::get('/rgrassAdmin/StronglyRecommend','Admin_HomeDataController@StronglyRecommend');
 //添加与修改,同人坊,精品站,动漫,武侠,影视,经典,原创共用
 Route::get('/rgrassAdmin/AddHideStronglyRecommend','Admin_HomeDataController@AddHideStronglyRecommend');
 Route::post('/rgrassAdmin/doAddHideStronglyRecommend','Admin_HomeDataController@doAddHideStronglyRecommend');
@@ -130,8 +130,8 @@ Route::post('/rgrassAdmin/doModifyStronglyRecommend','Admin_HomeDataController@d
 Route::get('/rgrassAdmin/BoutiqueStronglyRecommend','Admin_HomeDataController@BoutiqueStronglyRecommend');
 /****精品站强烈推荐*****/
 
-/******精品追忆********/
-Route::get('/rgrassAdmin/BoutiqueRecall','Admin_HomeDataController@BoutiqueRecall');
+/******追忆********/
+Route::get('/rgrassAdmin/Recall','Admin_HomeDataController@Recall');
 //添加修改,追忆list,精品站,动漫,武侠,影视,经典,原创共用
 Route::get('/rgrassAdmin/AddHideRecall','Admin_HomeDataController@AddHideRecall');
 Route::post('/rgrassAdmin/doAddHideRecall','Admin_HomeDataController@doAddHideRecall');
@@ -155,13 +155,13 @@ Route::get('/','Home_IndexController_IndexController@showIndex');
 
 
 /****登陆注册*****/
-Route::get('/Login','Home_LoginControllerLoginController@showLogin');
-Route::get('/Reg','Home_LoginControllerLoginController@showReg');
-Route::get('/Out','Home_LoginControllerLoginController@out');
-Route::post('/doLogin','Home_LoginControllerLoginController@doLogin');
-Route::post('/doReg','Home_LoginControllerLoginController@doReg');
-Route::post('/ajax/user_confirm','Home_LoginControllerLoginController@ajaxUserConfirm');
-Route::get('/Activate','Home_LoginControllerLoginController@accountAcitvate');
+Route::get('/Login','Home_LoginController_LoginController@showLogin');
+Route::get('/Reg','Home_LoginController_LoginController@showReg');
+Route::get('/Out','Home_LoginController_LoginController@out');
+Route::post('/doLogin','Home_LoginController_LoginController@doLogin');
+Route::post('/doReg','Home_LoginController_LoginController@doReg');
+Route::post('/ajax/user_confirm','Home_LoginController_LoginController@ajaxUserConfirm');
+Route::get('/Activate','Home_LoginController_LoginController@accountAcitvate');
 /****登陆注册*****/
 
 /****分类栏目****/
@@ -182,11 +182,19 @@ Route::get('/Search','Home_SearchController_SearchIndexController@SearchIndex');
 
 
 /*****子栏目*****/
-Route::get('/Boutique','Home_SortController_SortBoutiqueController@showSortIndex');//全站精品书籍栏
-
+Route::get('/Boutique','Home_SortController_SortBoutiqueController@showBoutique');//全站精品书籍栏
+Route::get('/Anime','Home_SortController_SortAnimeController@showAnime');//动漫小说子栏目
+Route::get('/Martial','Home_SortController_SortMartialController@showMartial');//武侠小说子栏目
+Route::get('/Film','Home_SortController_SortFilmController@showFilm');//影视小说子栏目
+Route::get('/Classic','Home_SortController_SortClassicController@showClassic');//经典小说子栏目
+Route::get('/Original','Home_SortController_SortOriginalController@showOriginal');//原创小说子栏目
 
 
 /*****子栏目*****/
+
+/*****用户中心*****/
+Route::get('/User','Home_UserController_UserController@showUserCenter');
+/*****用户中心*****/
 
 
 

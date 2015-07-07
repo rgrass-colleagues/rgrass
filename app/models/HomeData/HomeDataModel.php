@@ -52,17 +52,48 @@ class HomeData_HomeDataModel extends Eloquent{
             break;
 
 
-            case 'stronglyRecommend':
+            case 'tongrenfanRecommend':
                 $query = DB::table(self::$strongly_recommend);
             break;
             case 'boutiqueRecommend':
                 $query = DB::table(self::$strongly_recommend);
             break;
+            case 'animeRecommend':
+                $query = DB::table(self::$strongly_recommend);
+                break;
+            case 'martialRecommend':
+                $query = DB::table(self::$strongly_recommend);
+                break;
+            case 'filmRecommend':
+                $query = DB::table(self::$strongly_recommend);
+                break;
+            case 'classicRecommend':
+                $query = DB::table(self::$strongly_recommend);
+                break;
+            case 'originalRecommend':
+                $query = DB::table(self::$strongly_recommend);
+                break;
+
 
 
             case 'boutiqueRecall':
                 $query = DB::table(self::$recall);
             break;
+            case 'animeRecall':
+                $query = DB::table(self::$recall);
+                break;
+            case 'martialRecall':
+                $query = DB::table(self::$recall);
+                break;
+            case 'filmRecall':
+                $query = DB::table(self::$recall);
+                break;
+            case 'classicRecall':
+                $query = DB::table(self::$recall);
+                break;
+            case 'originalRecall':
+                $query = DB::table(self::$recall);
+                break;
         }
         $query->where('id',$id);
         switch($type){
