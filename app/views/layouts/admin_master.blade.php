@@ -143,7 +143,19 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
             <i class="icon-bookmark-empty"></i>
 
-            <span class="title">文章管理</span>
+            <span class="title">小说管理</span>
+
+            <span class="arrow "></span>
+
+        </a>
+    </li>
+    <li class="starting">
+
+        <a href="/rgrassAdmin/BookSplit">
+
+            <i class="icon-spinner"></i>
+
+            <span class="title">小说切割</span>
 
             <span class="arrow "></span>
 

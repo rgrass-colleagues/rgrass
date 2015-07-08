@@ -91,6 +91,25 @@ Route::get('/rgrassAdmin/DelType','Admin_BookTypeController@doDelType');
 
 
 
+/***小说切割****/
+Route::get('/rgrassAdmin/BookSplit','Admin_BookSplitController@showSplitIndex');
+Route::get('/rgrassAdmin/UploadBook','Admin_BookSplitController@UploadBook');
+Route::post('/rgrassAdmin/doUploadBook','Admin_BookSplitController@doUploadBook');
+Route::get('/rgrassAdmin/doDelBook','Admin_BookSplitController@doDelBook');
+
+//小说切割
+Route::get('/rgrassAdmin/SplitABook','Admin_BookSplitController@SplitABook');
+Route::post('/rgrassAdmin/doSplitABook','Admin_BookSplitController@doSplitABook');
+/***小说切割****/
+
+
+
+
+
+
+
+
+
 
 //
 //日志管理

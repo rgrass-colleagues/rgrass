@@ -168,5 +168,24 @@ class Book_BookNewInfoModel extends Eloquent{
 
     }
 
+    /**
+     * 插入book_info,return id
+     * */
+    static public function insertBookInfo($content){
+        return DB::table(self::$book_info)
+            ->insertGetId($content);
+    }
 
+    /**
+     * 插入book_detail,return true
+     * */
+    static public function insertBookDetail($content){
+        return DB::table(self::$book_detail)
+            ->insert($content);
+    }
+    static public function isExistByBookName($book_name){
+        return DB::table(self::$book_info)
+            ->where('book_name',$book_name)
+            ->first();
+    }
 }

@@ -10,6 +10,7 @@ class Type_TypeInfoModel extends Eloquent{
      * 设置连接表
      * */
     protected $type = 'book_type';
+    static $Ntype = 'book_type';
     /*
      * 查询type表全部数据
      * */
@@ -36,6 +37,11 @@ class Type_TypeInfoModel extends Eloquent{
     /*获取pid非0的所有分类*/
     public function getBookTypeNotPidByZero(){
         return DB::table($this->type)
+            ->whereNotIn('parent_type',array(0))
+            ->get();
+    }
+    static function getNBookTypeNotPidByZero(){
+        return DB::table(self::$Ntype)
             ->whereNotIn('parent_type',array(0))
             ->get();
     }
