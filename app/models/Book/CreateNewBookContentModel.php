@@ -67,19 +67,20 @@ class Book_CreateNewBookContentModel extends Eloquent{
     /*
      * 获取小说目录
      * */
-    public function getCatalog($book_id){
+    static public function getCatalog($book_id){
         $database = self::useDatabaseByBookId($book_id);
         //拼接table
         $table = 'book_content_'.$book_id;
-        $chapter_organization = new Book_BookInfoModel();
-        $chapter_organization_info = $chapter_organization->getChapterOrganization($book_id);
+        $chapter_organization = Book_BookNewInfoModel::getChapterOrganization($book_id);
+
+
         $text = (object)array(
         "id"=>"0",
         "book_id"=>"20",
         "organization_name"=>"正文",
         "add_time"=>"0");
-        array_push($chapter_organization_info,$text);
-        foreach ($chapter_organization_info as $v) {
+        array_push($chapter_organization,$text);
+        foreach ($chapter_organization as $v) {
             $content_info = DB::connection($database)
                 ->table($table)
                 ->where('chapter_organization',$v->id)
@@ -88,7 +89,11 @@ class Book_CreateNewBookContentModel extends Eloquent{
             if($content_info){
                 $catalog[] = $content_info;
             }else{
-                $catalog[] = array('chapter_organization'=>$v->organization_name);
+                $catalog[][0] = (object)array(
+                    'chapter_organization'=>$v->id,
+                    'null_chapter'=>1
+                );
+
             }
         }
             return $catalog;

@@ -102,7 +102,7 @@ class Book_CreateBookContentModel extends Eloquent{
         if($res){
             return $res;
         }else{
-            dd("数据库查询失败");
+            dd("数据库查询2失败");
         }
 
     }

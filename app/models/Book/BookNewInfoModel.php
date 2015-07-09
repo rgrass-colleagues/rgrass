@@ -9,6 +9,7 @@ class Book_BookNewInfoModel extends Eloquent{
     static private $book_info = 'book_info';
     static private $book_detail = 'book_detail';
     static private $book_type = 'book_type';
+    static private $chapter_organization = 'book_content_organization';
 
     /**
      * 对book_detail里的某一字段进行递增或递减
@@ -183,9 +184,30 @@ class Book_BookNewInfoModel extends Eloquent{
         return DB::table(self::$book_detail)
             ->insert($content);
     }
+
+    /**
+     * 判断小说是否存在
+     * */
     static public function isExistByBookName($book_name){
         return DB::table(self::$book_info)
             ->where('book_name',$book_name)
+            ->first();
+    }
+    /**
+     * 获取一本小说的分卷情况
+     * */
+    static public function getChapterOrganization($book_id){
+        return DB::table(self::$chapter_organization)
+            ->where('book_id',$book_id)
+            ->get();
+    }
+
+    /**
+     * 根据id获取一本小说的分卷
+     * */
+    static public function getChapterOrganizationInfoByOid($id){
+        return DB::table(self::$chapter_organization)
+            ->where('id',$id)
             ->first();
     }
 }

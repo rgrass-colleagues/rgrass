@@ -19,7 +19,7 @@
         </div>
     </div>
     <table class="table table-hover" id="home_catalog">
-        {{ViewSpalls_BookViewSpallsModel::showHomeBookCatalog($catalog,$book_info->book_id)[0]}}
+        {{ViewSpalls_BookViewSpallsModel::showHomeBookCatalog($catalog,$book_id,3)}}
     </table>
 </div>
 <div class="m_floor_10"></div>

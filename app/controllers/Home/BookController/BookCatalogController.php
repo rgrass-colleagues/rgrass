@@ -22,10 +22,13 @@ class Home_BookController_BookCatalogController extends BaseController{
      * */
     public function showBookCatalog(){
         $book_id = $this->get('book_id');
-        $catalog = $this->BookContent->getCatalog($book_id);//直接从数据库里获取目录
+        $catalog = Book_CreateNewBookContentModel::getCatalog($book_id);
+//        dd($catalog);
+        //$catalog = $this->BookContent->getCatalog($book_id);//直接从数据库里获取目录
 //        dd($catalog);
         /*测试*/
-        //$catalog_html = ViewSpalls_BookViewSpallsModel::showHomeBookCatalog($catalog,$book_id);
+//        $catalog_html = ViewSpalls_BookViewSpallsModel::showHomeBookCatalog($catalog,$book_id);
+//        dd($catalog_html);
         /*测试*/
         $book_info = $this->BookBaseInfo->getBookBaseInfoById($book_id);
         //var_dump($book_id);exit;

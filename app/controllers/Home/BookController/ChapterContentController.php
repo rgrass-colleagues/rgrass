@@ -26,13 +26,13 @@ class Home_BookController_ChapterContentController extends BaseController{
     public function showChapterContent(){
         $book_id = $this->get('book_id');
         if(!Book_BookNewInfoModel::incrementFields('click_number_all',$book_id)){
-            //没看一张，点击数+1
+            //每看一张，点击数+1
             dd('数据库执行错误');
         }
         $chapter_id = $this->get('chapter_id');
         $pre_list = $this->redis->get($book_id.'pre_list');
         $next_list = $this->redis->get($book_id.'next_list');
-        if((!$pre_list)||(!$next_list)){
+        if((!$pre_list)||(!$next_list)){//只要有一个不存在于redis里面,从新获取
             $pn_list = $this->getBookCatalogIntoPreAndNext($book_id);
             $pre_list = $pn_list[0];
             $next_list = $pn_list[1];
@@ -41,10 +41,14 @@ class Home_BookController_ChapterContentController extends BaseController{
         }
         $pre_arr = explode(',',$pre_list);
         $next_arr = explode(',',$next_list);
+
+        //然后是得到该键对应的id
         $pre_target = array_search($chapter_id,$pre_arr);
         $pre_val = $pre_target?$pre_arr[$pre_target-1]:$pre_arr[count($pre_arr)-1];
         $next_target = array_search($chapter_id,$next_arr);
         $next_val = $next_target||$next_target===0?$next_arr[$next_target+1]:$next_arr[$next_target];
+
+
         $chapter_info = $this->BookContent->getChapterContentByChapterId($book_id,$chapter_id);
         $book_info = $this->BookBaseInfo->getBookBaseInfoById($book_id);
         if(!isset($book_id)){
@@ -65,9 +69,10 @@ class Home_BookController_ChapterContentController extends BaseController{
      * 获取小说的上一页下一页的序列
      * */
     public function getBookCatalogIntoPreAndNext($book_id){
-        $catalog = $this->BookContent->getCatalog($book_id);//直接从数据库里获取目录
-        $catalog_html = ViewSpalls_BookViewSpallsModel::getPreNextList($catalog);//获取上一页，下一页的序列组
-        return $catalog_html;
+        $catalog = Book_CreateNewBookContentModel::getCatalog($book_id);
+//直接从数据库里获取目录
+        $pn_arr = ViewSpalls_BookViewSpallsModel::getPreNextList($catalog);//获取上一页，下一页的序列组
+        return $pn_arr;
     }
 
 }
