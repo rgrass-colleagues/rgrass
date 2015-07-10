@@ -16,3 +16,10 @@ function clearText(input){
 
 
 
+
+var url = window.location.href;
+arr = url.split('/');
+var path_name = arr.pop();
+$('.js_url').removeAttr("id");
+$('.'+path_name).attr('id','js_style');
+

@@ -47,9 +47,9 @@ class BaseController extends Controller {
     protected function is_user_login(){
         session_start();
         if(isset($_SESSION['user_login'])){
-            $username= $_SESSION['user_login'];
+            $user_id= $_SESSION['user_login'];
             $user_info = new User_UserInfoModel();
-            $username = $user_info->getUserInfoByUserName($username);
+            $username = $user_info->getUserBaseInfoById($user_id);
             if(!is_null($username)){
                 return $username;
             }else{

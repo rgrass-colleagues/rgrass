@@ -37,7 +37,7 @@ class Home_LoginController_LoginController extends BaseController{
 
         }else{
             $user_info = $login->isUsernameEsist($name,$type);
-            $_SESSION['user_login']=$user_info->username;
+            $_SESSION['user_login']=$user_info->user_id;
             return View::make("Home.login_reg.loginSuccess")->with(array(
                 'from_url'=>$from_url
             ));

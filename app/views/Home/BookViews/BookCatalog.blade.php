@@ -10,7 +10,7 @@
     <div id="book_sign_left_title">
         <div id="book_sign_left_title_left">
             <img src="../../../Tongrenfang/img/zhujian.jpg"/>
-            <a href="http://www.rgrass.com/book?book_id={{$book_info->book_id}}">{{$book_info->book_name}}</a>
+            <a href="http://www.rgrass.com/Book?book_id={{$book_info->book_id}}">{{$book_info->book_name}}</a>
             <span>(书号：{{$book_info->book_id}})</span>
         </div>
         <div id="book_sign_left_title_right">

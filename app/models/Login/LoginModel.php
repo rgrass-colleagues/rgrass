@@ -75,7 +75,10 @@ class Login_LoginModel extends Eloquent{
      *  加密
      *
      * */
-    public function authcode($str, $key = '') {
+    public function authcode($str, $key = ''){
+        return md5($str.$key.$str).md5($key.$str.$key);
+    }
+    static public function authNewCode($str,$key = ''){
         return md5($str.$key.$str).md5($key.$str.$key);
     }
     /*

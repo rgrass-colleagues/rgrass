@@ -9,6 +9,21 @@
     height:10px;
     float:left;
 }
+.fr{
+    float:right;
+}
+.fl{
+    float:left;
+}
+.span_block{
+    display:block;
+}
+.input_m_cls{
+    width:300px;
+}
+.span_padding_top{
+    padding-top:8px;
+}
 /*头部*/
 #show_logo{
     width:225px;
@@ -1008,7 +1023,7 @@ p img{
 }
 .user_section_right_content{
     width:100%;
-    height:500px;
+    min-height:500px;
     padding-left:40px;
     padding-top:10px;
 }
@@ -1048,6 +1063,30 @@ p img{
     font-size:12px;
     color:darkred;
 }
+.not_set{
+    font-size:12px;
+    color:black;
+}
+.user_section_left_estimate{
+    margin: 0 auto;
+    width:80%;
+    height:200px;
+}
+.user_estimate{
+    font-size:16px;
+}
+.user_info_modify_content{
+    padding-top:50px;
+    padding-left:50px;
+    height:400px;
+}
+.nick_modify_explain{
+    margin-left:100px;
+}
 
+.activate_author{
+    margin-top:50px;
+    text-align: center;
+}
 
 /**********UserCenter By Bob end************/

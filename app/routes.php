@@ -213,9 +213,25 @@ Route::get('/Original','Home_SortController_SortOriginalController@showOriginal'
 
 /*****用户中心*****/
 Route::get('/User','Home_UserController_UserController@showUserCenter');
+//信息修改
+Route::get('/UserInfoModify','Home_UserController_UserController@UserInfoModify');
+Route::post('/doUserInfoModify','Home_UserController_UserController@doUserInfoModify');
+Route::get('/UserDetailModify','Home_UserController_UserController@UserDetailModify');
+Route::post('/doUserDetailModify','Home_UserController_UserController@doUserDetailModify');
+
+//头像修改
+Route::get('/UserPictureModify','Home_UserController_UserController@UserPictureModify');
+Route::post('/doUserPictureModify','Home_UserController_UserController@doUserPictureModify');
+
+//找回密码
+Route::get('/UserPasswordModify','Home_UserController_UserController@UserPasswordModify');
+Route::post('/doUserPasswordModify','Home_UserController_UserController@doUserPasswordModify');
 /*****用户中心*****/
 
-
+/*****作家中心****/
+Route::get('/ActivateAuthor','Home_UserController_AuthorController@ActivateAuthor');
+Route::get('/doActivateAuthor','Home_UserController_AuthorController@doActivateAuthor');
+Route::get('/Author','Home_UserController_AuthorController@showAuthorCenter');
 
 
 

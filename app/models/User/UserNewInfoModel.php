@@ -12,6 +12,7 @@ class User_UserNewInfoModel extends Eloquent{
     static private $user_info = 'user_info';
     static private $user_detail = 'user_detail';
     static private $user_property = 'user_property';
+    static private $author = 'author';
 
 
     /*
@@ -43,5 +44,60 @@ class User_UserNewInfoModel extends Eloquent{
         return DB::table(self::$user_info)
             ->where('email',$email)
             ->first();
+    }
+    static public function getUserInfoByUserId($user_id){
+        return DB::table(self::$user_info)
+            ->where('user_id',$user_id)
+            ->first();
+    }
+    /*
+     * 获取用户财产情况
+     * */
+    static public function getUserPropertyByUserId($user_id){
+        return DB::table(self::$user_property)
+        ->where('user_id',$user_id)
+        ->first();
+    }
+
+    /***获取用户详情***/
+    static public function getUserDetailById($user_id){
+        return DB::table(self::$user_detail)
+            ->where('user_id',$user_id)
+            ->first();
+    }
+    /**修改一条user_info表的用户数据**/
+    static public function modifyUserInfo($user_id,$content){
+        return DB::table(self::$user_info)
+            ->where('user_id',$user_id)
+            ->update($content);
+    }
+
+    /***修改一条user_detail表的用户数据**/
+    static public function modifyUserDetail($user_id,$content){
+        return DB::table(self::$user_detail)
+            ->where('user_id',$user_id)
+            ->update($content);
+    }
+
+
+
+    /*把非作者状态改成作者状态*/
+    static public function TransferToAuthor($user_id){
+        $content = array('is_author'=>1);
+        return DB::table(self::$user_info)
+            ->where('user_id',$user_id)
+            ->update($content);
+    }
+
+    /*变为作者状态后对作者数据表插入*/
+    static public function insertAuthorData($user_id){
+        $username = self::getUserInfoByUserId($user_id)->username;
+        $content = array(
+            'user_id'=>$user_id,
+            'pen_name'=>$username,
+            'addtime'=>time(),
+        );
+        return DB::table(self::$author)
+            ->insert($content);
     }
 }
