@@ -6,14 +6,12 @@
  * Time: 18:07
  */
 class Home_BookController_ChapterContentController extends BaseController{
-    private $is_user_login=null;
     private $from_url = null;
     private $BookContent = null;
     private $BookBaseInfo = null;
     private $redis = null;
     public function __construct(){
         parent::__construct();
-        $this->is_user_login = $this->is_user_login();
         $this->from_url = $this->from_url();
         $this->BookContent = new Book_CreateBookContentModel();
         $this->BookBaseInfo = new Book_BookInfoModel();
@@ -61,7 +59,6 @@ class Home_BookController_ChapterContentController extends BaseController{
             'pre'=>$pre_val,
             'next'=>$next_val,
             'chapter_info'=>$chapter_info,
-            'is_user_login'=>$this->is_user_login,
             'book_info'=>$book_info
         ));
     }

@@ -32,7 +32,8 @@
     分割正则:<input type="text" name="split_role"/>(输入1，2，3，4...)<br>
     <div class="regular_content" style="display:inline-block;width:300px;height:200px;border:1px solid black;">
         查看常用小说分割正则<br>
-        格式一:章一 绯色之夜;章二 站着沉默;(1)
+        <a href="/rgrassAdmin/AfterSplitChapter?book_url={{$book_url}}&&format=1">格式一</a>:章一 绯色之夜;章二 站着沉默;(1)<br>
+        <a href="/rgrassAdmin/AfterSplitChapter?book_url={{$book_url}}&&format=2">格式二</a>:第一章【走向外面的世界】;第五百八十五章 【大结局】
     </div>
     <br>
     <br>

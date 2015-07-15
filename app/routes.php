@@ -100,6 +100,7 @@ Route::get('/rgrassAdmin/doDelBook','Admin_BookSplitController@doDelBook');
 //小说切割
 Route::get('/rgrassAdmin/SplitABook','Admin_BookSplitController@SplitABook');
 Route::post('/rgrassAdmin/doSplitABook','Admin_BookSplitController@doSplitABook');
+Route::get('/rgrassAdmin/AfterSplitChapter','Admin_BookSplitController@AfterSplitChapter');
 /***小说切割****/
 
 
@@ -230,11 +231,13 @@ Route::post('/doUserPasswordModify','Home_UserController_UserController@doUserPa
 
 /*****作家中心****/
 Route::get('/ActivateAuthor','Home_UserController_AuthorController@ActivateAuthor');
-Route::get('/doActivateAuthor','Home_UserController_AuthorController@doActivateAuthor');
+Route::get('/AuthorReg','Home_UserController_AuthorController@AuthorReg');
+Route::post('/doAuthorReg','Home_UserController_AuthorController@doAuthorReg');
 Route::get('/Author','Home_UserController_AuthorController@showAuthorCenter');
-
-
-
+Route::get('/AuthorNotice','Home_UserController_AuthorController@AuthorNotice');
+Route::get('/BookManager','Home_UserController_AuthorController@BookManager');
+Route::get('/AuthorLogin','Home_UserController_AuthorController@AuthorLogin');
+Route::post('/doAuthorLogin','Home_UserController_AuthorController@doAuthorLogin');
 
 
 

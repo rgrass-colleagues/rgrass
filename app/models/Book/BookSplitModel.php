@@ -41,8 +41,10 @@ class Book_BookSplitModel extends Eloquent{
     /**
      * 小说正则格式:
      * 格式一:章一 绯色之夜;章二 站着沉默;
-     * /章(一|二|三|四|五|六|七|八|九|十){0,10}\s(\S+)\s/
+     * /章(零|一|二|三|四|五|六|七|八|九|十|百|千){0,10}(\s+)(\S+){0,20}?\s/
      *
+     * 格式二:第一章【走向外面的世界】;第五百八十五章 【大结局】
+     * /第(零|一|二|三|四|五|六|七|八|九|十|百|千){0,10}章(\s+)(\S+){0,20}?\s/;
      *
      *
      *
@@ -50,7 +52,10 @@ class Book_BookSplitModel extends Eloquent{
     static public function getSplitBookRegular($split_role){
         switch($split_role){
             case '1':
-                return '/章(一|二|三|四|五|六|七|八|九|十){0,10}\s(\S+)\s/';
+                return '/章(零|一|二|三|四|五|六|七|八|九|十|百|千){0,10}(\s+)(\S+){0,20}?\s/';
+            break;
+            case '2':
+                return '/第(零|一|二|三|四|五|六|七|八|九|十|百|千){0,10}章(\s+)(\S+){0,20}?\s/';
             break;
         }
     }

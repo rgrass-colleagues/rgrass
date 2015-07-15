@@ -6,13 +6,11 @@
  * Time: 下午9:59
  */
 class Home_BookController_BookCatalogController extends BaseController{
-    private $is_user_login=null;
     private $from_url = null;
     private $BookContent = null;
     private $BookBaseInfo = null;
     public function __construct(){
         parent::__construct();
-        $this->is_user_login = $this->is_user_login();
         $this->from_url = $this->from_url();
         $this->BookContent = new Book_CreateBookContentModel();
         $this->BookBaseInfo = new Book_BookInfoModel();
@@ -39,7 +37,6 @@ class Home_BookController_BookCatalogController extends BaseController{
         }
         return View::make('Home.BookViews.BookCatalog')->with(array(
             'book_id'=>$book_id,
-            'is_user_login'=>$this->is_user_login,
             'book_info'=>$book_info,
             'catalog'=>$catalog
         ));

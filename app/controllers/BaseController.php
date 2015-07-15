@@ -7,6 +7,7 @@ class BaseController extends Controller {
 	 * @return void
 	 */
     public function __construct(){
+        $this->is_user_login();
         $this->ipManager();
     }
 	protected function setupLayout()
@@ -40,24 +41,47 @@ class BaseController extends Controller {
         {
             throw new Exception('登陆失败');
         }
+        session_write_close();
     }
     /*
      * 判断用户是否登陆,前端逻辑
      * */
     protected function is_user_login(){
         session_start();
+//        dd(isset($_SESSION['user_login']));
         if(isset($_SESSION['user_login'])){
             $user_id= $_SESSION['user_login'];
-            $user_info = new User_UserInfoModel();
-            $username = $user_info->getUserBaseInfoById($user_id);
-            if(!is_null($username)){
-                return $username;
+//            $userInfo = new User_UserInfoModel();
+//            $user_info = $userInfo->getUserBaseInfoById($user_id);
+            $user_info = User_UserNewInfoModel::getUserInfoByUserId($user_id);
+            $user_property = User_UserNewInfoModel::getUserPropertyByUserId($user_id);
+            $user_detail = User_UserNewInfoModel::getUserDetailById($user_id);
+            if(!is_null($user_info)){
+                //用户头像url
+                $p_url = './uploads/users/'.$user_info->user_picture;
+                $default_picture_url = './Home/img/user_default_picture.png';
+                if($user_info->user_picture != ''){
+                    if(file_exists($p_url)){
+                        $user_picture_url = $p_url;
+                    }else{
+                        $user_picture_url = $default_picture_url;
+                    }
+                }else{
+                    $user_picture_url = $default_picture_url;
+                }
+                //用户头像url end
+                View::share('user_info',$user_info);
+                View::share('user_detail',$user_detail);
+                View::share('user_property',$user_property);
+                View::share('user_picture_url',$user_picture_url);
+                session_write_close();
+                return $user_info;
             }else{
-                return null;
+                session_write_close();
             }
 
         }else{
-            return null;
+            session_write_close();
         }
     }
     /*
@@ -74,6 +98,7 @@ class BaseController extends Controller {
         }else{
             $from_url = 'http://www.rgrass.com';
         }
+        $from_url = 'http://www.rgrass.com';
         return $from_url;
     }
     /*获取用户个人IP*/

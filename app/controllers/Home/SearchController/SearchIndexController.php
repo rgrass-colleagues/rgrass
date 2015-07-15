@@ -13,6 +13,7 @@ class Home_SearchController_SearchIndexController extends BaseController{
         session_start();
         $this->from_url = $this->from_url();
         $this->search  =new Book_SearchModel();
+        session_write_close();
     }
     public function SearchIndex(){
         $search_content = $this->get('search_content')?$this->get('search_content'):'XX';

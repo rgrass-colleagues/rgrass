@@ -6,7 +6,6 @@
  * Time: 下午23:20
  */
 class Home_SortController_SortMartialController extends BaseController{
-    private $is_user_login=null;
     private $redis =null;
     public function __construct(){
         parent::__construct();
@@ -24,7 +23,6 @@ class Home_SortController_SortMartialController extends BaseController{
 
         $site_name = '武侠';
         return View::make('Home.SortViews.MartialIndex')->with(array(
-            'is_user_login'=>$this->is_user_login,
             'stronglyRecommend'=>$stronglyRecommend,
             'recall'=>$recall,
             'site_name'=>$site_name,

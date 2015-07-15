@@ -12,6 +12,9 @@ class Home_LoginController_LoginController extends BaseController{
         session_start();
         $this->from_url = $this->from_url();
     }
+    function __destruct(){
+        session_write_close();
+    }
     public function showLogin(){
 
         return View::make('Home.login_reg.login')->with(array(
@@ -74,7 +77,7 @@ class Home_LoginController_LoginController extends BaseController{
                 return View::make('Home.login_reg.regError');
             }
             $user_info = $reg->isUsernameEsist($username,$type);
-            $_SESSION['user_login']=$user_info->username;
+            $_SESSION['user_login']=$user_info->user_id;
             $redis = new Redis();
             $redis->connect('127.0.0.1', 6379);
             $redis->set($username,$pwdCache,3600);//设置redis

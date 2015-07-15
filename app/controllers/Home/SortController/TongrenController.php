@@ -6,7 +6,6 @@
  * Time: 下午23:20
  */
 class Home_SortController_TongrenController extends BaseController{
-    private $is_user_login=null;
     private $redis =null;
     public function __construct(){
         parent::__construct();
@@ -23,7 +22,6 @@ class Home_SortController_TongrenController extends BaseController{
 
         $site_name = '同人坊';
         return View::make('Home.SortViews.TongrenFangIndex')->with(array(
-            'is_user_login'=>$this->is_user_login,
             'stronglyRecommend'=>$stronglyRecommend,//首页强烈推荐
             'flashData'=>$flashData,//轮播图
             'clickNumAll'=>$clickNumAll,//小说总点击榜

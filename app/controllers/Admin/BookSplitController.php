@@ -55,9 +55,9 @@ class Admin_BookSplitController extends BaseController{
         $book_name = preg_replace('/^.+[\\\\\\/]/', '', $book_url);
         $book_name = explode('.',$book_name)[0];
         //需要判断这本书是否已经存在
-        if(Book_BookNewInfoModel::isExistByBookName($book_name)){
-            dd('该小说已经存在');
-        }
+//        if(Book_BookNewInfoModel::isExistByBookName($book_name)){
+//            dd('该小说已经存在');
+//        }
         $book = file_get_contents($book_url);
         $chapter_name_arr = preg_match_all($split_role,$book,$chapter_all_name)[0];//获取全部章节名
         $chapter_content_arr = preg_split($split_role,$book);//获取全部章节内容
@@ -98,7 +98,10 @@ class Admin_BookSplitController extends BaseController{
                     dd('创建小说表失败');
                 }else{
                     foreach($chapter_all_name[0] as $k=>$v){
-                        $chapter_content_text = Common_TextBeautifyModel::addNewPInText($chapter_content_arr[$k+1]);
+                        $chapter_content_text = $chapter_content_arr[$k+1];
+                        $chapter_content_text = $v.$chapter_content_text;
+                        $chapter_content_text = Common_TextBeautifyModel::addNewPInText($chapter_content_text);
+//                        $chapter_content_text = $chapter_content_arr[$k+1];
                         $book_dir_path = './Book_List/'.$book_id;
                         $organization_path = './Book_List/'.$book_id.'/0/';
                         $file_path = './Book_List/'.$book_id.'/0/'.$v.'.txt';
@@ -126,5 +129,32 @@ class Admin_BookSplitController extends BaseController{
                 }
             }
         }
+    }
+    public function AfterSplitChapter(){
+        $book_url = $this->get('book_url');
+        $format = $this->get('format');
+        $split_role = Book_BookSplitModel::getSplitBookRegular($format);//获取对应正则
+        $book = file_get_contents($book_url);
+        $chapter_name_arr = preg_match_all($split_role,$book,$chapter_all_name)[0];//获取全部章节名
+        $catalog = $this->ChapterPreView($chapter_all_name[0],3);
+        return View::make('Admin.BookSplitViews.AfterSplitChapter')->with(array(
+                'catalog'=>$catalog,
+        ));
+    }
+    private function ChapterPreView($catalog,$page){
+        $page=$page?$page:3;
+        $html = "<tr>";
+        $i=1;
+        $html .='<tr><td style="text-align: left" colspan="3"><span>正文</span></td></tr>';
+        foreach($catalog as $key=>$val){
+                if((($i)%$page)!=0){
+                    $html .= "<td>$val</td>";
+                }else{
+                    $html .= "<td>$val</td></tr><tr>";
+                }
+                $i++;
+            }
+            $html .="</tr>";
+        return $html;
     }
 }

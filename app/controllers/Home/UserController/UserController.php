@@ -6,35 +6,22 @@
  * Time: 下午23:20
  */
 class Home_UserController_UserController extends BaseController{
-    private $is_user_login=null;
     private $redis =null;
     public function __construct(){
         parent::__construct();
-        $this->is_user_login = $this->is_user_login();
         $this->redis = new Redis();
         $this->redis->connect('127.0.0.1', 6379);
     }
     public function showUserCenter(){
-        $userBase = $this->getUserInfoDetailProperty();
         return View::make('Home.UserViews.UserCenter')->with(array(
-            'is_user_login'=>$this->is_user_login,
-            'user_info'=>$userBase->user_info,
-            'user_detail'=>$userBase->user_detail,
-            'user_property'=>$userBase->user_property,
-            'user_picture_url'=>$userBase->user_picture_url
+
         ));
     }
 
 
     /**修改用户昵称，修改email，修改电话号码，修改qq**/
     public function UserInfoModify(){
-        $userBase = $this->getUserInfoDetailProperty();
         return View::make('Home.UserViews.UserInfoModify')->with(array(
-            'is_user_login'=>$this->is_user_login,
-            'user_info'=>$userBase->user_info,
-            'user_detail'=>$userBase->user_detail,
-            'user_property'=>$userBase->user_property,
-            'user_picture_url'=>$userBase->user_picture_url
 
         ));
     }
@@ -63,13 +50,7 @@ class Home_UserController_UserController extends BaseController{
 
     /**修改detail，性别，自我描述**/
     public function UserDetailModify(){
-        $userBase = $this->getUserInfoDetailProperty();
         return View::make('Home.UserViews.UserDetailModify')->with(array(
-            'is_user_login'=>$this->is_user_login,
-            'user_info'=>$userBase->user_info,
-            'user_detail'=>$userBase->user_detail,
-            'user_property'=>$userBase->user_property,
-            'user_picture_url'=>$userBase->user_picture_url
 
         ));
     }
@@ -84,13 +65,7 @@ class Home_UserController_UserController extends BaseController{
     }
     /***修改照片***/
     public function UserPictureModify(){
-        $userBase = $this->getUserInfoDetailProperty();
         return View::make('Home.UserViews.UserPictureModify')->with(array(
-            'is_user_login'=>$this->is_user_login,
-            'user_info'=>$userBase->user_info,
-            'user_detail'=>$userBase->user_detail,
-            'user_property'=>$userBase->user_property,
-            'user_picture_url'=>$userBase->user_picture_url
 
         ));
     }
@@ -105,13 +80,7 @@ class Home_UserController_UserController extends BaseController{
 
     /****找回密码（简易版，以后迭代重做）***/
     public function UserPasswordModify(){
-        $userBase = $this->getUserInfoDetailProperty();
         return View::make('Home.UserViews.UserPasswordModify')->with(array(
-            'is_user_login'=>$this->is_user_login,
-            'user_info'=>$userBase->user_info,
-            'user_detail'=>$userBase->user_detail,
-            'user_property'=>$userBase->user_property,
-            'user_picture_url'=>$userBase->user_picture_url
 
         ));
     }
@@ -135,41 +104,5 @@ class Home_UserController_UserController extends BaseController{
             dd('新密码两次输入要一致,且要大于5位字符');
         }
         return Redirect::to('/User');
-    }
-
-
-
-
-
-
-    /***获取用户基本信息***/
-    private function getUserInfoDetailProperty(){
-        if(!isset($this->is_user_login)){
-            return Redirect::to('/Login');
-        }
-        $user_property = User_UserNewInfoModel::getUserPropertyByUserId($this->is_user_login->user_id);
-        $user_detail = User_UserNewInfoModel::getUserDetailById($this->is_user_login->user_id);
-
-
-        //用户头像url
-        $p_url = './uploads/users/'.$this->is_user_login->user_picture;
-        $default_picture_url = './Home/img/user_default_picture.png';
-        if($this->is_user_login->user_picture != ''){
-            if(file_exists($p_url)){
-                $user_picture_url = $p_url;
-            }else{
-                $user_picture_url = $default_picture_url;
-            }
-        }else{
-            $user_picture_url = $default_picture_url;
-        }
-        //用户头像url end
-
-        return $userBase = (object)array(
-            'user_info'=>$this->is_user_login,
-            'user_detail'=>$user_detail,
-            'user_property'=>$user_property,
-            'user_picture_url'=>$user_picture_url
-        );
     }
 }

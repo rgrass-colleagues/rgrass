@@ -21,7 +21,7 @@
 <div class="gridContainer clearfix">
     <div id="div1" class="fluid">
         <div id="login_module">
-            @if(!isset($is_user_login))
+            @if(!isset($user_info))
         <span id="login">
             <a href="/Login">登录</a>
         </span>
@@ -33,7 +33,7 @@
             <div id="user_sign">
                 <ul>
                     <li><a href="/error">消息(x)</a></li>
-                    <li><a href="/error">{{$is_user_login->username}}</a></li>
+                    <li><a href="/error">{{$user_info->username}}</a></li>
                     <li><a href="/User">个人中心</a></li>
                     <li><a href="/Out" onclick="return confirm('确定退出吗?')">退出</a></li>
                 </ul>

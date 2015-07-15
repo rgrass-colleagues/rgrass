@@ -6,13 +6,11 @@
  * Time: 下午18:43
  */
 class Home_BookController_BookController extends BaseController{
-    private $is_user_login=null;
     private $from_url = null;
     private $bookModel = null;
     private $dynamic=null;
     public function __construct(){
         parent::__construct();
-        $this->is_user_login = $this->is_user_login();
         $this->from_url = $this->from_url();
         $this->bookModel = new Book_BookInfoModel();
     }
@@ -38,7 +36,6 @@ class Home_BookController_BookController extends BaseController{
             ));
         }
         return View::make('Home.BookViews.BookIndex')->with(array(
-            'is_user_login'=>$this->is_user_login,
             'book_info'=>$book_info,
             'book_detail'=>$book_detail,
             'clickNumAll'=>$clickNumAll,

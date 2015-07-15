@@ -6,11 +6,9 @@
  * Time: 下午23:20
  */
 class Home_SortController_SortAnimeController extends BaseController{
-    private $is_user_login=null;
     private $redis =null;
     public function __construct(){
         parent::__construct();
-        $this->is_user_login = $this->is_user_login();
         $this->redis = new Redis();
         $this->redis->connect('127.0.0.1', 6379);
     }
@@ -24,7 +22,6 @@ class Home_SortController_SortAnimeController extends BaseController{
 
         $site_name = '动漫';
         return View::make('Home.SortViews.AnimeIndex')->with(array(
-            'is_user_login'=>$this->is_user_login,
             'stronglyRecommend'=>$stronglyRecommend,
             'recall'=>$recall,
             'site_name'=>$site_name,
