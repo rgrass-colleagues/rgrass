@@ -20,7 +20,7 @@
     </div>
     <div id="chapter_content">
         <div><b>{{$chapter_info->chapter_name}}</b></div>
-{{$chapter_info->chapter_content}}
+{{Common_TextBeautifyModel::addNewPInText($chapter_info->chapter_content)}}
         <div>
             @if($pre!='none')
             <a href="/ChapterContent?book_id={{$book_info->book_id}}&&chapter_id={{$pre}}" class="btn btn-primary js_input js_left" >上一页</a>

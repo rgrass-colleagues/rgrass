@@ -10,7 +10,14 @@ class Book_BookNewInfoModel extends Eloquent{
     static private $book_detail = 'book_detail';
     static private $book_type = 'book_type';
     static private $chapter_organization = 'book_content_organization';
-
+    /*
+     * 查询book_info表全部数据(倒序)
+     * */
+    static public function getBookBaseInfoAllDesc(){
+        return DB::table(self::$book_info)
+            ->orderBy('book_id','desc')
+            ->get();
+    }
     /**
      * 对book_detail里的某一字段进行递增或递减
      * values:一次间隔的值，如果是递减，直接在这里输入也可以
@@ -143,7 +150,7 @@ class Book_BookNewInfoModel extends Eloquent{
     }
 
     /***根据类型条件获取书籍列(总书籍,精品书籍,动漫,武侠,影视,经典,原创)***/
-    static public function getAllBookInfo($nav=false){
+    static public function getAllBookInfo($nav=false,$orderBy=false,$authority=false){
         $query = DB::table(self::$book_info);
         switch($nav){
             case 'boutique':
@@ -163,6 +170,17 @@ class Book_BookNewInfoModel extends Eloquent{
                 break;
             case 'original':
                 $query->join('book_type','book_info.book_type','=','book_type.type_id')->where('book_type.parent_type','5');
+                break;
+        }
+        if($orderBy){
+            $query->orderBy('book_id','desc');
+        }
+        switch($authority){
+            case '0'://未通过审核状态的
+                $query->where('book_authority',$authority);
+                break;
+            case '1':
+                $query->where('book_authority',$authority);
                 break;
         }
         return $query->get();
@@ -209,5 +227,65 @@ class Book_BookNewInfoModel extends Eloquent{
         return DB::table(self::$chapter_organization)
             ->where('id',$id)
             ->first();
+    }
+    /***根据书名获取小说信息**/
+    static public function getBookInfoByBookName($book_name){
+        return DB::table(self::$book_info)
+            ->where('book_name',$book_name)
+            ->first();
+    }
+
+    /****修改一本小说*****/
+    static public function updateBookInfo($book_id,$content){
+        return DB::table(self::$book_info)
+            ->where('book_id',$book_id)
+            ->update($content);
+    }
+    static public function updateBookDetail($book_id,$content){
+        return DB::table(self::$book_detail)
+            ->where('book_id',$book_id)
+            ->update($content);
+    }
+    /*****获取当前作者下的小说********/
+    static public function getBookInfoByAuthor($author){
+        return DB::table(self::$book_info)
+            ->where('author',$author)
+            ->get();
+    }
+
+    /*******通过id获取小说信息**********/
+    static public function getBookInfoDetailByBookId($book_id){
+        return DB::table(self::$book_info)
+            ->join(self::$book_detail,'book_info.book_id','=','book_detail.book_id')
+            ->where('book_info.book_id',$book_id)
+            ->first();
+    }
+
+    /*更新最后一次修改时间*/
+    static public function modifyLastUpdateTime($book_id){
+        return DB::table(self::$book_detail)
+            ->where('book_id',$book_id)
+            ->update(array('last_update_time'=>time()));
+    }
+    /*
+     * 添加分卷
+     * */
+    static public function insertNewChapterOrganization($content){
+        return DB::table(self::$chapter_organization)
+            ->insert($content);
+    }
+
+    /**修改分卷***/
+    static public function updateChapterOrganization($id,$content){
+        return DB::table(self::$chapter_organization)
+            ->where('id',$id)
+            ->update($content);
+    }
+
+    /***删除分卷*****/
+    static public function delChapterOrganization($id){
+        return DB::table(self::$chapter_organization)
+            ->where('id',$id)
+            ->delete();
     }
 }

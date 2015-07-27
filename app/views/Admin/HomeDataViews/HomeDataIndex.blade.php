@@ -60,5 +60,6 @@
 <br><br>
 
 
+<a href="/rgrassAdmin/HomeFlashIndex" class="btn blue">前台首页轮播</a>
 <a href="/rgrassAdmin/HomeFlash" class="btn green">前台轮播</a>
 @stop

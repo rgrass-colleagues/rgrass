@@ -56,6 +56,12 @@ class BaseController extends Controller {
             $user_info = User_UserNewInfoModel::getUserInfoByUserId($user_id);
             $user_property = User_UserNewInfoModel::getUserPropertyByUserId($user_id);
             $user_detail = User_UserNewInfoModel::getUserDetailById($user_id);
+            if(isset($_SESSION['author_login'])){
+                $id = $_SESSION['author_login'];
+                $author_info = Author_AuthorInfoModel::getAuthorInfoById($id);
+            }else{
+                $author_info = false;
+            }
             if(!is_null($user_info)){
                 //用户头像url
                 $p_url = './uploads/users/'.$user_info->user_picture;
@@ -70,10 +76,21 @@ class BaseController extends Controller {
                     $user_picture_url = $default_picture_url;
                 }
                 //用户头像url end
-                View::share('user_info',$user_info);
-                View::share('user_detail',$user_detail);
-                View::share('user_property',$user_property);
-                View::share('user_picture_url',$user_picture_url);
+                if($user_info){
+                    View::share('user_info',$user_info);
+                }
+                if($user_detail){
+                    View::share('user_detail',$user_detail);
+                }
+                if($user_property){
+                    View::share('user_property',$user_property);
+                }
+                if($user_picture_url){
+                    View::share('user_picture_url',$user_picture_url);
+                }
+                if($author_info){
+                    View::share('author_info',$author_info);
+                }
                 session_write_close();
                 return $user_info;
             }else{

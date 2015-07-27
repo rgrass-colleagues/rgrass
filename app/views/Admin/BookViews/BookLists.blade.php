@@ -37,7 +37,10 @@
 </ul>
 @stop
 @section('content')
-<a href="AddNewOrModifyOneBook?page_type=create" class="btn blue">添加</a>
+<a href="/rgrassAdmin/BookLists" class="btn blue">全部</a>
+<a href="/rgrassAdmin/BookLists?book_authority=0" class="btn yellow-stripe">未审核</a>
+<a href="/rgrassAdmin/BookLists?book_authority=1" class="btn green-stripe">已审核</a>
+<!--<a href="AddNewOrModifyOneBook?page_type=create" class="btn blue">添加</a>-->
 <br/><br/>
 <table class="table table-hover">
     <tr>

@@ -8,6 +8,10 @@
 class Common_FileUploadsModel extends Eloquent{
     public function FileUpload($file_name,$tofile){
         //判断是否经过了图片上传
+        if(empty($_FILES[$file_name])){
+            return false;
+        }
+        //判断是否经过了图片上传
         if($_FILES[$file_name]['name']==""){
             return false;
         }
@@ -49,7 +53,6 @@ class Common_FileUploadsModel extends Eloquent{
         }
     }
     static public function NewFileUploads($file_name,$tofile){
-        //判断是否经过了图片上传
         if($_FILES[$file_name]['name']==""){
             return false;
         }

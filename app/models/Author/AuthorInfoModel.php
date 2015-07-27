@@ -12,6 +12,12 @@ class Author_AuthorInfoModel extends Eloquent{
         return DB::table(self::$author)
             ->insert($content);
     }
+    /***修改作者信息*****/
+    static public function updateAuthorInfo($id,$content){
+        return DB::table(self::$author)
+            ->where('id',$id)
+            ->update($content);
+    }
     /*****验证该用户是否已经是作者*******/
     static public function confirmUserIsAuthor($user_id){
         return DB::table(self::$author)
@@ -31,11 +37,24 @@ class Author_AuthorInfoModel extends Eloquent{
             ->where('user_id',$user_id)
             ->first();
     }
+    /******通过id获取作者信息**********/
+    static public function getAuthorInfoById($id){
+        return DB::table(self::$author)
+            ->where('id',$id)
+            ->first();
+    }
     static public function AuthorLoginByPassword($user_id,$password){
         $password = Login_LoginModel::authNewCode($password);
         return DB::table(self::$author)
             ->where('user_id',$user_id)
             ->where('author_password',$password)
+            ->first();
+    }
+
+    /*****通过作者id获得作者信息******/
+    static public function getAuthorInfoByAuthorId($author_id){
+        return DB::table(self::$author)
+            ->where('id',$author_id)
             ->first();
     }
 }

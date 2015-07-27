@@ -100,7 +100,6 @@ class Admin_BookSplitController extends BaseController{
                     foreach($chapter_all_name[0] as $k=>$v){
                         $chapter_content_text = $chapter_content_arr[$k+1];
                         $chapter_content_text = $v.$chapter_content_text;
-                        $chapter_content_text = Common_TextBeautifyModel::addNewPInText($chapter_content_text);
 //                        $chapter_content_text = $chapter_content_arr[$k+1];
                         $book_dir_path = './Book_List/'.$book_id;
                         $organization_path = './Book_List/'.$book_id.'/0/';

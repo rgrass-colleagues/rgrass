@@ -10,10 +10,12 @@
             <a href="/Reg">注册</a>
         </span>
         @else
-        <div id="user_sign">
-            <ul>
-                <li><a href="/error">消息(x)</a></li>
-                <li><a href="/error">{{$user_info->username}}</a></li>
+        <div class="dropdown user_sign">
+            <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-danger">
+                {{$user_info->username}}
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dLabel">
                 <li><a href="/User">个人中心</a></li>
                 <li><a href="/Out" onclick="return confirm('确定退出吗?')">退出</a></li>
             </ul>

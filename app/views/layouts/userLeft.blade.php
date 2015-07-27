@@ -8,7 +8,7 @@
     <div class="user_operation">
         <p><img src="./Home/img/user.gif" alt=""/><a href="/User">用户中心</a></p>
         <p><img src="./Home/img/property.gif" alt=""/><a href="">财务中心</a></p>
-        <p><img src="./Home/img/bookshelf.gif" alt=""/><a href="">用户书架</a></p>
+        <p><img src="./Home/img/bookshelf.gif" alt=""/><a href="/BookShelf">用户书架</a></p>
         <p><img src="./Home/img/author.gif" alt=""/><a href="/AuthorNotice">作家中心</a></p>
         <p class="last_user_operation"><img src="./Home/img/link.png" alt=""/><a href="">联系本站</a></p>
     </div>

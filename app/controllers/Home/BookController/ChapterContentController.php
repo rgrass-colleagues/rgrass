@@ -23,6 +23,12 @@ class Home_BookController_ChapterContentController extends BaseController{
      * */
     public function showChapterContent(){
         $book_id = $this->get('book_id');
+        if(!$book_info = Book_BookNewInfoModel::getBookInfoDetailByBookId($book_id)){
+            dd('抱歉，没有这本书');
+        }
+        if($book_info->book_authority==0){
+            dd('该书还没有通过审核，请耐心等待!');
+        }
         if(!Book_BookNewInfoModel::incrementFields('click_number_all',$book_id)){
             //每看一张，点击数+1
             dd('数据库执行错误');

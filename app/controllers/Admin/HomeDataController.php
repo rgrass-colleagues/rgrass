@@ -21,6 +21,41 @@ class Admin_HomeDataController extends BaseController{
 
         ));
     }
+    /***首页轮播**/
+    public function HomeFlashIndex(){
+        $flashIndex =HomeData_HomeDataModel::getFlashData(1);
+        $flashDataCount = HomeData_HomeDataModel::getCountFlashData(1);
+        return View::make("Admin.HomeDataViews.FlashIndex")->with(array(
+            'flashData'=>$flashIndex,
+            'count'=>$flashDataCount
+        ));
+    }
+    /**首页轮播修改**/
+    public function ModifyFlashIndex(){
+        $id = $this->get('id');
+        $book_list = $this->BookModel->getBookBaseInfoAll();
+        $flashData = HomeData_HomeDataModel::getFlashDataById($id);
+        return View::make("Admin.HomeDataViews.ModifyFlashIndex")->with(array(
+            'flashData'=>$flashData,
+            'book_list'=>$book_list
+        ));
+    }
+    public function doModifyFlashIndex(){
+        $id = $this->post('id');
+        $book_id = $this->post('book_id');
+        $content = array(
+            'type'=>1,
+            'book_id'=>$book_id,
+            'add_time'=>time()
+
+        );
+        if(!HomeData_HomeDataModel::modifyFlashDataById($id,$content)){
+            dd('修改失败');
+        }else{
+            $this->redis->del('flashIndexData');//修改成功的时候清除相关redis
+            return Redirect::to('/rgrassAdmin/HomeFlashIndex');
+        }
+    }
     /******前台轮播图**********/
     public function HomeFlashUpdate(){
         $flashData = HomeData_HomeDataModel::getFlashData();//获取轮播小说信息
@@ -87,7 +122,10 @@ class Admin_HomeDataController extends BaseController{
                     $this->redis->del('flashHomeData');
                     return Redirect::to('/rgrassAdmin/HomeFlash');
                 break;
-
+                case 'flashIndex':
+                    $this->redis->del('flashIndexData');
+                    return Redirect::to('/rgrassAdmin/HomeFlashIndex');
+                    break;
                 //强烈推荐
                 case 'tongrenfanRecommend':
                     $this->redis->del('stronglyRecommend');

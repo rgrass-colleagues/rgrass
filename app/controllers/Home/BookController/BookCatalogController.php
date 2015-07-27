@@ -20,6 +20,12 @@ class Home_BookController_BookCatalogController extends BaseController{
      * */
     public function showBookCatalog(){
         $book_id = $this->get('book_id');
+        if(!$book_info = Book_BookNewInfoModel::getBookInfoDetailByBookId($book_id)){
+            dd('抱歉，没有这本书');
+        }
+        if($book_info->book_authority==0){
+            dd('该书还没有通过审核，请耐心等待!');
+        }
         $catalog = Book_CreateNewBookContentModel::getCatalog($book_id);
 //        dd($catalog);
         //$catalog = $this->BookContent->getCatalog($book_id);//直接从数据库里获取目录

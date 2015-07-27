@@ -13,10 +13,14 @@ class HomeData_HomeDataModel extends Eloquent{
     static private $book_detail = 'book_detail';
     static private $book_type = 'book_type';
     /*轮播图相关*/
-    static public function getFlashData(){
-        return DB::table(self::$dataList)
-            ->where('type','2')
-            ->get();
+    static public function getFlashData($type=false){
+        $query = DB::table(self::$dataList);
+            if(!$type){
+                $query->where('type','2');
+            }else{
+                $query->where('type',$type);
+            }
+            return $query->get();
     }
     static public function getFlashDataStateShow(){
         return DB::table(self::$dataList)
@@ -24,10 +28,14 @@ class HomeData_HomeDataModel extends Eloquent{
             ->where('state','1')
             ->get();
     }
-    static public function getCountFlashData(){
-        return DB::table(self::$dataList)
-            ->where('type','2')
-            ->where('state','1')
+    static public function getCountFlashData($type=false){
+        $query = DB::table(self::$dataList);
+        if($type){
+            $query->where('type',$type);
+        }else{
+            $query->where('type','2');
+        }
+            return $query->where('state','1')
             ->count();
     }
     static public function getFlashDataById($id){
@@ -50,7 +58,9 @@ class HomeData_HomeDataModel extends Eloquent{
             case 'flash':
                 $query = DB::table(self::$dataList);
             break;
-
+            case 'flashIndex':
+                $query = DB::table(self::$dataList);
+            break;
 
             case 'tongrenfanRecommend':
                 $query = DB::table(self::$strongly_recommend);

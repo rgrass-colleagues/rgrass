@@ -22,6 +22,10 @@
     width:300px;
     display:inline-block;
 }
+.input_s_cls{
+    width:200px;
+    display:inline-block;
+}
 .span_padding_top{
     padding-top:8px;
 }
@@ -39,6 +43,12 @@
     right:0;
 }
 #user_sign{
+    width:500px;
+    height:30px;
+    float:right;
+    padding-left:100px;
+}
+.user_sign{
     width:500px;
     height:30px;
     float:right;
@@ -1079,7 +1089,7 @@ p img{
 .user_info_modify_content{
     padding-top:50px;
     padding-left:50px;
-    height:400px;
+    min-height:400px;
 }
 .nick_modify_explain{
     margin-left:100px;
@@ -1099,5 +1109,16 @@ p img{
     margin-left: 5px;
     font-size: 12px;
     color:#999;
+}
+.text_explain{
+    width:700px;
+    border:1px solid #e8e8e8;
+    padding:20px;
+    font-size:12px;
+    background: #f3f3f3;
+}
+.text_detail{
+    width: 425px;
+    height: 100px;
 }
 /**********UserCenter By Bob end************/

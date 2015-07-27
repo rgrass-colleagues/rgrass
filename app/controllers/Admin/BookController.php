@@ -19,7 +19,11 @@ class Admin_BookController extends BaseController{
         $this->book_type = new Type_TypeInfoModel();
     }
     public function showBookLists(){
-        $BookBaseInfo = $this->BookModel->getBookBaseInfoAll();
+        $book_authority = $this->get('book_authority');
+        if(!($book_authority==0||$book_authority==1)){
+            $book_authority =false;
+        }
+        $BookBaseInfo = Book_BookNewInfoModel::getAllBookInfo(false,'desc',$book_authority);
         return View::make('Admin.BookViews.BookLists')->with(array(
             'bookBaseInfo'=> $BookBaseInfo
         ));
@@ -147,15 +151,15 @@ class Admin_BookController extends BaseController{
         $book_id = $this->get('book_id');
         if($this->BookModel->crossReview($book_id)){
             //修改完权限,通过审核后,需要在对应的库里面需要创建小说内容表,并且再Book_List里面创建小说对应的文件夹
-            $book_rgrass = new Book_CreateBookContentModel();
-            $create_book_content = $book_rgrass->createBookContentByBookId($book_id);
-            if($create_book_content){
+//            $book_rgrass = new Book_CreateBookContentModel();
+//            $create_book_content = $book_rgrass->createBookContentByBookId($book_id);
+//            if($create_book_content){
                 return Redirect::to('/rgrassAdmin/BookLists');
-            }else{
-                return '创建小说内容表失败';
-            }
-        }else{
-            return '审核过程出错';
+//            }else{
+//                return '创建小说内容表失败';
+//            }
+//        }else{
+//            return '审核过程出错';
         }
     }
     /*删除书籍(禁用删除小说)*/

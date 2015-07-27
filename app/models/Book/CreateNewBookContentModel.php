@@ -14,6 +14,7 @@ class Book_CreateNewBookContentModel extends Eloquent{
 
         return $database;
     }
+    /*创建小说表*/
     static public function createBookContentByBookId($book_id){
         $database = self::useDatabaseByBookId($book_id);
         $table = "book_content_".$book_id;
@@ -77,7 +78,7 @@ class Book_CreateNewBookContentModel extends Eloquent{
         $text = (object)array(
         "id"=>"0",
         "book_id"=>"20",
-        "organization_name"=>"正文",
+        "organization_name"=>"作品相关",
         "add_time"=>"0");
         array_push($chapter_organization,$text);
         foreach ($chapter_organization as $v) {
@@ -99,9 +100,9 @@ class Book_CreateNewBookContentModel extends Eloquent{
             return $catalog;
     }
     /*
-     * 通过章节id获取章节内容
-     * */
-    public function getChapterContentByChapterId($book_id,$chapter_id){
+ * 通过章节id获取章节内容
+ * */
+    static public function getChapterContentByChapterId($book_id,$chapter_id){
         $database = self::useDatabaseByBookId($book_id);
         $table = 'book_content_'.$book_id;
         $res = DB::connection($database)->table($table)->where('id',$chapter_id)->first();
@@ -129,7 +130,7 @@ class Book_CreateNewBookContentModel extends Eloquent{
      * 修改小说的其中一章
      *
      * */
-    public function modifyChapterContentById($book_id,$chapter_id,$content){
+    static public function modifyChapterContentById($book_id,$chapter_id,$content){
         $database = self::useDatabaseByBookId($book_id);
         $table = 'book_content_'.$book_id;
         return DB::connection($database)
@@ -138,9 +139,9 @@ class Book_CreateNewBookContentModel extends Eloquent{
             ->update($content);
     }
     /*
-     * 删除小说的其中一章
-     * */
-    public function delChapterContentById($book_id,$chapter_id){
+ * 删除小说的其中一章
+ * */
+    static public function delChapterContentById($book_id,$chapter_id){
         $database = self::useDatabaseByBookId($book_id);
         $table = 'book_content_'.$book_id;
         return DB::connection($database)
@@ -168,5 +169,17 @@ class Book_CreateNewBookContentModel extends Eloquent{
             ->table($table)
             ->where('chapter_organization',$chapter_organization)
             ->delete();
+    }
+
+    /**
+     * 检测当前卷里面还有没有章节,获取当前卷里的小说章节
+     * */
+    static public function checkChapterInOrganization($book_id,$organization_id){
+        $database = self::useDatabaseByBookId($book_id);
+        $table = 'book_content_'.$book_id;
+        return DB::connection($database)
+            ->table($table)
+            ->where('chapter_organization',$organization_id)
+            ->get();
     }
 }

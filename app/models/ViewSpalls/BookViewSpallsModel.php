@@ -148,6 +148,48 @@ class ViewSpalls_BookViewSpallsModel extends Eloquent{
 //                }
 
     }
+
+
+    static public function OperateBookCatalog($catalog,$book_id,$page=false){
+        /*
+ * 需要对表格对照$catalog的内容进行拼接
+ * 有点难度,需要认真浏览
+*/
+        $page=$page?$page:3;//一行几章
+        $html = "<tr>";
+        foreach($catalog as $key=>$val){
+            $organization = Book_BookNewInfoModel::getChapterOrganizationInfoByOid($val[0]->chapter_organization);
+            $i=1;
+            $html .='<tr><td style="text-align:left;width:100%;font-size:18px;" colspan="'.$page.'"><span>'.$organization->organization_name.'</span>
+            &nbsp;
+            ';
+            if($organization->id!=0){
+                $html.='<a href="/OrganizationModify?organization_id='.$organization->id.'"><img src="./Home/img/modify1.jpg" title="修改"></a>
+                        <a href="/doOrganizationDel?organization_id='.$organization->id.'"><img src="./Home/img/delete1.jpg" title="删除" onclick="return confirm(\'删除分卷需要先删除分卷下的章节，确定删除？\')"></a>';
+            }
+
+            $html .= '</td></tr>';
+            if(isset($val[0]->null_chapter)){
+                continue;
+            }
+            foreach($val as $k=>$v){
+                if((($i)%$page)!=0){
+                    $html .= "<td><a href=\"/ChapterContent?book_id={$book_id}&&chapter_id={$v->id}\" class=\"js_input\">{$v->chapter_name}</a>
+                    <a href ='/ChapterModify?book_id={$book_id}&&chapter_id={$v->id}'><img src='./Home/img/modify2.jpg' title='修改'></a>
+                    <a href ='/doChapterDel?book_id={$book_id}&&chapter_id={$v->id}'><img src='./Home/img/delete2.png' title='删除' onclick=\"return confirm('确定删除该章节？')\"></a>
+                    </td>";
+                }else{
+                    $html .= "<td><a href=\"/ChapterContent?book_id={$book_id}&&chapter_id={$v->id}\" class=\"js_input\">{$v->chapter_name}</a>
+                    <a href ='/ChapterModify?book_id={$book_id}&&chapter_id={$v->id}'><img src='./Home/img/modify2.jpg' title='修改'></a>
+                    <a href ='/doChapterDel?book_id={$book_id}&&chapter_id={$v->id}'><img src='./Home/img/delete2.png' title='删除' onclick=\"return confirm('确定删除该章节？')\"></a>
+                    </td></tr><tr>";
+                }
+                $i++;
+            }
+            $html .="</tr>";
+        }
+        return $html;
+    }
 }
 
 

@@ -131,12 +131,19 @@ Route::post('/rgrassAdmin/doReplyAdminMessage','Admin_MessageController@doReplyA
 /***前台数据管理(轮播,推荐,追忆,各种榜单)***/
 Route::get('/rgrassAdmin/HomeData','Admin_HomeDataController@HomeDataIndex');
 //轮播图的
+Route::get('/rgrassAdmin/HomeFlashIndex','Admin_HomeDataController@HomeFlashIndex');
+Route::get('/rgrassAdmin/ModifyFlashIndex','Admin_HomeDataController@ModifyFlashIndex');
+Route::post('/rgrassAdmin/doModifyFlashIndex','Admin_HomeDataController@doModifyFlashIndex');
+
 Route::get('/rgrassAdmin/HomeFlash','Admin_HomeDataController@HomeFlashUpdate');
 Route::get('/rgrassAdmin/ModifyHomeFlash','Admin_HomeDataController@showModifyHomeFlash');
 Route::post('/rgrassAdmin/doModifyHomeFlash','Admin_HomeDataController@doModifyHomeFlash');
 Route::get('/rgrassAdmin/doChangeState','Admin_HomeDataController@doChangeState');
 Route::get('/rgrassAdmin/AddHideHomeFlash','Admin_HomeDataController@AddHideHomeFlash');
 Route::post('/rgrassAdmin/doAddHideHomeFlash','Admin_HomeDataController@doAddHideHomeFlash');
+
+
+
 //强烈推荐的
 /****强烈推荐****/
 Route::get('/rgrassAdmin/StronglyRecommend','Admin_HomeDataController@StronglyRecommend');
@@ -238,20 +245,36 @@ Route::get('/AuthorNotice','Home_UserController_AuthorController@AuthorNotice');
 Route::get('/BookManager','Home_UserController_AuthorController@BookManager');
 Route::get('/AuthorLogin','Home_UserController_AuthorController@AuthorLogin');
 Route::post('/doAuthorLogin','Home_UserController_AuthorController@doAuthorLogin');
+Route::get('/AuthorOut','Home_UserController_AuthorController@AuthorOut');
+Route::get('/AddNewBook','Home_UserController_AuthorController@AddNewBook');
+Route::post('/doAddNewBook','Home_UserController_AuthorController@doAddNewBook');
+Route::get('/ModifyBook','Home_UserController_AuthorController@ModifyBook');
+Route::post('/doModifyBook','Home_UserController_AuthorController@doModifyBook');
+Route::get('/OperateBook','Home_UserController_AuthorController@OperateBook');
+Route::get('/AddNewChapter','Home_UserController_AuthorController@AddNewChapter');
+Route::post('/doAddNewChapter','Home_UserController_AuthorController@doAddNewChapter');
+Route::get('/AddNewOrganization','Home_UserController_AuthorController@AddNewOrganization');
+Route::post('/doAddNewOrganization','Home_UserController_AuthorController@doAddNewOrganization');
+Route::get('/OrganizationModify','Home_UserController_AuthorController@OrganizationModify');
+Route::post('/doOrganizationModify','Home_UserController_AuthorController@doOrganizationModify');
+Route::get('/doOrganizationDel','Home_UserController_AuthorController@doOrganizationDel');
+Route::get('/doChapterDel','Home_UserController_AuthorController@doChapterDel');
+Route::get('/ChapterModify','Home_UserController_AuthorController@ChapterModify');
+Route::post('/doChapterModify','Home_UserController_AuthorController@doChapterModify');
+Route::get('/AuthorInfoModify','Home_UserController_AuthorController@AuthorInfoModify');
+Route::post('/doAuthorInfoModify','Home_UserController_AuthorController@doAuthorInfoModify');
+Route::get('/AuthorPasswordModify','Home_UserController_AuthorController@AuthorPasswordModify');
+Route::post('/doAuthorPasswordModify','Home_UserController_AuthorController@doAuthorPasswordModify');
+/*****作家中心****/
 
 
 
+/****个人书架*****/
+Route::get('/Bookshelf','Home_UserController_BookshelfController@Bookshelf');
 
 
 
-
-
-
-
-
-
-
-
+/****书架*****/
 
 
 

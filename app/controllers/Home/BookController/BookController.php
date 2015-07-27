@@ -22,8 +22,11 @@ class Home_BookController_BookController extends BaseController{
         $clickNumAll = Book_BookNewInfoModel::clickNumberAll();//获取小说总点击榜
         $recommendAll = Book_BookNewInfoModel::RecommendAll();//获取小说总推荐榜
         $book_id = $this->get('book_id');
-        if(!$book_info = $this->bookModel->getBookBaseInfoById($book_id)){
+        if(!$book_info = Book_BookNewInfoModel::getBookInfoDetailByBookId($book_id)){
             dd('抱歉，没有这本书');
+        }
+        if($book_info->book_authority==0){
+            dd('该书还没有通过审核，请耐心等待!');
         }
         if($book_detail = $this->bookModel->getOneBookAllDetailById($book_id)){
 //            dd('抱歉，这本书没有详情');

@@ -90,7 +90,7 @@
         <span id="author_sign_name"><a href="">{{$book_info->author}}</a></span>
         <br>
         <br>
-        <span id="author_sign_random_write">{{$book_info->author_in_mind}}</span>
+        <span id="author_sign_random_write">1</span>
     </div>
     <div id="book_sign_right_dynamic">
         <div id="book_dynamic_title"><img src="../../Home/img/black_ico.gif" alt="强烈推荐"/><span>本书最新动态</span></div>
