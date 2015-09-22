@@ -1,6 +1,5 @@
 <?php
-//后台管理
-
+//后台
 //登陆
 Route::get('wwwdotrgrassdotcomAdministrationLogin','Admin_LoginController@LoginIndex');
 Route::post('doLoginAdmin','Admin_LoginController@doLoginAdmin');
